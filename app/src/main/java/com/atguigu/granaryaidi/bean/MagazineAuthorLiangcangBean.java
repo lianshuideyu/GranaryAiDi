@@ -5,4 +5,6 @@ package com.atguigu.granaryaidi.bean;
  */
 
 public class MagazineAuthorLiangcangBean {
+
+
 }

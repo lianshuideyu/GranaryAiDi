@@ -3,11 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <include layout="@layout/title_main"/>
-    <TextView
+
+    <include layout="@layout/title_main" />
+
+    <GridView
+        android:id="@+id/gv_daren_default"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="达人页面"
-        android:textColor="@color/holo_red_light"
-        android:textSize="30dp" />
+        android:layout_height="match_parent"
+        android:background="#1E2125"
+        android:numColumns="3"
+        android:padding="10dp">
+
+    </GridView>
 </LinearLayout>
