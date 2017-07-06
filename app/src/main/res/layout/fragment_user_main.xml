@@ -3,11 +3,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <include layout="@layout/title_main"/>
-    <TextView
+
+    <include layout="@layout/title_main" />
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="个人页面"
-        android:textColor="@color/holo_red_light"
-        android:textSize="30dp" />
+        >
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@drawable/bg_self_fragment" />
+
+        <LinearLayout
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:background="#33272827"
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+
+
+            <ImageView
+                android:id="@+id/iv_user_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/ic_self_avatar" />
+
+            <Button
+                android:textColor="#ffffff"
+                android:background="#6F98C3"
+                android:text="登录/注册"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_user_icon"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+
 </LinearLayout>

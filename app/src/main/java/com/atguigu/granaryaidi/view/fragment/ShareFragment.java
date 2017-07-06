@@ -19,7 +19,7 @@ public class ShareFragment extends BaseFragment {
     @Override
     public void initTitle() {
         super.initTitle();
-        tvTitle.setText("分享");
+        tvTitle.setText("笑一笑十年少");
     }
     @Override
     public int getLayoutId() {
