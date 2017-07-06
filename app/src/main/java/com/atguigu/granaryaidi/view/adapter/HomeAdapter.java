@@ -10,11 +10,9 @@ import android.widget.ImageView;
 
 import com.atguigu.granaryaidi.R;
 import com.atguigu.granaryaidi.bean.ShopHomeBean;
+import com.bumptech.glide.Glide;
 
 import java.util.List;
-
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 /**
  * Created by Administrator on 2017/7/6.
@@ -111,12 +109,12 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
 
                 break;
 
-//            case TYPE_VIDEO:
-//                OneViewHolder videoHoder = (OneViewHolder) holder;
-//
-//                videoHoder.setData(datas.get(position));
-//
-//                break;
+            case TYPE_FOUR:
+                FourViewHolder fourHoder = (FourViewHolder) holder;
+
+                fourHoder.setData(datas.get(position));
+
+                break;
         }
     }
 
@@ -130,7 +128,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
         public BaseViewHolder(View itemView) {
             super(itemView);
 
-            ButterKnife.inject(this.itemView);
         }
 
         /**
@@ -146,17 +143,25 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
      */
     class OneViewHolder extends BaseViewHolder {
 
-        @InjectView(R.id.iv_home_one)
-        ImageView ivHomeOne;
+        private ImageView ivHomeOne;
 
         public OneViewHolder(View itemView) {
             super(itemView);
+
+            ivHomeOne = (ImageView) itemView.findViewById(R.id.iv_home_one);
         }
 
         @Override
         public void setData(ShopHomeBean.DataBean.ItemsBean.ListBean bean) {
             super.setData(bean);
 
+            //加载图片
+            String img = bean.getOne().getPic_url();
+            Glide.with(context)
+                    .load(img)
+                    .error(R.drawable.brand_bg)
+                    .placeholder(R.drawable.brand_bg)
+                    .into(this.ivHomeOne);
 
         }
     }
@@ -166,8 +171,29 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
      */
     class TwoViewHolder extends BaseViewHolder {
 
+        private ImageView ivHomeTwoa;
+        private ImageView ivHomeTwob;
+
         public TwoViewHolder(View itemView) {
             super(itemView);
+
+            ivHomeTwoa = (ImageView) itemView.findViewById(R.id.iv_home_twoa);
+            ivHomeTwob = (ImageView) itemView.findViewById(R.id.iv_home_twob);
+        }
+
+        @Override
+        public void setData(ShopHomeBean.DataBean.ItemsBean.ListBean bean) {
+            super.setData(bean);
+
+            //加载图片
+            String img1 = bean.getOne().getPic_url();
+            Glide.with(context).load(img1).error(R.drawable.brand_bg)
+                    .placeholder(R.drawable.brand_bg).into(this.ivHomeTwoa);
+
+            //加载图片
+            String img2 = bean.getTwo().getPic_url();
+            Glide.with(context).load(img2).error(R.drawable.brand_bg)
+                    .placeholder(R.drawable.brand_bg).into(this.ivHomeTwob);
         }
     }
 
@@ -176,8 +202,43 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
      */
     class FourViewHolder extends BaseViewHolder {
 
+        private ImageView ivHomeTwoa;
+        private ImageView ivHomeTwob;
+        private ImageView ivHomeTwoc;
+        private ImageView ivHomeTwod;
+
         public FourViewHolder(View itemView) {
             super(itemView);
+
+            ivHomeTwoa = (ImageView) itemView.findViewById(R.id.iv_home_foura);
+            ivHomeTwob = (ImageView) itemView.findViewById(R.id.iv_home_fourb);
+            ivHomeTwoc = (ImageView) itemView.findViewById(R.id.iv_home_fourc);
+            ivHomeTwod = (ImageView) itemView.findViewById(R.id.iv_home_fourd);
+        }
+
+        @Override
+        public void setData(ShopHomeBean.DataBean.ItemsBean.ListBean bean) {
+            super.setData(bean);
+
+            //加载图片
+            String img1 = bean.getOne().getPic_url();
+            Glide.with(context).load(img1).error(R.drawable.bg_topic_favour)
+                    .placeholder(R.drawable.bg_topic_favour).into(this.ivHomeTwoa);
+
+            //加载图片
+            String img2 = bean.getTwo().getPic_url();
+            Glide.with(context).load(img2).error(R.drawable.bg_topic_favour)
+                    .placeholder(R.drawable.bg_topic_favour).into(this.ivHomeTwob);
+
+            //加载图片
+            String img3 = bean.getThree().getPic_url();
+            Glide.with(context).load(img3).error(R.drawable.bg_topic_favour)
+                    .placeholder(R.drawable.bg_topic_favour).into(this.ivHomeTwoc);
+
+            //加载图片
+            String img4 = bean.getFour().getPic_url();
+            Glide.with(context).load(img4).error(R.drawable.bg_topic_favour)
+                    .placeholder(R.drawable.bg_topic_favour).into(this.ivHomeTwod);
         }
     }
 }
