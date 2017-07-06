@@ -19,6 +19,7 @@ public abstract class BaseFragment extends Fragment {
 
     public Context context;
 
+    public View rootView;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,10 +33,12 @@ public abstract class BaseFragment extends Fragment {
         if(getLayoutId() == 0) {
             TextView textView = new TextView(context);
             textView.setText("布局不能为空");
+            this.rootView = textView;
             return textView;
         }else {
 
             View view = View.inflate(context, getLayoutId(), null);
+            this.rootView = view;
             ButterKnife.inject(this,view);
             return view;
         }
