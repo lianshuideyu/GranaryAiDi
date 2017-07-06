@@ -1,12 +1,13 @@
 package com.atguigu.granaryaidi.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Administrator on 2017/7/6.
  */
 
-public class ShopHomeBean {
+public class ShopHomeBean implements Serializable{
 
 
     /**
@@ -43,7 +44,7 @@ public class ShopHomeBean {
         this.data = data;
     }
 
-    public static class MetaBean {
+    public static class MetaBean implements Serializable{
         /**
          * status : 0
          * server_time : 2017-07-06 14:07:02
@@ -109,7 +110,7 @@ public class ShopHomeBean {
         }
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         /**
          * has_more : true
          * num_items : 1
@@ -144,7 +145,7 @@ public class ShopHomeBean {
             this.items = items;
         }
 
-        public static class ItemsBean {
+        public static class ItemsBean implements Serializable{
             private List<ListBean> list;
 
             public List<ListBean> getList() {
@@ -155,7 +156,7 @@ public class ShopHomeBean {
                 this.list = list;
             }
 
-            public static class ListBean {
+            public static class ListBean implements Serializable{
                 /**
                  * home_id : 180
                  * home_type : 1
@@ -250,7 +251,7 @@ public class ShopHomeBean {
                     this.four = four;
                 }
 
-                public static class OneBean {
+                public static class OneBean implements Serializable{
                     /**
                      * home_id : 180
                      * content_type : 1
@@ -356,7 +357,7 @@ public class ShopHomeBean {
                     }
                 }
 
-                public static class TwoBean {
+                public static class TwoBean implements Serializable{
                     /**
                      * home_id : 181
                      * content_type : 1
@@ -462,7 +463,7 @@ public class ShopHomeBean {
                     }
                 }
 
-                public static class ThreeBean {
+                public static class ThreeBean implements Serializable{
                     /**
                      * home_id : 179
                      * content_type : 1
@@ -568,7 +569,7 @@ public class ShopHomeBean {
                     }
                 }
 
-                public static class FourBean {
+                public static class FourBean implements Serializable{
                     /**
                      * home_id : 179
                      * content_type : 1

@@ -1,6 +1,7 @@
 package com.atguigu.granaryaidi.view.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 
 import com.atguigu.granaryaidi.R;
 import com.atguigu.granaryaidi.bean.ShopHomeBean;
+import com.atguigu.granaryaidi.view.Activity.ShopWebviewActivity;
 import com.bumptech.glide.Glide;
 
 import java.util.List;
@@ -59,7 +61,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
             itemViewType = TYPE_FOUR;
         }
 
-        Log.e("home", "homeadapter__type==" + itemViewType);
+//        Log.e("home", "homeadapter__type==" + itemViewType);
         return itemViewType;
 
     }
@@ -152,7 +154,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
         }
 
         @Override
-        public void setData(ShopHomeBean.DataBean.ItemsBean.ListBean bean) {
+        public void setData(final ShopHomeBean.DataBean.ItemsBean.ListBean bean) {
             super.setData(bean);
 
             //加载图片
@@ -163,6 +165,17 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
                     .placeholder(R.drawable.brand_bg)
                     .into(this.ivHomeOne);
 
+            ivHomeOne.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+//                    Toast.makeText(context, "点击了", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(context, ShopWebviewActivity.class);
+//                    intent.putExtra("html",bean.getOne());
+                    intent.putExtra("htmlurl",bean.getOne().getTopic_url());
+                    intent.putExtra("htmlname",bean.getOne().getTopic_name());
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 
@@ -182,7 +195,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
         }
 
         @Override
-        public void setData(ShopHomeBean.DataBean.ItemsBean.ListBean bean) {
+        public void setData(final ShopHomeBean.DataBean.ItemsBean.ListBean bean) {
             super.setData(bean);
 
             //加载图片
@@ -194,6 +207,30 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
             String img2 = bean.getTwo().getPic_url();
             Glide.with(context).load(img2).error(R.drawable.brand_bg)
                     .placeholder(R.drawable.brand_bg).into(this.ivHomeTwob);
+
+            ivHomeTwoa.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+//                    Toast.makeText(context, "点击了", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(context, ShopWebviewActivity.class);
+//                    intent.putExtra("html",bean.getOne());
+                    intent.putExtra("htmlurl",bean.getOne().getTopic_url());
+                    intent.putExtra("htmlname",bean.getOne().getTopic_name());
+                    context.startActivity(intent);
+                }
+            });
+
+            ivHomeTwob.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+//                    Toast.makeText(context, "点击了", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(context, ShopWebviewActivity.class);
+//                    intent.putExtra("html",bean.getTwo());
+                    intent.putExtra("htmlurl",bean.getTwo().getTopic_url());
+                    intent.putExtra("htmlname",bean.getTwo().getTopic_name());
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 
@@ -217,7 +254,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
         }
 
         @Override
-        public void setData(ShopHomeBean.DataBean.ItemsBean.ListBean bean) {
+        public void setData(final ShopHomeBean.DataBean.ItemsBean.ListBean bean) {
             super.setData(bean);
 
             //加载图片
@@ -239,6 +276,54 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
             String img4 = bean.getFour().getPic_url();
             Glide.with(context).load(img4).error(R.drawable.bg_topic_favour)
                     .placeholder(R.drawable.bg_topic_favour).into(this.ivHomeTwod);
+
+            ivHomeTwoa.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+//                    Toast.makeText(context, "点击了", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(context, ShopWebviewActivity.class);
+//                    intent.putExtra("html",bean.getOne());
+                    intent.putExtra("htmlurl",bean.getOne().getTopic_url());
+                    intent.putExtra("htmlname",bean.getOne().getTopic_name());
+                    context.startActivity(intent);
+                }
+            });
+
+            ivHomeTwob.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+//                    Toast.makeText(context, "点击了", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(context, ShopWebviewActivity.class);
+//                    intent.putExtra("html",bean.getTwo());
+                    intent.putExtra("htmlurl",bean.getTwo().getTopic_url());
+                    intent.putExtra("htmlname",bean.getTwo().getTopic_name());
+                    context.startActivity(intent);
+                }
+            });
+
+            ivHomeTwoc.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+//                    Toast.makeText(context, "点击了", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(context, ShopWebviewActivity.class);
+//                    intent.putExtra("html",bean.getThree());
+                    intent.putExtra("htmlurl",bean.getThree().getTopic_url());
+                    intent.putExtra("htmlname",bean.getThree().getTopic_name());
+                    context.startActivity(intent);
+                }
+            });
+
+            ivHomeTwod.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+//                    Toast.makeText(context, "点击了", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(context, ShopWebviewActivity.class);
+//                    intent.putExtra("html",bean.getFour());
+                    intent.putExtra("htmlurl",bean.getFour().getTopic_url());
+                    intent.putExtra("htmlname",bean.getFour().getTopic_name());
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 }
