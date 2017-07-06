@@ -1,7 +1,10 @@
 package com.atguigu.granaryaidi.view.fragment.shopfragment;
 
+import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.atguigu.granaryaidi.Base.BaseFragment;
@@ -9,6 +12,7 @@ import com.atguigu.granaryaidi.R;
 import com.atguigu.granaryaidi.bean.ShopSpecialBean;
 import com.atguigu.granaryaidi.common.NetLink;
 import com.atguigu.granaryaidi.utils.HttpUtils;
+import com.atguigu.granaryaidi.view.Activity.ShopWebviewActivity;
 import com.atguigu.granaryaidi.view.adapter.SpecialAdapter;
 import com.google.gson.Gson;
 
@@ -36,11 +40,25 @@ public class SpecialFragment extends BaseFragment {
 
     @Override
     protected void initView() {
+        /**
+         * item的点击事件
+         */
+        lvShopSpecial.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
+                Intent intent = new Intent(context, ShopWebviewActivity.class);
+                intent.putExtra(NetLink.HTML_URL,items.get(position).getTopic_url());
+                intent.putExtra(NetLink.HTML_TITLE,items.get(position).getTopic_name());
+
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
     protected void initListener() {
+
 
     }
 

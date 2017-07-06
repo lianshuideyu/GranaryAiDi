@@ -36,8 +36,8 @@ public class SpecialAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int i) {
-        return null;
+    public ShopSpecialBean.DataBean.ItemsBean getItem(int position) {
+        return items.get(position);
     }
 
     @Override

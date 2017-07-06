@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.atguigu.granaryaidi.Base.BaseActivity;
 import com.atguigu.granaryaidi.R;
+import com.atguigu.granaryaidi.common.NetLink;
 
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -57,8 +58,8 @@ public class ShopWebviewActivity extends BaseActivity {
 
     @Override@SuppressLint("JavascriptInterface")
     public void initData() {
-        String htmlurl = getIntent().getStringExtra("htmlurl");
-        String title = getIntent().getStringExtra("htmlname");
+        String htmlurl = getIntent().getStringExtra(NetLink.HTML_URL);
+        String title = getIntent().getStringExtra(NetLink.HTML_TITLE);
 
         tvTitle.setText(title);
 //        bean = (ShopHomeBean.DataBean.ItemsBean.ListBean.OneBean) getIntent().getSerializableExtra("html");
