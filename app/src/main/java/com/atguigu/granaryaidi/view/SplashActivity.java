@@ -8,7 +8,7 @@ import android.widget.RelativeLayout;
 
 import com.atguigu.granaryaidi.MainActivity;
 import com.atguigu.granaryaidi.R;
-import com.atguigu.granaryaidi.common.BaseActivity;
+import com.atguigu.granaryaidi.Base.BaseActivity;
 
 import butterknife.InjectView;
 

@@ -1,4 +1,4 @@
-package com.atguigu.granaryaidi.common;
+package com.atguigu.granaryaidi.Base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
