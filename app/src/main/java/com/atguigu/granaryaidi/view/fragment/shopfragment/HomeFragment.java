@@ -1,6 +1,7 @@
 package com.atguigu.granaryaidi.view.fragment.shopfragment;
 
 import com.atguigu.granaryaidi.Base.BaseFragment;
+import com.atguigu.granaryaidi.R;
 
 /**
  * Created by Administrator on 2017/7/6.
@@ -9,7 +10,7 @@ import com.atguigu.granaryaidi.Base.BaseFragment;
 public class HomeFragment extends BaseFragment {
     @Override
     public int getLayoutId() {
-        return 0;
+        return R.layout.homefragment;
     }
 
     @Override
