@@ -9,6 +9,7 @@ import com.atguigu.granaryaidi.R;
 import com.atguigu.granaryaidi.bean.ShopClassifBean;
 import com.atguigu.granaryaidi.common.NetLink;
 import com.atguigu.granaryaidi.utils.HttpUtils;
+import com.atguigu.granaryaidi.view.adapter.ClassifyAdapter;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -26,6 +27,10 @@ public class ClassifyFragment extends BaseFragment {
      * 联网得到的数据
      */
     private List<ShopClassifBean.DataBean.ItemsBean> items;
+    /**
+     * 适配器
+     */
+    private ClassifyAdapter adapter;
 
     @Override
     public int getLayoutId() {
@@ -73,6 +78,16 @@ public class ClassifyFragment extends BaseFragment {
 
 //        Log.e("classify","解析==" + name);
 //        Log.e("classify","解析==" + bean.getData().getItems().get(0).getCover_new_img());
+
+        if(items != null && items.size() > 0) {
+
+            adapter = new ClassifyAdapter(context,items);
+            //设置适配器
+            gvClassify.setAdapter(adapter);
+            //添加数据
+
+        }
+
     }
 
     @Override
