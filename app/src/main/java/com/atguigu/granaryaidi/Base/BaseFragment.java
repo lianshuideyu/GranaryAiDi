@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import butterknife.ButterKnife;
+
 /**
  * Created by Administrator on 2017/7/5.
  */
@@ -34,6 +36,7 @@ public abstract class BaseFragment extends Fragment {
         }else {
 
             View view = View.inflate(context, getLayoutId(), null);
+            ButterKnife.inject(this,view);
             return view;
         }
 
@@ -47,9 +50,14 @@ public abstract class BaseFragment extends Fragment {
 
         initView();
 
+        initTitle();
         initData();
 
         initListener();
+    }
+
+    public void initTitle(){
+
     }
 
     protected abstract void initView();
@@ -57,4 +65,10 @@ public abstract class BaseFragment extends Fragment {
     protected abstract void initData();
 
     protected abstract void initListener();
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ButterKnife.reset(this);
+    }
 }
