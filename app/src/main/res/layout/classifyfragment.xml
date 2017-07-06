@@ -5,6 +5,7 @@
     android:orientation="vertical">
 
     <GridView
+        android:background="#1E2125"
         android:id="@+id/gv_classify"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

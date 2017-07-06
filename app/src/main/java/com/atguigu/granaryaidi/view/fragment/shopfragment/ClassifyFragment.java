@@ -76,8 +76,8 @@ public class ClassifyFragment extends BaseFragment {
         ShopClassifBean bean = new Gson().fromJson(content, ShopClassifBean.class);
         items = bean.getData().getItems();
 
-//        Log.e("classify","解析==" + name);
-//        Log.e("classify","解析==" + bean.getData().getItems().get(0).getCover_new_img());
+        Log.e("classify","解析==" + items.get(0).getCat_name());
+        Log.e("classify","解析==" + bean.getData().getItems().get(0).getCover_new_img());
 
         if(items != null && items.size() > 0) {
 

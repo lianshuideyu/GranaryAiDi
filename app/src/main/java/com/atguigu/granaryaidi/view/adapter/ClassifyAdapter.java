@@ -64,6 +64,8 @@ public class ClassifyAdapter extends BaseAdapter {
 
         Glide.with(context)
                 .load(img)
+                .error(R.drawable.brand_bg)
+                .placeholder(R.drawable.brand_bg)
                 .into(viewHolder.ivClassify);
 
         return convertView;
