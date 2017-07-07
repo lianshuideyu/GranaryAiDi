@@ -184,10 +184,19 @@ public class NetLink {
 
     //http://mobile.iliangcang.com/user/masterListInfo?app_key=Android&count=10
     // &owner_id=999999673&page=1&sig=5715DFAE35D85EA29846D090DBBF8753%7C557744010558468&v=1.0
-
+    //关注页面
     public static final String DAREN_DETAILS_GUANZHU_START = "http://mobile.iliangcang.com/user/masterFollow?app_key=Android&count=12&owner_id=";
     public static final String DAREN_DETAILS_GUANZHU_END = "&page=1&sig=CD0E234053E25DD6111E3DBD450A4B85%7C954252010968868&v=1.0";
     /*http://mobile.iliangcang.com/user/masterFollow?app_key=Android&count=12
     &owner_id=85&page=1&sig=CD0E234053E25DD6111E3DBD450A4B85%7C954252010968868&v=1.0*/
+
+    /*
+    * http://mobile.iliangcang.com/user/masterFollowed?app_key=Android&count=12
+    * &owner_id=8051&page=1&sig=CD0E234053E25DD6111E3DBD450A4B85%7C954252010968868&v=1.0*/
+    //粉丝
+    public static final String DAREN_DETAILS_FANS_START = "http://mobile.iliangcang.com/user/masterFollowed?app_key=Android&count=12&owner_id=";
+    public static final String DAREN_DETAILS_FANS_END = "&page=1&sig=CD0E234053E25DD6111E3DBD450A4B85%7C954252010968868&v=1.0";
+
+
 
 }

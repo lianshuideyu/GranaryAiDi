@@ -18,7 +18,6 @@ import com.atguigu.granaryaidi.bean.DaRenDefaultBean;
 import com.atguigu.granaryaidi.bean.DaRenRecommendBean;
 import com.atguigu.granaryaidi.common.NetLink;
 import com.atguigu.granaryaidi.utils.HttpUtils;
-import com.atguigu.granaryaidi.view.fragment.darenfragment.DarenFansfragment;
 import com.atguigu.granaryaidi.view.fragment.darenfragment.DarenGuanzhufragment;
 import com.atguigu.granaryaidi.view.fragment.darenfragment.DarenLikefragment;
 import com.atguigu.granaryaidi.view.fragment.darenfragment.DarenRecommendfragment;
@@ -62,7 +61,13 @@ public class DarenDetailsActivity extends BaseActivity {
     private DarenLikefragment darenlike;
     private DarenRecommendfragment darenrecomm;
     private DarenGuanzhufragment darenguanzhu;
-    private DarenFansfragment darenfans;
+    private DarenGuanzhufragment darenfans;
+
+    //从上级页面传来的数据
+    private String uid;
+    private String username;
+    private String duty;
+    private String orig;
 
     @Override
     public void initListener() {
@@ -106,28 +111,53 @@ public class DarenDetailsActivity extends BaseActivity {
 
         initFragment();
 
-        if(bean != null) {
+//        if(bean != null) {
+//
+//            //设置品牌头像信息 和 品牌名称
+//            Glide.with(this).load(bean.getUser_images().getOrig())
+//                    .error(R.drawable.brand_logo_empty).placeholder(R.drawable.brand_logo_empty)
+//                    .into(ivDarenIcon);
+//            tvName.setText(bean.getUsername());
+//            tvProfession.setText(bean.getDuty());
+//            ibShopBack.setVisibility(View.VISIBLE);
+//            tvTitle.setText(bean.getUsername());
+//
+//            /*把数据传给各个fragment页面,注意：：切换到fragment后
+//            在fragment的onResume（）方法中再执行联网设置数据等操作，
+//            不会容易出现fragment中的控件空指针,因为布局还没加载出来,控件还未初始化*/
+//
+//            //这里需要拼接联网 链接
+//            String url = NetLink.DAREN_DETAILS_RECOMMEND_START + bean.getUid() + NetLink.DAREN_DETAILS_RECOMMEND_END;
+//            darenrecomm.setUrl(url);
+//
+//            String url1 = NetLink.DAREN_DETAILS_GUANZHU_START + bean.getUid() + NetLink.DAREN_DETAILS_GUANZHU_END;
+//            darenguanzhu.setUrl(url1);
+//            /**
+//             * 联网请求数据 传给 相应的 fragment
+//             */
+//            //getDataFromNet();
+//        }
 
+        if(!TextUtils.isEmpty(uid) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(orig)) {
             //设置品牌头像信息 和 品牌名称
-            Glide.with(this).load(bean.getUser_images().getOrig())
-                    .error(R.drawable.brand_logo_empty).placeholder(R.drawable.brand_logo_empty)
-                    .into(ivDarenIcon);
-            tvName.setText(bean.getUsername());
-            tvProfession.setText(bean.getDuty());
-            ibShopBack.setVisibility(View.VISIBLE);
-            tvTitle.setText(bean.getUsername());
+            Glide.with(this).load(orig).error(R.drawable.brand_logo_empty)
+                    .placeholder(R.drawable.brand_logo_empty).into(ivDarenIcon);
 
-            //把数据传给各个fragment页面,先以推荐页面测试
+            tvName.setText(username);
+            tvProfession.setText(duty);
+            ibShopBack.setVisibility(View.VISIBLE);
+            tvTitle.setText(username);
+
+
             //这里需要拼接联网 链接
-            String url = NetLink.DAREN_DETAILS_RECOMMEND_START + bean.getUid() + NetLink.DAREN_DETAILS_RECOMMEND_END;
+            String url = NetLink.DAREN_DETAILS_RECOMMEND_START + uid + NetLink.DAREN_DETAILS_RECOMMEND_END;
             darenrecomm.setUrl(url);
 
-            String url1 = NetLink.DAREN_DETAILS_GUANZHU_START + bean.getUid() + NetLink.DAREN_DETAILS_GUANZHU_END;
+            String url1 = NetLink.DAREN_DETAILS_GUANZHU_START + uid + NetLink.DAREN_DETAILS_GUANZHU_END;
             darenguanzhu.setUrl(url1);
-            /**
-             * 联网请求数据 传给 相应的 fragment
-             */
-            //getDataFromNet();
+
+            String url2 = NetLink.DAREN_DETAILS_FANS_START + uid + NetLink.DAREN_DETAILS_FANS_END;
+            darenfans.setUrl(url2);
         }
     }
 
@@ -137,7 +167,9 @@ public class DarenDetailsActivity extends BaseActivity {
         darenlike = new DarenLikefragment();
         darenrecomm = new DarenRecommendfragment();
         darenguanzhu = new DarenGuanzhufragment();
-        darenfans = new DarenFansfragment();
+        //关注的fragment和粉丝的fragment是一样的！！!
+//        darenfans = new DarenFansfragment();
+        darenfans = new DarenGuanzhufragment();
 
         fragments.add(darenlike);
         fragments.add(darenrecomm);
@@ -200,8 +232,14 @@ public class DarenDetailsActivity extends BaseActivity {
         /**
          * 获取 前一页面传来的数据
          */
-        bean = (DaRenDefaultBean.DataBean.ItemsBean) getIntent()
-                .getSerializableExtra(NetLink.DAREN_DETAILS);
+//        bean = (DaRenDefaultBean.DataBean.ItemsBean) getIntent()
+//                .getSerializableExtra(NetLink.DAREN_DETAILS);
+
+        uid = getIntent().getStringExtra("uid");
+        username = getIntent().getStringExtra("username");
+        duty = getIntent().getStringExtra("duty");
+        orig = getIntent().getStringExtra("orig");
+
     }
 
     @Override

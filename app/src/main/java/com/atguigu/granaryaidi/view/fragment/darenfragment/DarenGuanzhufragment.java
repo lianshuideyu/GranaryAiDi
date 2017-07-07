@@ -1,13 +1,17 @@
 package com.atguigu.granaryaidi.view.fragment.darenfragment;
 
+import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.atguigu.granaryaidi.Base.BaseFragment;
 import com.atguigu.granaryaidi.R;
 import com.atguigu.granaryaidi.bean.DaRenGuanzhuBean;
 import com.atguigu.granaryaidi.utils.HttpUtils;
+import com.atguigu.granaryaidi.view.Activity.DarenDetailsActivity;
 import com.atguigu.granaryaidi.view.adapter.daren.DarenGuanzhuAdapter;
 import com.google.gson.Gson;
 
@@ -48,6 +52,22 @@ public class DarenGuanzhufragment extends BaseFragment {
     @Override
     protected void initListener() {
 
+        //item的点击事件
+        gvDarenGuanzhu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+
+                Intent intent = new Intent(context, DarenDetailsActivity.class);
+//                intent.putExtra(NetLink.DAREN_DETAILS,items.get(position));
+                intent.putExtra("uid",users.get(position).getUser_id());
+                intent.putExtra("username",users.get(position).getUser_name());//达人名称
+                intent.putExtra("duty",users.get(position).getUser_desc());//行业
+                intent.putExtra("orig",users.get(position).getUser_image().getOrig());//头像链接
+
+
+                startActivity(intent);
+            }
+        });
     }
 
     /**

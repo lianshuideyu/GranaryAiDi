@@ -78,7 +78,13 @@ public class DaRenFragment extends BaseFragment {
 
                 //将bean对象传过去
                 Intent intent = new Intent(context, DarenDetailsActivity.class);
-                intent.putExtra(NetLink.DAREN_DETAILS,items.get(position));
+//                intent.putExtra(NetLink.DAREN_DETAILS,items.get(position));
+                intent.putExtra("uid",items.get(position).getUid());
+                intent.putExtra("username",items.get(position).getUsername());//达人名称
+                intent.putExtra("duty",items.get(position).getDuty());//行业
+                intent.putExtra("orig",items.get(position).getUser_images().getOrig());//头像链接
+
+
                 startActivity(intent);
             }
         });
