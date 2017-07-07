@@ -7,6 +7,9 @@ import java.util.List;
  * Created by Administrator on 2017/7/6.
  */
 
+/**
+ * 商店 -- 品牌一级页面 listview的bean
+ */
 public class ShopPinPaiBean implements Serializable{
 
 

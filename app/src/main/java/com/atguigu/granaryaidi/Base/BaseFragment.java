@@ -1,6 +1,7 @@
 package com.atguigu.granaryaidi.Base;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -32,6 +33,7 @@ public abstract class BaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if(getLayoutId() == 0) {
             TextView textView = new TextView(context);
+            textView.setTextColor(Color.RED);
             textView.setText("布局不能为空");
             this.rootView = textView;
             return textView;

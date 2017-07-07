@@ -23,7 +23,7 @@ public class NetLink {
      */
     public static final String SHOP_PINPAI_LIST = "shoppinpai";
 
-
+//------------------------------------------------------------------------------------
     public static final int PAGE = 1;
 
     //商品模块--分类首页
@@ -44,7 +44,7 @@ public class NetLink {
 
 
     /**
-     * 商店模块----各个分类的二级页面链接
+     * 商店模块----分类页面--的二级页面链接
      */
     //商店 - 分类 - 家居
     public static final String TYPE_HOME_FROEPART_URL = "http://mobile.iliangcang.com/goods/goodsShare?app_key=Android&cat_code=0045&count=10&coverId=1&page=";
@@ -160,5 +160,15 @@ public class NetLink {
     public static final String SHOP_GIFT_PARENT = "http://mobile.iliangcang.com/goods/goodsList?app_key=Android&count=10&list_id=6&page=1&sig=73760B2740FA36D5A273523FBC9295FE%7C285269230036268&v=1.0";
 
 
+    /**
+     * 商店模块----品牌页面的二级页面链接
+     */
+    //品牌二级页面中 品牌产品的 链接 前半部分---中间需要拼接的是从品牌一级页面传来的brand_id=840字段
+    public static final String SHOP_PINPAI_LISTSTART = "http://mobile.iliangcang.com/brand/brandShopList?app_key=Android&brand_id=";
+    //品牌二级页面中 品牌产品的 链接 后半部分
+    public static final String SHOP_PINPAI_LISTEND = "&count=20&page=1&sig=430BD99E6C913B8B8C3ED109737ECF15%7C830952120106768&v=1.0";
 
+    /*
+    * http://mobile.iliangcang.com/brand/brandShopList?app_key=Android&brand_id=840&
+    * count=20&page=1&sig=430BD99E6C913B8B8C3ED109737ECF15%7C830952120106768&v=1.0*/
 }
