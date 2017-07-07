@@ -158,6 +158,9 @@ public class DarenDetailsActivity extends BaseActivity {
 
             String url2 = NetLink.DAREN_DETAILS_FANS_START + uid + NetLink.DAREN_DETAILS_FANS_END;
             darenfans.setUrl(url2);
+
+            String url3 = NetLink.DAREN_DETAILS_LIKE_START + uid + NetLink.DAREN_DETAILS_LIKE_END;
+            darenlike.setUrl(url3);
         }
     }
 
