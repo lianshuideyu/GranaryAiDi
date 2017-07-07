@@ -2,8 +2,11 @@ package com.atguigu.granaryaidi.view.fragment;
 
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.atguigu.granaryaidi.Base.BaseFragment;
 import com.atguigu.granaryaidi.R;
@@ -16,6 +19,7 @@ import com.google.gson.Gson;
 import java.util.List;
 
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 /**
  * Created by Administrator on 2017/7/5.
@@ -27,6 +31,10 @@ public class DaRenFragment extends BaseFragment {
     TextView tvTitle;
     @InjectView(R.id.gv_daren_default)
     GridView gvDarenDefault;
+    @InjectView(R.id.ib_shop_search)
+    ImageButton ibShopSearch;
+    @InjectView(R.id.ib_shop_menu)
+    ImageButton ibShopMenu;
 
     /**
      * 联网获取数据
@@ -47,7 +55,8 @@ public class DaRenFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-
+        ibShopMenu.setVisibility(View.VISIBLE);
+        ibShopSearch.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -68,8 +77,8 @@ public class DaRenFragment extends BaseFragment {
         HttpUtils.getInstance().get(url, new HttpUtils.MyHttpClickListener() {
             @Override
             public void onSuccess(String content) {
-                Log.e("DaRen","联网成功==" + content);
-                if(!TextUtils.isEmpty(content)) {
+                Log.e("DaRen", "联网成功==" + content);
+                if (!TextUtils.isEmpty(content)) {
                     //解析数据
                     processData(content);
                 }
@@ -78,7 +87,7 @@ public class DaRenFragment extends BaseFragment {
 
             @Override
             public void onFailure(String content) {
-                Log.e("DaRen","联网失败==" + content);
+                Log.e("DaRen", "联网失败==" + content);
             }
         });
     }
@@ -90,11 +99,11 @@ public class DaRenFragment extends BaseFragment {
         DaRenDefaultBean bean = new Gson().fromJson(content, DaRenDefaultBean.class);
         items = bean.getData().getItems();
 
-        Log.e("DaRen","解析==" + items.get(0).getUsername());
+        Log.e("DaRen", "解析==" + items.get(0).getUsername());
 
-        if(items != null && items.size() > 0) {
+        if (items != null && items.size() > 0) {
 
-            adapter = new DaRenDefaultAdapter(context,items);
+            adapter = new DaRenDefaultAdapter(context, items);
 //            //设置适配器
             gvDarenDefault.setAdapter(adapter);
             //添加数据
@@ -103,4 +112,16 @@ public class DaRenFragment extends BaseFragment {
 
     }
 
+
+    @OnClick({R.id.ib_shop_search, R.id.ib_shop_menu})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.ib_shop_search:
+                Toast.makeText(context, "搜索", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.ib_shop_menu:
+                Toast.makeText(context, "筛选", Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
 }

@@ -1,17 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:background="#15171A"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:background="#15171A">
 
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:textColor="#ffffff"
         android:textSize="20dp"
         tools:text="标题" />
-</LinearLayout>
+
+    <ImageButton
+        android:id="@+id/ib_shop_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="15dp"
+        android:background="@null"
+        android:src="@drawable/abc_ic_search_api_mtrl_alpha"
+        android:visibility="gone" />
+
+    <ImageButton
+        android:id="@+id/ib_shop_cart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="15dp"
+        android:background="@null"
+        android:src="@drawable/actionbar_navigation_cart"
+        android:visibility="gone" />
+    <ImageButton
+        android:id="@+id/ib_shop_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="15dp"
+        android:background="@null"
+        android:src="@drawable/actionbar_navigation_menu"
+        android:visibility="gone" />
+
+    <ImageButton
+        android:id="@+id/ib_shop_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="15dp"
+        android:background="@null"
+        android:src="@drawable/setting_menu"
+        android:visibility="gone" />
+</RelativeLayout>

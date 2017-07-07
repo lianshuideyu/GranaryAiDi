@@ -35,4 +35,8 @@
             android:layout_marginRight="20dp"
             android:background="@drawable/arrow_right" />
     </LinearLayout>
+    <View
+        android:background="#747474"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
 </LinearLayout>
