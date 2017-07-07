@@ -23,6 +23,8 @@ public class NetLink {
      */
     public static final String SHOP_PINPAI_LIST = "shoppinpai";
 
+    public static final String DAREN_DETAILS = "darendetails";
+
 //------------------------------------------------------------------------------------
     public static final int PAGE = 1;
 
@@ -171,4 +173,15 @@ public class NetLink {
     /*
     * http://mobile.iliangcang.com/brand/brandShopList?app_key=Android&brand_id=840&
     * count=20&page=1&sig=430BD99E6C913B8B8C3ED109737ECF15%7C830952120106768&v=1.0*/
+
+
+    /**
+     * 达人的二级详情页面 -- 推荐页面
+     */
+    //中间加上owner_id的值，owner_id的值与 达人一级界面的uid字段 值相同
+    public static final String DAREN_DETAILS_RECOMMEND_START = "http://mobile.iliangcang.com/user/masterListInfo?app_key=Android&count=10&owner_id=";
+    public static final String DAREN_DETAILS_RECOMMEND_END = "&page=1&sig=5715DFAE35D85EA29846D090DBBF8753%7C557744010558468&v=1.0";
+    //http://mobile.iliangcang.com/user/masterListInfo?app_key=Android&count=10
+    // &owner_id=999999673&page=1&sig=5715DFAE35D85EA29846D090DBBF8753%7C557744010558468&v=1.0
+
 }

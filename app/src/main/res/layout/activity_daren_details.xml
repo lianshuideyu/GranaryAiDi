@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_daren_details"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1E2125"
+    android:orientation="vertical"
+    tools:context="com.atguigu.granaryaidi.view.Activity.DarenDetailsActivity">
+
+    <include layout="@layout/title_main" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/iv_daren_icon"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@id/iv_daren_icon"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="name"
+                android:textColor="#F0F0F0" />
+
+            <TextView
+                android:id="@+id/tv_profession"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="work"
+                android:textColor="#7e7e7e" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/bt_guanzhu"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="10dp"
+                android:background="#575B61"
+                android:text="关注"
+                android:textColor="#F0F0F0" />
+
+            <Button
+                android:id="@+id/bt_sixin"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:background="#575B61"
+                android:text="私信"
+                android:textColor="#F0F0F0" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RadioGroup
+        android:id="@+id/rg_daren"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <RadioButton
+            android:id="@+id/rb_daren_like"
+            style="@style/MyRadioButton"
+            android:text="喜欢" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#1E2125" />
+
+        <RadioButton
+            android:id="@+id/rb_daren_recommend"
+            style="@style/MyRadioButton"
+            android:text="推荐" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#1E2125" />
+
+        <RadioButton
+            android:id="@+id/rb_daren_care"
+            style="@style/MyRadioButton"
+            android:text="关注" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#1E2125" />
+
+        <RadioButton
+            android:id="@+id/rb_daren_fans"
+            style="@style/MyRadioButton"
+            android:text="粉丝" />
+    </RadioGroup>
+
+    <FrameLayout
+        android:id="@+id/fl_daren_details"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#1E2125"
+        android:padding="10dp">
+
+    </FrameLayout>
+</LinearLayout>

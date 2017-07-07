@@ -1,12 +1,13 @@
 package com.atguigu.granaryaidi.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Administrator on 2017/7/6.
  */
 
-public class DaRenDefaultBean {
+public class DaRenDefaultBean implements Serializable{
 
 
     /**
@@ -43,7 +44,7 @@ public class DaRenDefaultBean {
         this.data = data;
     }
 
-    public static class MetaBean {
+    public static class MetaBean implements Serializable{
         /**
          * status : 0
          * server_time : 2017-07-06 16:27:33
@@ -109,7 +110,7 @@ public class DaRenDefaultBean {
         }
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         /**
          * has_more : true
          * num_items : 177
@@ -144,7 +145,7 @@ public class DaRenDefaultBean {
             this.items = items;
         }
 
-        public static class ItemsBean {
+        public static class ItemsBean implements Serializable{
             /**
              * uid : 12596
              * username : 山本耀司
@@ -209,7 +210,7 @@ public class DaRenDefaultBean {
                 this.user_images = user_images;
             }
 
-            public static class UserImagesBean {
+            public static class UserImagesBean implements Serializable{
                 /**
                  * self_img : 1
                  * orig : http://imgs-qn.iliangcang.com/ware/userhead/orig/2/12/12596.jpg?t=1499329653

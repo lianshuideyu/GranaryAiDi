@@ -1,8 +1,10 @@
 package com.atguigu.granaryaidi.view.fragment;
 
+import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -13,6 +15,7 @@ import com.atguigu.granaryaidi.R;
 import com.atguigu.granaryaidi.bean.DaRenDefaultBean;
 import com.atguigu.granaryaidi.common.NetLink;
 import com.atguigu.granaryaidi.utils.HttpUtils;
+import com.atguigu.granaryaidi.view.Activity.DarenDetailsActivity;
 import com.atguigu.granaryaidi.view.adapter.DaRenDefaultAdapter;
 import com.google.gson.Gson;
 
@@ -67,6 +70,18 @@ public class DaRenFragment extends BaseFragment {
 
     @Override
     protected void initListener() {
+
+        //GridView的点击事件
+        gvDarenDefault.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+
+                //将bean对象传过去
+                Intent intent = new Intent(context, DarenDetailsActivity.class);
+                intent.putExtra(NetLink.DAREN_DETAILS,items.get(position));
+                startActivity(intent);
+            }
+        });
 
     }
 

@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/iv_daren_icon"
         android:layout_width="wrap_content"
-        android:layout_height="100dp" />
+        android:layout_height="130dp" />
 
     <TextView
         android:id="@+id/tv_daren_name"

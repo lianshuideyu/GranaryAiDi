@@ -105,7 +105,7 @@ public class ShopPinpaiActivity extends BaseActivity {
 //            Glide.with(this).load(bean.getBrand_logo())
 //                    .error(R.drawable.brand_logo_empty).placeholder(R.drawable.brand_logo_empty)
 //                    .into(ivPinpaiIcon);
-//            tvPinpaiName.setText(bean.getBrand_name());
+            tvPinpaiName.setText(bean.getBrand_name());
 
             glideRequest = Glide.with(ShopPinpaiActivity.this);
 

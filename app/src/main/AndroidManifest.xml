@@ -21,7 +21,8 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".view.Activity.ShopWebviewActivity" />
         <activity android:name=".view.Activity.ShopTypeActivity" />
-        <activity android:name=".view.Activity.ShopPinpaiActivity"></activity>
+        <activity android:name=".view.Activity.ShopPinpaiActivity" />
+        <activity android:name=".view.Activity.DarenDetailsActivity"></activity>
     </application>
 
 </manifest>
