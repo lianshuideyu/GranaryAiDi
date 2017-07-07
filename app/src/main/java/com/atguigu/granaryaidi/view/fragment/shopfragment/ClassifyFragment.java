@@ -2,6 +2,8 @@ package com.atguigu.granaryaidi.view.fragment.shopfragment;
 
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.atguigu.granaryaidi.Base.BaseFragment;
@@ -92,6 +94,16 @@ public class ClassifyFragment extends BaseFragment {
 
     @Override
     protected void initListener() {
+
+        /**
+         * GridView的点击事件
+         */
+        gvClassify.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+
+            }
+        });
 
     }
 
