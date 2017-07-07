@@ -126,4 +126,33 @@ public class NetLink {
     public static final String TYPE_ART_FROEPART_URL = "http://mobile.iliangcang.com/goods/goodsShare?app_key=Android&cat_code=0214&count=10&coverId=1&page=";
     public static final String TYPE_ART_END_URL = "&sig=6E1DEF1DAFF84909ECD98F32FE6CDAD5%7C536890620070968&v=1.0";
     public static final String ART_URL = TYPE_ART_FROEPART_URL + PAGE + TYPE_ART_END_URL;
+
+
+    /**
+     * 商店模块----礼物页面的二级页面链接
+     */
+
+    //商店 - 礼物 - 顶部图片
+    public static final String SHOP_GIFT_TOP = "http://mobile.iliangcang.com/goods/goodsList?app_key=Android&count=10&list_id=7&page=1&sig=73760B2740FA36D5A273523FBC9295FE%7C285269230036268&v=1.0";
+
+    //商店 - 礼物 - 节日
+    public static final String SHOP_GIFT_FESTIVAL = "http://mobile.iliangcang.com/goods/goodsList?app_key=Android&count=10&list_id=1&page=1&sig=DFD7151CC9D607E396FE108FE270FFF3%7C366534120395468&v=1.0";
+
+    //商店 - 礼物 - 爱情
+    public static final String SHOP_GIFT_LOVE = "http://mobile.iliangcang.com/goods/goodsList?app_key=Android&count=10&list_id=2&page=1&sig=73760B2740FA36D5A273523FBC9295FE%7C285269230036268&v=1.0";
+
+    //商店 - 礼物 - 生日
+    public static final String SHOP_GIFT_BRITHDAY = "http://mobile.iliangcang.com/goods/goodsList?app_key=Android&count=10&list_id=3&page=1&sig=73760B2740FA36D5A273523FBC9295FE%7C285269230036268&v=1.0";
+
+    //商店 - 礼物 - 朋友
+    public static final String SHOP_GIFT_FRIENDS = "http://mobile.iliangcang.com/goods/goodsList?app_key=Android&count=10&list_id=4&page=1&sig=73760B2740FA36D5A273523FBC9295FE%7C285269230036268&v=1.0";
+
+    //商店 - 礼物 - 孩子
+    public static final String SHOP_GIFT_CHILD = "http://mobile.iliangcang.com/goods/goodsList?app_key=Android&count=10&list_id=5&page=1&sig=73760B2740FA36D5A273523FBC9295FE%7C285269230036268&v=1.0";
+
+    //商店 - 礼物 - 父母
+    public static final String SHOP_GIFT_PARENT = "http://mobile.iliangcang.com/goods/goodsList?app_key=Android&count=10&list_id=6&page=1&sig=73760B2740FA36D5A273523FBC9295FE%7C285269230036268&v=1.0";
+
+
+
 }
