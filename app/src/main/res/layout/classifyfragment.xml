@@ -5,12 +5,13 @@
     android:orientation="vertical">
 
     <GridView
+        android:paddingLeft="10dp"
         android:background="#1E2125"
         android:id="@+id/gv_classify"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:numColumns="2"
-        android:padding="10dp">
+        >
 
     </GridView>
 </LinearLayout>

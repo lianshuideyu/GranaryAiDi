@@ -3,27 +3,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="170dp"
-    android:minHeight="170dp">
+    android:minHeight="190dp">
 
     <ImageView
         android:id="@+id/iv_shop_special"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="180dp"
         android:background="@drawable/brand_bg"
         android:scaleType="fitXY" />
 
     <TextView
         android:id="@+id/tv_shop_special"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="180dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:background="#33000000"
         android:gravity="center"
         android:textColor="#ffffff"
         tools:text="content" />
 
     <View
-        android:background="#000000"
         android:layout_width="match_parent"
-        android:layout_height="15dp"
-        android:layout_below="@id/tv_shop_special" />
+        android:layout_height="10dp"
+        android:layout_below="@id/tv_shop_special"
+        android:background="#000000" />
 </RelativeLayout>
