@@ -13,9 +13,15 @@ public class NetLink {
     public static final String HTML_URL = "htmlurl";
 
     public static final String HTML_TITLE = "htmlname";
+    /**
+     * 商品--分类--二级页面使用
+     */
     public static final String SHOP_URL = "shopurl";
 
-
+    /**
+     * 商品--品牌--打开二级页面使用
+     */
+    public static final String SHOP_PINPAI_LIST = "shoppinpai";
 
 
     public static final int PAGE = 1;

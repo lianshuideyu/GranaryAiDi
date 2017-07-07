@@ -1,7 +1,10 @@
 package com.atguigu.granaryaidi.view.fragment.shopfragment;
 
+import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.atguigu.granaryaidi.Base.BaseFragment;
@@ -9,6 +12,7 @@ import com.atguigu.granaryaidi.R;
 import com.atguigu.granaryaidi.bean.ShopPinPaiBean;
 import com.atguigu.granaryaidi.common.NetLink;
 import com.atguigu.granaryaidi.utils.HttpUtils;
+import com.atguigu.granaryaidi.view.Activity.ShopPinpaiActivity;
 import com.atguigu.granaryaidi.view.adapter.shop.PinPaiAdapter;
 import com.google.gson.Gson;
 
@@ -43,6 +47,19 @@ public class PinPaiFragment extends BaseFragment {
     @Override
     protected void initListener() {
 
+        /**
+         * listView的点击事件
+         */
+        lvPinpai.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                //将bean对象传过去
+                Intent intent = new Intent(context, ShopPinpaiActivity.class);
+                intent.putExtra(NetLink.SHOP_PINPAI_LIST,items.get(position));
+                startActivity(intent);
+
+            }
+        });
     }
 
     @Override

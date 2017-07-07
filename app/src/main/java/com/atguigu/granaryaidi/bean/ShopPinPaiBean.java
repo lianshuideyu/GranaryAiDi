@@ -1,12 +1,13 @@
 package com.atguigu.granaryaidi.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Administrator on 2017/7/6.
  */
 
-public class ShopPinPaiBean {
+public class ShopPinPaiBean implements Serializable{
 
 
     /**
@@ -43,7 +44,7 @@ public class ShopPinPaiBean {
         this.data = data;
     }
 
-    public static class MetaBean {
+    public static class MetaBean implements Serializable{
         /**
          * status : 0
          * server_time : 2017-07-06 13:34:14
@@ -109,7 +110,7 @@ public class ShopPinPaiBean {
         }
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         /**
          * has_more : true
          * num_items : 736
@@ -144,7 +145,7 @@ public class ShopPinPaiBean {
             this.items = items;
         }
 
-        public static class ItemsBean {
+        public static class ItemsBean implements Serializable{
             /**
              * brand_id : 841
              * brand_name : HAZE Collection

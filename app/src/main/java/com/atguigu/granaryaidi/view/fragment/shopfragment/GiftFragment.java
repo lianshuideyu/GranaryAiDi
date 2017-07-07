@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.atguigu.granaryaidi.Base.BaseFragment;
 import com.atguigu.granaryaidi.R;
@@ -103,6 +104,7 @@ public class GiftFragment extends BaseFragment {
                 break;
             case R.id.ll_setting_gift:
                 //设置礼物提醒
+                Toast.makeText(context, "设置礼物提醒", Toast.LENGTH_SHORT).show();
 
                 break;
         }
