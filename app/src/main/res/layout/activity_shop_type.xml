@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_shop_type"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:orientation="vertical"
+    tools:context="com.atguigu.granaryaidi.view.Activity.ShopTypeActivity">
+
+    <include layout="@layout/title_main" />
+
+    <LinearLayout
+        android:id="@+id/ll_price_check"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#ffffff"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:text="价格筛选"
+            android:textColor="#000000"
+            android:textSize="13dp" />
+
+        <ImageButton
+            android:id="@+id/ib_shoptype_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:background="@null"
+            android:src="@drawable/arrow_down_big" />
+    </LinearLayout>
+
+    <GridView
+        android:id="@+id/gv_shop_type"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    </GridView>
+</LinearLayout>

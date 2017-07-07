@@ -1,0 +1,144 @@
+package com.atguigu.granaryaidi.view.Activity;
+
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.widget.GridView;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.atguigu.granaryaidi.Base.BaseActivity;
+import com.atguigu.granaryaidi.R;
+import com.atguigu.granaryaidi.bean.ShopTypeListBean;
+import com.atguigu.granaryaidi.common.NetLink;
+import com.atguigu.granaryaidi.utils.HttpUtils;
+import com.google.gson.Gson;
+
+import java.util.List;
+
+import butterknife.InjectView;
+import butterknife.OnClick;
+
+public class ShopTypeActivity extends BaseActivity {
+
+
+    @InjectView(R.id.tv_title)
+    TextView tvTitle;
+    @InjectView(R.id.ib_shop_back)
+    ImageButton ibShopBack;
+    @InjectView(R.id.ib_shop_cart)
+    ImageButton ibShopCart;
+    @InjectView(R.id.ll_price_check)
+    LinearLayout llPriceCheck;
+    @InjectView(R.id.gv_shop_type)
+    GridView gvShopType;
+
+    /**
+     * 联网链接
+     */
+    private String url;
+    /**
+     * 联网获取的数据集合
+     */
+    private List<ShopTypeListBean.DataBean.ItemsBean> items;
+
+    @Override
+    public void initListener() {
+
+    }
+
+    @Override
+    public void initData() {
+
+        //联网
+        getDataFromNet();
+    }
+
+
+
+    @Override
+    public void initView() {
+        //获取传递过来的联网链接
+        url = getIntent().getStringExtra(NetLink.SHOP_URL);
+
+        //标题栏的按键显示
+        ibShopBack.setVisibility(View.VISIBLE);
+        ibShopCart.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_shop_type;
+    }
+
+
+    /**
+     * 点击事件
+     * @param view
+     */
+    @OnClick({R.id.ib_shop_back, R.id.ll_price_check,R.id.ib_shop_cart})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.ib_shop_back:
+                //点击返回
+                finish();
+
+                break;
+            case R.id.ll_price_check:
+                //点击价格筛选--此处应该是popuwindow
+                showToast("价格筛选");
+
+                break;
+            case R.id.ib_shop_cart:
+                showToast("购物车");
+                break;
+        }
+    }
+
+    /**
+     * 联网
+     */
+    private void getDataFromNet() {
+        if(TextUtils.isEmpty(url)) {
+            new NullPointerException("联网链接为空");
+            return;
+        }
+
+        HttpUtils.getInstance().get(url, new HttpUtils.MyHttpClickListener() {
+            @Override
+            public void onSuccess(String content) {
+                Log.e("shoptype","联网成功==" + content);
+                if(!TextUtils.isEmpty(content)) {
+                    //解析数据
+                    processData(content);
+                }
+
+            }
+
+            @Override
+            public void onFailure(String content) {
+                Log.e("shoptype","联网失败==" + content);
+            }
+        });
+    }
+    /**
+     * 解析数据
+     */
+    private void processData(String content) {
+        ShopTypeListBean bean = new Gson().fromJson(content, ShopTypeListBean.class);
+        items = bean.getData().getItems();
+//
+        Log.e("shoptype","解析==" + items.get(0).getGoods_name());
+
+        if(items != null && items.size() > 0) {
+//
+//            adapter = new ClassifyAdapter(context,items);
+//            //设置适配器
+//            gvClassify.setAdapter(adapter);
+            //添加数据
+
+        }
+
+    }
+}

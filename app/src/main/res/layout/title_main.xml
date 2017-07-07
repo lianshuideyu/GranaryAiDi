@@ -25,6 +25,15 @@
         android:visibility="gone" />
 
     <ImageButton
+        android:id="@+id/ib_shop_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="15dp"
+        android:background="@null"
+        android:src="@drawable/actionbar_navigation_back"
+        android:visibility="gone" />
+    <ImageButton
         android:id="@+id/ib_shop_cart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

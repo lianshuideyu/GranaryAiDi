@@ -50,7 +50,7 @@ public class SplashActivity extends BaseActivity {
          * 第一个参数是倒计时的总时长
          * 第二个参数为时间的间隔
          */
-        countDownTimer = new CountDownTimer(4000,1000) {
+        countDownTimer = new CountDownTimer(4500,1000) {
             @Override
             public void onTick(long l) {
 //                Log.e("TAG","onTick" + l);
