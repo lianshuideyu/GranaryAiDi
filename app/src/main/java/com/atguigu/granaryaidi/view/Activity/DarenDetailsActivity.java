@@ -2,6 +2,7 @@ package com.atguigu.granaryaidi.view.Activity;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,12 +15,15 @@ import com.atguigu.granaryaidi.Base.BaseActivity;
 import com.atguigu.granaryaidi.Base.BaseFragment;
 import com.atguigu.granaryaidi.R;
 import com.atguigu.granaryaidi.bean.DaRenDefaultBean;
+import com.atguigu.granaryaidi.bean.DaRenRecommendBean;
 import com.atguigu.granaryaidi.common.NetLink;
+import com.atguigu.granaryaidi.utils.HttpUtils;
 import com.atguigu.granaryaidi.view.fragment.darenfragment.DarenFansfragment;
 import com.atguigu.granaryaidi.view.fragment.darenfragment.DarenGuanzhufragment;
 import com.atguigu.granaryaidi.view.fragment.darenfragment.DarenLikefragment;
 import com.atguigu.granaryaidi.view.fragment.darenfragment.DarenRecommendfragment;
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,11 +114,20 @@ public class DarenDetailsActivity extends BaseActivity {
                     .into(ivDarenIcon);
             tvName.setText(bean.getUsername());
             tvProfession.setText(bean.getDuty());
+            ibShopBack.setVisibility(View.VISIBLE);
+            tvTitle.setText(bean.getUsername());
 
+            //把数据传给各个fragment页面,先以推荐页面测试
+            //这里需要拼接联网 链接
+            String url = NetLink.DAREN_DETAILS_RECOMMEND_START + bean.getUid() + NetLink.DAREN_DETAILS_RECOMMEND_END;
+            darenrecomm.setUrl(url);
+
+            String url1 = NetLink.DAREN_DETAILS_GUANZHU_START + bean.getUid() + NetLink.DAREN_DETAILS_GUANZHU_END;
+            darenguanzhu.setUrl(url1);
             /**
              * 联网请求数据 传给 相应的 fragment
              */
-            getDataFromNet();
+            //getDataFromNet();
         }
     }
 
@@ -137,24 +150,24 @@ public class DarenDetailsActivity extends BaseActivity {
      */
     private void getDataFromNet() {
         //这里需要拼接联网 链接
-//        String url = NetLink.SHOP_PINPAI_LISTSTART + bean.getBrand_id() + NetLink.SHOP_PINPAI_LISTEND;
-//
-//        HttpUtils.getInstance().get(url, new HttpUtils.MyHttpClickListener() {
-//            @Override
-//            public void onSuccess(String content) {
-//                Log.e("pinpai","联网成功==" + content);
-//                if(!TextUtils.isEmpty(content)) {
-//                    //解析数据
-//                    processData(content);
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onFailure(String content) {
-//                Log.e("pinpai","联网失败==" + content);
-//            }
-//        });
+        String url = NetLink.DAREN_DETAILS_RECOMMEND_START + bean.getUid() + NetLink.DAREN_DETAILS_RECOMMEND_END;
+
+        HttpUtils.getInstance().get(url, new HttpUtils.MyHttpClickListener() {
+            @Override
+            public void onSuccess(String content) {
+                Log.e("daren","联网成功==" + content);
+                if(!TextUtils.isEmpty(content)) {
+                    //解析数据
+                    processData(content);
+                }
+
+            }
+
+            @Override
+            public void onFailure(String content) {
+                Log.e("daren","联网失败==" + content);
+            }
+        });
 
 
     }
@@ -163,11 +176,13 @@ public class DarenDetailsActivity extends BaseActivity {
      * 解析数据
      */
     private void processData(String content) {
-//        ShopPinPaiListBean bean = new Gson().fromJson(content, ShopPinPaiListBean.class);
-//        items = bean.getData().getItems();
-////
-////        Log.e("pinpai","二级页面解析成功==" + items.get(0).getGoods_name());
-////
+
+        DaRenRecommendBean bean = new Gson().fromJson(content, DaRenRecommendBean.class);
+
+        bean.getData().getItems();
+//
+        Log.e("daren","二级页面解析成功==" + bean.getData().getItems().getUser_name());
+//
 //        if(items != null && items.size() > 0) {
 //            //将相应的数据传递给fragment
 //            //将品牌故事传给 PinPaiStory
