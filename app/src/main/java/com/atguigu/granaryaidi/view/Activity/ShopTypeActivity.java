@@ -13,6 +13,7 @@ import com.atguigu.granaryaidi.R;
 import com.atguigu.granaryaidi.bean.ShopTypeListBean;
 import com.atguigu.granaryaidi.common.NetLink;
 import com.atguigu.granaryaidi.utils.HttpUtils;
+import com.atguigu.granaryaidi.view.adapter.shop.ClassifyListAdapter;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -42,6 +43,7 @@ public class ShopTypeActivity extends BaseActivity {
      * 联网获取的数据集合
      */
     private List<ShopTypeListBean.DataBean.ItemsBean> items;
+    private ClassifyListAdapter adapter;
 
     @Override
     public void initListener() {
@@ -133,9 +135,9 @@ public class ShopTypeActivity extends BaseActivity {
 
         if(items != null && items.size() > 0) {
 //
-//            adapter = new ClassifyAdapter(context,items);
+            adapter = new ClassifyListAdapter(ShopTypeActivity.this,items);
 //            //设置适配器
-//            gvClassify.setAdapter(adapter);
+            gvShopType.setAdapter(adapter);
             //添加数据
 
         }

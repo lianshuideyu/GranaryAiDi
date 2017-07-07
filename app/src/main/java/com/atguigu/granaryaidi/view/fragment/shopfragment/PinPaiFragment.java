@@ -9,7 +9,7 @@ import com.atguigu.granaryaidi.R;
 import com.atguigu.granaryaidi.bean.ShopPinPaiBean;
 import com.atguigu.granaryaidi.common.NetLink;
 import com.atguigu.granaryaidi.utils.HttpUtils;
-import com.atguigu.granaryaidi.view.adapter.PinPaiAdapter;
+import com.atguigu.granaryaidi.view.adapter.shop.PinPaiAdapter;
 import com.google.gson.Gson;
 
 import java.util.List;

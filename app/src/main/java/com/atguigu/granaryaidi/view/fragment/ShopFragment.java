@@ -71,6 +71,7 @@ public class ShopFragment extends BaseFragment {
 
         ibShopSearch.setVisibility(View.VISIBLE);
         ibShopCart.setVisibility(View.VISIBLE);
+
     }
 
     @Override
@@ -98,6 +99,9 @@ public class ShopFragment extends BaseFragment {
         tlShop.setupWithViewPager(vpShop);
         tlShop.setTabMode(MODE_FIXED);
         tlShop.setTabGravity(GRAVITY_FILL);
+
+        //设置初进app默认显示的为商品模块的首页 页面
+        vpShop.setCurrentItem(2);
     }
 
     @Override

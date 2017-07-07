@@ -1,14 +1,13 @@
-package com.atguigu.granaryaidi.view.adapter;
+package com.atguigu.granaryaidi.view.adapter.shop;
 
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.atguigu.granaryaidi.R;
-import com.atguigu.granaryaidi.bean.ShopPinPaiBean;
+import com.atguigu.granaryaidi.bean.ShopClassifBean;
 import com.bumptech.glide.Glide;
 
 import java.util.List;
@@ -20,12 +19,13 @@ import butterknife.InjectView;
  * Created by Administrator on 2017/7/6.
  */
 
-public class PinPaiAdapter extends BaseAdapter {
+public class ClassifyAdapter extends BaseAdapter {
 
-    private final List<ShopPinPaiBean.DataBean.ItemsBean> items;
+    private final List<ShopClassifBean.DataBean.ItemsBean> items;
     private final Context context;
 
-    public PinPaiAdapter(Context context, List<ShopPinPaiBean.DataBean.ItemsBean> items) {
+    public ClassifyAdapter(Context context, List<ShopClassifBean.DataBean.ItemsBean> items) {
+
         this.context = context;
         this.items = items;
     }
@@ -47,38 +47,33 @@ public class PinPaiAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup viewGroup) {
+
         ViewHolder viewHolder = null;
         if (convertView == null) {
 
-            convertView = View.inflate(context, R.layout.pinpai_item, null);
+            convertView = View.inflate(context, R.layout.classify_item, null);
             viewHolder = new ViewHolder(convertView);
 
             convertView.setTag(viewHolder);
-        } else {
+        }else {
             viewHolder = (ViewHolder) convertView.getTag();
 
         }
 
-        ShopPinPaiBean.DataBean.ItemsBean itemsBean = items.get(position);
-
-        viewHolder.tvPinpainame.setText(itemsBean.getBrand_name());
+        String img = items.get(position).getNew_cover_img();
 
         Glide.with(context)
-                .load(itemsBean.getBrand_logo())
-                .error(R.drawable.icon_large)
-                .placeholder(R.drawable.icon_large)
-                .into(viewHolder.tvBrandLogo);
+                .load(img)
+                .error(R.drawable.brand_bg)
+                .placeholder(R.drawable.brand_bg)
+                .into(viewHolder.ivClassify);
 
         return convertView;
     }
 
     static class ViewHolder {
-        @InjectView(R.id.tv_brand_logo)
-        ImageView tvBrandLogo;
-        @InjectView(R.id.tv_pinpainame)
-        TextView tvPinpainame;
-        @InjectView(R.id.iv_pinpai_arrow)
-        ImageView ivPinpaiArrow;
+        @InjectView(R.id.iv_classify)
+        ImageView ivClassify;
 
         ViewHolder(View view) {
             ButterKnife.inject(this, view);

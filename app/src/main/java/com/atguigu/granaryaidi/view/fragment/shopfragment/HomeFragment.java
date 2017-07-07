@@ -14,7 +14,7 @@ import com.atguigu.granaryaidi.R;
 import com.atguigu.granaryaidi.bean.ShopHomeBean;
 import com.atguigu.granaryaidi.common.NetLink;
 import com.atguigu.granaryaidi.utils.HttpUtils;
-import com.atguigu.granaryaidi.view.adapter.HomeAdapter;
+import com.atguigu.granaryaidi.view.adapter.shop.HomeAdapter;
 import com.google.gson.Gson;
 
 import java.util.List;

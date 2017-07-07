@@ -1,4 +1,4 @@
-package com.atguigu.granaryaidi.view.adapter;
+package com.atguigu.granaryaidi.view.adapter.shop;
 
 import android.content.Context;
 import android.content.Intent;

@@ -13,7 +13,7 @@ import com.atguigu.granaryaidi.bean.ShopClassifBean;
 import com.atguigu.granaryaidi.common.NetLink;
 import com.atguigu.granaryaidi.utils.HttpUtils;
 import com.atguigu.granaryaidi.view.Activity.ShopTypeActivity;
-import com.atguigu.granaryaidi.view.adapter.ClassifyAdapter;
+import com.atguigu.granaryaidi.view.adapter.shop.ClassifyAdapter;
 import com.google.gson.Gson;
 
 import java.util.List;

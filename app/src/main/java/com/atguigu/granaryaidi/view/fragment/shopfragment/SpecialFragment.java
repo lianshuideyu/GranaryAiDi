@@ -13,7 +13,7 @@ import com.atguigu.granaryaidi.bean.ShopSpecialBean;
 import com.atguigu.granaryaidi.common.NetLink;
 import com.atguigu.granaryaidi.utils.HttpUtils;
 import com.atguigu.granaryaidi.view.Activity.ShopWebviewActivity;
-import com.atguigu.granaryaidi.view.adapter.SpecialAdapter;
+import com.atguigu.granaryaidi.view.adapter.shop.SpecialAdapter;
 import com.google.gson.Gson;
 
 import java.util.List;
