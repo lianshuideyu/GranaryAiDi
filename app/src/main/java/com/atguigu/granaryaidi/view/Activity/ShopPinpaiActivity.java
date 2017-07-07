@@ -18,7 +18,9 @@ import com.atguigu.granaryaidi.common.NetLink;
 import com.atguigu.granaryaidi.utils.HttpUtils;
 import com.atguigu.granaryaidi.view.fragment.pinpaifragment.PinPaiProduct;
 import com.atguigu.granaryaidi.view.fragment.pinpaifragment.PinPaiStory;
+import com.atguigu.granaryaidi.view.utils.GlideCircleTransform;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -55,6 +57,8 @@ public class ShopPinpaiActivity extends BaseActivity {
     private PinPaiStory pinPaiStory;
     private PinPaiProduct pinPaiProduct;
 
+    //加载图标圆形图片用
+    private RequestManager glideRequest;
     @Override
     public void initListener() {
 
@@ -98,10 +102,15 @@ public class ShopPinpaiActivity extends BaseActivity {
         if(bean != null) {
 
             //设置品牌头像信息 和 品牌名称
-            Glide.with(this).load(bean.getBrand_logo())
-                    .error(R.drawable.brand_logo_empty).placeholder(R.drawable.brand_logo_empty)
-                    .into(ivPinpaiIcon);
-            tvPinpaiName.setText(bean.getBrand_name());
+//            Glide.with(this).load(bean.getBrand_logo())
+//                    .error(R.drawable.brand_logo_empty).placeholder(R.drawable.brand_logo_empty)
+//                    .into(ivPinpaiIcon);
+//            tvPinpaiName.setText(bean.getBrand_name());
+
+            glideRequest = Glide.with(ShopPinpaiActivity.this);
+
+            glideRequest.load(bean.getBrand_logo())
+                    .transform(new GlideCircleTransform(ShopPinpaiActivity.this)).into(ivPinpaiIcon);
 
             /**
              * 联网请求数据 传给 相应的 fragment
