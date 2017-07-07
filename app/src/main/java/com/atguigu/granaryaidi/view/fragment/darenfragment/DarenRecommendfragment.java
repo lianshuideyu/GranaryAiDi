@@ -28,6 +28,7 @@ public class DarenRecommendfragment extends BaseFragment {
      */
     private List<DaRenRecommendBean.DataBean.ItemsBean.GoodsBean> goods;
     private DarenRecommendAdapter adapter;
+    private String url;
 
     @Override
     public int getLayoutId() {
@@ -55,11 +56,19 @@ public class DarenRecommendfragment extends BaseFragment {
      * @param url
      */
     public void setUrl(String url) {
+
+        this.url = url;
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
         if (!TextUtils.isEmpty(url)) {
 
             getDataFromNet(url);
         }
-
     }
 
     /**

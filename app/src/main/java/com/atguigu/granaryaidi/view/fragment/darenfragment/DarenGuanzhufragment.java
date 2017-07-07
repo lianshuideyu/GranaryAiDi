@@ -2,9 +2,18 @@ package com.atguigu.granaryaidi.view.fragment.darenfragment;
 
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.GridView;
 
 import com.atguigu.granaryaidi.Base.BaseFragment;
+import com.atguigu.granaryaidi.R;
+import com.atguigu.granaryaidi.bean.DaRenGuanzhuBean;
 import com.atguigu.granaryaidi.utils.HttpUtils;
+import com.atguigu.granaryaidi.view.adapter.daren.DarenGuanzhuAdapter;
+import com.google.gson.Gson;
+
+import java.util.List;
+
+import butterknife.InjectView;
 
 /**
  * Created by Administrator on 2017/7/7.
@@ -12,9 +21,18 @@ import com.atguigu.granaryaidi.utils.HttpUtils;
 
 public class DarenGuanzhufragment extends BaseFragment {
 
+    @InjectView(R.id.gv_daren_guanzhu)
+    GridView gvDarenGuanzhu;
+    /**
+     * 联网获取数据
+     */
+    private List<DaRenGuanzhuBean.DataBean.ItemsBean.UsersBean> users;
+    private DarenGuanzhuAdapter adapter;
+    private String url1;
+
     @Override
     public int getLayoutId() {
-        return 0;
+        return R.layout.daren_guanzhu;
     }
 
     @Override
@@ -38,10 +56,12 @@ public class DarenGuanzhufragment extends BaseFragment {
      * @param url1
      */
     public void setUrl(String url1) {
-        if (!TextUtils.isEmpty(url1)) {
+        this.url1 = url1;
 
-            getDataFromNet(url1);
-        }
+//        if (!TextUtils.isEmpty(url1)) {
+//
+//            getDataFromNet(url1);
+//        }
     }
 
     /**
@@ -76,21 +96,30 @@ public class DarenGuanzhufragment extends BaseFragment {
      */
     private void processData(String content) {
 
-//        DaRenRecommendBean bean = new Gson().fromJson(content, DaRenRecommendBean.class);
+        DaRenGuanzhuBean bean = new Gson().fromJson(content, DaRenGuanzhuBean.class);
 //
-//        bean.getData().getItems();
+        users = bean.getData().getItems().getUsers();
 ////
-//        Log.e("darengz", "二级页面解析成功==" + bean.getData().getItems().getUser_name());
-//        goods = bean.getData().getItems().getGoods();
-//        if (goods != null && goods.size() > 0) {
-//
-//            //设置适配器
-//            adapter = new DarenRecommendAdapter(context, goods);
-//
-//            gvDarenRecommend.setAdapter(adapter);
-//            //设置数据
-//
-//        }
+        Log.e("darengz", "二级页面解析成功==" + bean.getData().getItems().getUser_name());
+        if (users != null && users.size() > 0) {
 
+            //设置适配器
+            adapter = new DarenGuanzhuAdapter(context, users);
+
+            gvDarenGuanzhu.setAdapter(adapter);
+            //设置数据
+
+        }
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (!TextUtils.isEmpty(url1)) {
+
+            getDataFromNet(url1);
+        }
     }
 }
