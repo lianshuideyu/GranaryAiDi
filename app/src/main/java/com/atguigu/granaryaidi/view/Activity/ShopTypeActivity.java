@@ -3,6 +3,7 @@ package com.atguigu.granaryaidi.view.Activity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -48,6 +49,13 @@ public class ShopTypeActivity extends BaseActivity {
     @Override
     public void initListener() {
 
+        gvShopType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+
+
+            }
+        });
     }
 
     @Override

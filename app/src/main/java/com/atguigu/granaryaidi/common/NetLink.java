@@ -204,4 +204,12 @@ public class NetLink {
     public static final String DAREN_DETAILS_LIKE_START = "http://mobile.iliangcang.com/user/masterLike?app_key=Android&count=10&owner_id=";
     public static final String DAREN_DETAILS_LIKE_END = "&page=1&sig=CD0E234053E25DD6111E3DBD450A4B85%7C954252010968868&v=1.0";
 
+
+    /*http://mobile.iliangcang.com/goods/goodsDetail?app_key=Android&goods_id=
+    258055&sig=BF287AF953103F390674E73DDA18CFD8%7C639843030233268&v=1.0*/
+    //商品 详情 页面 链接----不同商品不同的bean
+    public static final String GOODS_DETAILS_START = "http://mobile.iliangcang.com/goods/goodsDetail?app_key=Android&goods_id=";
+    public static final String GOODS_DETAILS_END = "&sig=BF287AF953103F390674E73DDA18CFD8%7C639843030233268&v=1.0";
+
+
 }

@@ -2,6 +2,8 @@ package com.atguigu.granaryaidi.view;
 
 import android.content.Intent;
 import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Message;
 import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -10,6 +12,12 @@ import com.atguigu.granaryaidi.Base.BaseActivity;
 import com.atguigu.granaryaidi.MainActivity;
 import com.atguigu.granaryaidi.R;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.gifdecoder.GifDecoder;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.load.resource.gif.GifDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
+import com.bumptech.glide.request.target.Target;
 
 import butterknife.InjectView;
 
@@ -23,52 +31,34 @@ public class SplashActivity extends BaseActivity {
     private CountDownTimer countDownTimer;
 
     private AlphaAnimation animation;
+
     @Override
     public void initListener() {
 
-//        animation.setAnimationListener(new Animation.AnimationListener() {
+
+//        /**
+//         * 第一个参数是倒计时的总时长
+//         * 第二个参数为时间的间隔
+//         */
+//        countDownTimer = new CountDownTimer(5000, 500) {
 //            @Override
-//            public void onAnimationStart(Animation animation) {
-//
+//            public void onTick(long l) {
+////                Log.e("TAG","onTick" + l);
 //            }
 //
 //            @Override
-//            public void onAnimationEnd(Animation animation) {
-//                //动画结束跳转到主页面
+//            public void onFinish() {
+//                //跳转到的Activity
 //                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
 //                startActivity(intent);
 //                finish();
-//            }
+////                Log.e("TAG","onFinish");
+//                /**
+//                 * 这里还要判断是否为第一次进入软件，并记录状态
+//                 */
 //
-//            @Override
-//            public void onAnimationRepeat(Animation animation) {
-//
 //            }
-//        });
-
-        /**
-         * 第一个参数是倒计时的总时长
-         * 第二个参数为时间的间隔
-         */
-        countDownTimer = new CountDownTimer(5500,1000) {
-            @Override
-            public void onTick(long l) {
-//                Log.e("TAG","onTick" + l);
-            }
-
-            @Override
-            public void onFinish() {
-                //跳转到的Activity
-                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-//                Log.e("TAG","onFinish");
-                /**
-                 * 这里还要判断是否为第一次进入软件，并记录状态
-                 */
-
-            }
-        }.start();
+//        }.start();
     }
 
     @Override
@@ -78,14 +68,13 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        //startaAnimation();
 
         //加载gif图片
-        Glide.with(this)
-                .load(R.drawable.loading_start)
-                .into(splashIv);
+//        Glide.with(this)
+//                .load(R.drawable.loading_start)
+//                .into(splashIv);
 
-
+        loadSplashGif();
     }
 
     @Override
@@ -100,5 +89,57 @@ public class SplashActivity extends BaseActivity {
         animation.setFillAfter(true);
 
         splashIv.startAnimation(animation);
+    }
+
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            int what = msg.what;
+
+            if(what == 1) {
+                //跳转到的Activity
+                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+                /**
+                  * 这里还要判断是否为第一次进入软件，并记录状态
+                  */
+            }
+        }
+    };
+
+    private void loadSplashGif() {
+
+        Glide.with(this)
+                .load(R.drawable.loading_start)
+                .listener(new RequestListener<Integer, GlideDrawable>() {
+                    @Override
+                    public boolean onException(Exception e, Integer model,
+                                               Target<GlideDrawable> target,
+                                               boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(final GlideDrawable resource, Integer model,
+                                                   Target<GlideDrawable> target,
+                                                   boolean isFromMemoryCache,
+                                                   boolean isFirstResource) {
+
+                        int durcation = 0;
+
+                        GifDrawable drawable = (GifDrawable) resource;
+                        GifDecoder decoder = drawable.getDecoder();
+                        for (int i = 0; i < drawable.getFrameCount(); i++) {
+                            durcation += decoder.getDelay(i);
+                            //durcation为获取到的动画播放的事件
+                        }
+                        handler.sendEmptyMessageDelayed(1,durcation);
+
+                        return false;
+                    }
+                }).into(new GlideDrawableImageViewTarget(splashIv, 1)); // 设置播放一次
+
     }
 }

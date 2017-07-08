@@ -5,6 +5,7 @@
     android:orientation="vertical">
 
     <GridView
+        android:paddingLeft="10dp"
         android:id="@+id/gv_shop_pinpai"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

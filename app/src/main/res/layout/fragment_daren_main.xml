@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:background="#1E2125"
         android:numColumns="3"
-        android:padding="10dp">
+        android:paddingLeft="10dp">
 
     </GridView>
 </LinearLayout>
