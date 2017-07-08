@@ -1,5 +1,6 @@
 package com.atguigu.granaryaidi.view.fragment.darenfragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
@@ -33,6 +34,7 @@ public class DarenGuanzhufragment extends BaseFragment {
     private List<DaRenGuanzhuBean.DataBean.ItemsBean.UsersBean> users;
     private DarenGuanzhuAdapter adapter;
     private String url1;
+    private int position;
 
     @Override
     public int getLayoutId() {
@@ -59,10 +61,10 @@ public class DarenGuanzhufragment extends BaseFragment {
 
                 Intent intent = new Intent(context, DarenDetailsActivity.class);
 //                intent.putExtra(NetLink.DAREN_DETAILS,items.get(position));
-                intent.putExtra("uid",users.get(position).getUser_id());
-                intent.putExtra("username",users.get(position).getUser_name());//达人名称
-                intent.putExtra("duty",users.get(position).getUser_desc());//行业
-                intent.putExtra("orig",users.get(position).getUser_image().getOrig());//头像链接
+                intent.putExtra("uid", users.get(position).getUser_id());
+                intent.putExtra("username", users.get(position).getUser_name());//达人名称
+                intent.putExtra("duty", users.get(position).getUser_desc());//行业
+                intent.putExtra("orig", users.get(position).getUser_image().getOrig());//头像链接
 
 
                 startActivity(intent);
@@ -74,9 +76,11 @@ public class DarenGuanzhufragment extends BaseFragment {
      * 从上级页面传来的数据
      *
      * @param url1
+     * @param position
      */
-    public void setUrl(String url1) {
+    public void setUrl(String url1, int position) {
         this.url1 = url1;
+        this.position = position;
 
 //        if (!TextUtils.isEmpty(url1)) {
 //
@@ -114,6 +118,8 @@ public class DarenGuanzhufragment extends BaseFragment {
     /**
      * 解析数据
      */
+    private boolean isFirst = false;//判断是否为第一次切换到该页面
+
     private void processData(String content) {
 
         DaRenGuanzhuBean bean = new Gson().fromJson(content, DaRenGuanzhuBean.class);
@@ -128,6 +134,18 @@ public class DarenGuanzhufragment extends BaseFragment {
 
             gvDarenGuanzhu.setAdapter(adapter);
             //设置数据
+            Activity instance = DarenDetailsActivity.getInstance();
+            DarenDetailsActivity activity = (DarenDetailsActivity) instance;
+
+            if (!isFirst) {//为了解决 进行多次点击事件，进入多级页面后 回退 出现空指针异常的现象
+                if (position == 2) {
+
+//                    activity.rbDarenCare.setText("关注\n" + bean.getData().getNum_items());
+                } else if (position == 3) {
+//                    activity.rbDarenFans.setText("粉丝\n" + bean.getData().getNum_items());
+                }
+                isFirst = true;
+            }
 
         }
 

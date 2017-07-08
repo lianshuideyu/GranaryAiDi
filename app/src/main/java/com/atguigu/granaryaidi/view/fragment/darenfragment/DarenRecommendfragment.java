@@ -1,5 +1,6 @@
 package com.atguigu.granaryaidi.view.fragment.darenfragment;
 
+import android.app.Activity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.GridView;
@@ -8,6 +9,7 @@ import com.atguigu.granaryaidi.Base.BaseFragment;
 import com.atguigu.granaryaidi.R;
 import com.atguigu.granaryaidi.bean.DaRenRecommendBean;
 import com.atguigu.granaryaidi.utils.HttpUtils;
+import com.atguigu.granaryaidi.view.Activity.DarenDetailsActivity;
 import com.atguigu.granaryaidi.view.adapter.daren.DarenRecommendAdapter;
 import com.google.gson.Gson;
 
@@ -101,6 +103,8 @@ public class DarenRecommendfragment extends BaseFragment {
     /**
      * 解析数据
      */
+    private boolean isFirst = false;
+
     private void processData(String content) {
 
         DaRenRecommendBean bean = new Gson().fromJson(content, DaRenRecommendBean.class);
@@ -116,7 +120,12 @@ public class DarenRecommendfragment extends BaseFragment {
 
             gvDarenRecommend.setAdapter(adapter);
             //设置数据
-
+            Activity instance = DarenDetailsActivity.getInstance();
+            DarenDetailsActivity activity = (DarenDetailsActivity) instance;
+            if (!isFirst) {
+//                activity.rbDarenRecommend.setText("推荐\n" + bean.getData().getNum_items());
+                isFirst = true;
+            }
         }
 
     }

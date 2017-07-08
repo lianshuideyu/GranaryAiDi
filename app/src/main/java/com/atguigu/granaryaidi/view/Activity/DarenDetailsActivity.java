@@ -1,5 +1,6 @@
 package com.atguigu.granaryaidi.view.Activity;
 
+import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -48,6 +50,16 @@ public class DarenDetailsActivity extends BaseActivity {
     ImageView ivDarenIcon;
     @InjectView(R.id.rg_daren)
     RadioGroup rgDaren;
+
+    @InjectView(R.id.rb_daren_like)
+    public RadioButton rbDarenLike;
+    @InjectView(R.id.rb_daren_recommend)
+    public RadioButton rbDarenRecommend;
+    @InjectView(R.id.rb_daren_care)
+    public RadioButton rbDarenCare;
+    @InjectView(R.id.rb_daren_fans)
+    public RadioButton rbDarenFans;
+
     //从上级页面传来的数据
     private DaRenDefaultBean.DataBean.ItemsBean bean;
 
@@ -69,28 +81,30 @@ public class DarenDetailsActivity extends BaseActivity {
     private String duty;
     private String orig;
 
+    private static DarenDetailsActivity instance;
+
     @Override
     public void initListener() {
 
         rgDaren.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int checkid) {
-                Log.e("TAG","checkid==" + checkid);
+                Log.e("TAG", "checkid==" + checkid);
                 //方法一
                 switch (checkid) {
-                    case R.id.rb_daren_like :
+                    case R.id.rb_daren_like:
                         position = 0;
 
                         break;
-                    case R.id.rb_daren_recommend :
+                    case R.id.rb_daren_recommend:
                         position = 1;
 
                         break;
-                    case R.id.rb_daren_care :
+                    case R.id.rb_daren_care:
                         position = 2;
 
                         break;
-                    case R.id.rb_daren_fans :
+                    case R.id.rb_daren_fans:
                         position = 3;
 
                         break;
@@ -138,7 +152,7 @@ public class DarenDetailsActivity extends BaseActivity {
 //            //getDataFromNet();
 //        }
 
-        if(!TextUtils.isEmpty(uid) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(orig)) {
+        if (!TextUtils.isEmpty(uid) && !TextUtils.isEmpty(username) && !TextUtils.isEmpty(orig)) {
             //设置品牌头像信息 和 品牌名称
             Glide.with(this).load(orig).error(R.drawable.brand_logo_empty)
                     .placeholder(R.drawable.brand_logo_empty).into(ivDarenIcon);
@@ -154,10 +168,10 @@ public class DarenDetailsActivity extends BaseActivity {
             darenrecomm.setUrl(url);
 
             String url1 = NetLink.DAREN_DETAILS_GUANZHU_START + uid + NetLink.DAREN_DETAILS_GUANZHU_END;
-            darenguanzhu.setUrl(url1);
+            darenguanzhu.setUrl(url1,2);//第二个参数为位置
 
             String url2 = NetLink.DAREN_DETAILS_FANS_START + uid + NetLink.DAREN_DETAILS_FANS_END;
-            darenfans.setUrl(url2);
+            darenfans.setUrl(url2,3);
 
             String url3 = NetLink.DAREN_DETAILS_LIKE_START + uid + NetLink.DAREN_DETAILS_LIKE_END;
             darenlike.setUrl(url3);
@@ -190,8 +204,8 @@ public class DarenDetailsActivity extends BaseActivity {
         HttpUtils.getInstance().get(url, new HttpUtils.MyHttpClickListener() {
             @Override
             public void onSuccess(String content) {
-                Log.e("daren","联网成功==" + content);
-                if(!TextUtils.isEmpty(content)) {
+                Log.e("daren", "联网成功==" + content);
+                if (!TextUtils.isEmpty(content)) {
                     //解析数据
                     processData(content);
                 }
@@ -200,7 +214,7 @@ public class DarenDetailsActivity extends BaseActivity {
 
             @Override
             public void onFailure(String content) {
-                Log.e("daren","联网失败==" + content);
+                Log.e("daren", "联网失败==" + content);
             }
         });
 
@@ -216,7 +230,7 @@ public class DarenDetailsActivity extends BaseActivity {
 
         bean.getData().getItems();
 //
-        Log.e("daren","二级页面解析成功==" + bean.getData().getItems().getUser_name());
+        Log.e("daren", "二级页面解析成功==" + bean.getData().getItems().getUser_name());
 //
 //        if(items != null && items.size() > 0) {
 //            //将相应的数据传递给fragment
@@ -229,9 +243,14 @@ public class DarenDetailsActivity extends BaseActivity {
 //        }
 
     }
+
+    public static Activity getInstance(){
+        return instance;
+    }
     @Override
     public void initView() {
 
+        this.instance = DarenDetailsActivity.this;
         /**
          * 获取 前一页面传来的数据
          */
@@ -271,29 +290,30 @@ public class DarenDetailsActivity extends BaseActivity {
 
     /**
      * 切换Fragment
+     *
      * @param currentFragment
      */
     private void selectFragment(BaseFragment currentFragment) {
-        if(currentFragment == null) {
+        if (currentFragment == null) {
             return;
         }
 
         //开启事务管理
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        if(currentFragment != tempFragment) {
+        if (currentFragment != tempFragment) {
             //第一次进来temp为空，肯定不等于
 
             //先隐藏之前的
-            if(tempFragment != null) {
+            if (tempFragment != null) {
                 ft.hide(tempFragment);
             }
 
 
-            if(!currentFragment.isAdded()) {
+            if (!currentFragment.isAdded()) {
                 //判断是否添加过，没有就添加
-                ft.add(R.id.fl_daren_details,currentFragment);
+                ft.add(R.id.fl_daren_details, currentFragment);
 
-            }else {
+            } else {
                 //添加过就显示缓存的
                 ft.show(currentFragment);
             }
@@ -302,4 +322,5 @@ public class DarenDetailsActivity extends BaseActivity {
             ft.commit();//提交事务，不要忘记
         }
     }
+
 }
