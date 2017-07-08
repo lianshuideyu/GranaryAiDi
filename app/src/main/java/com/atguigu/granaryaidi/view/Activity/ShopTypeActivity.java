@@ -1,5 +1,6 @@
 package com.atguigu.granaryaidi.view.Activity;
 
+import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -53,7 +54,8 @@ public class ShopTypeActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
-
+                Intent intent = new Intent(ShopTypeActivity.this, GoodsDetailsActivity.class);
+                startActivity(intent);
             }
         });
     }
