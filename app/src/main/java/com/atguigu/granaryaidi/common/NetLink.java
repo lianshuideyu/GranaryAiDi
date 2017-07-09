@@ -211,5 +211,4 @@ public class NetLink {
     public static final String GOODS_DETAILS_START = "http://mobile.iliangcang.com/goods/goodsDetail?app_key=Android&goods_id=";
     public static final String GOODS_DETAILS_END = "&sig=BF287AF953103F390674E73DDA18CFD8%7C639843030233268&v=1.0";
 
-
 }

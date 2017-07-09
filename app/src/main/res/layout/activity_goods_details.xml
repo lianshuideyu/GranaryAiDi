@@ -29,7 +29,7 @@
                 <com.youth.banner.Banner
                     android:id="@+id/goods_banner"
                     android:layout_width="match_parent"
-                    android:layout_height="350dp" />
+                    android:layout_height="400dp" />
 
                 <ImageView
                     android:id="@+id/iv_discount"
@@ -125,9 +125,11 @@
                     android:textSize="25dp" />
 
                 <RelativeLayout
+                    android:id="@+id/rl_priceold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp">
+                    android:layout_marginLeft="5dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/tv_price_old"
@@ -138,7 +140,7 @@
                         android:textSize="15dp" />
 
                     <View
-                        android:layout_width="50dp"
+                        android:layout_width="60dp"
                         android:layout_height="1dp"
                         android:layout_marginTop="10dp"
                         android:background="#6F98C3" />
@@ -285,7 +287,8 @@
                     android:id="@+id/ll_good_note"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/tv_good_note"
@@ -297,6 +300,7 @@
                         android:textSize="12dp" />
 
                     <Button
+                        android:layout_marginTop="10dp"
                         android:id="@+id/bt_good_note"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
@@ -310,8 +314,10 @@
 
                 <!--商品详情 的 内容-->
                 <LinearLayout
+                    android:id="@+id/ll_good_detail"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
                 </LinearLayout>
 

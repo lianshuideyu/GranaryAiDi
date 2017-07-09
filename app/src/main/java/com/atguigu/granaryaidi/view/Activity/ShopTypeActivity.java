@@ -55,6 +55,7 @@ public class ShopTypeActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
                 Intent intent = new Intent(ShopTypeActivity.this, GoodsDetailsActivity.class);
+                intent.putExtra("goods_id",items.get(position).getGoods_id());
                 startActivity(intent);
             }
         });
