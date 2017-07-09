@@ -43,8 +43,8 @@ public class MagazineHomeAdapter extends RecyclerView.Adapter<MagazineHomeAdapte
 
     @Override
     public int getItemCount() {
-        int count  = 0;
-        for(int i = 0; i < beans.size(); i++) {
+        int count = 0;
+        for (int i = 0; i < beans.size(); i++) {
             count += beans.get(i).size();
 
         }
@@ -55,7 +55,7 @@ public class MagazineHomeAdapter extends RecyclerView.Adapter<MagazineHomeAdapte
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
-        holder.setData(beanitems.get(position));
+        holder.setData(beanitems.get(position), position);
     }
 
 
@@ -69,9 +69,11 @@ public class MagazineHomeAdapter extends RecyclerView.Adapter<MagazineHomeAdapte
     }
 
     private String temComparedate = null;
-    private MyViewHolder temHolder;
+//    private MyViewHolder temHolder;
+
     class MyViewHolder extends RecyclerView.ViewHolder {
 
+        private final View itemview;
         @InjectView(R.id.iv_magazine_home)
         ImageView ivMagazineHome;
         @InjectView(R.id.tv_magazine_home)
@@ -81,11 +83,12 @@ public class MagazineHomeAdapter extends RecyclerView.Adapter<MagazineHomeAdapte
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.inject(this,itemView);
+            ButterKnife.inject(this, itemView);
+            this.itemview = itemView;
 
         }
 
-        public void setData(MagazineProductionItemBean bean) {
+        public void setData(MagazineProductionItemBean bean, final int position) {
 
             tvMagazineHome.setText(bean.getTopic_name());
             Glide.with(context)
@@ -100,28 +103,58 @@ public class MagazineHomeAdapter extends RecyclerView.Adapter<MagazineHomeAdapte
             String englishMon = DateChange.dateFormat(month);
             String date = "—— " + englishMon + "." + day + " ——";
 
-            String comparedate = addtime.substring(5, 10);//为了与下一个日期比较使用的
-            /**
-             * 达到相同日期只显示一个的目的
+            String comparedate = addtime.substring(5, 10);//为了与下一个日期比较使用的-->06-27
+//            Log.d("comparedate", "date:== " + comparedate);
+            /**达到相同日期只显示一个的目的
+             * 拿到下一个bean对象的日期数据
              */
-            if(getLayoutPosition() == 0) {
-                //第一次进来将第一个日期缓存起来，与下一个比较
-                temComparedate = comparedate;
-                temHolder = this;
-            }else {
 
-                if(temComparedate.equals(comparedate)) {
-                    temHolder.tvDates.setVisibility(View.GONE);
-                    this.tvDates.setVisibility(View.VISIBLE);
+            if (position < beanitems.size() - 1) { //除去最后一个
+                //拿到下一个的对象
+                String behindthetime = beanitems.get(position + 1).getAddtime();
+                String substring = behindthetime.substring(5, 10);
+                String mon = behindthetime.substring(5, 7);
+                String da = behindthetime.substring(8, 10);
+
+                if (month.equals(mon) && day.equals(da)) {
+                    tvDates.setVisibility(View.GONE);//如果和后边的日期一样则隐藏当前的
+                } else {
+                    tvDates.setVisibility(View.VISIBLE);
                 }
-
-                temComparedate = comparedate;
-                temHolder = this;
             }
 
 
             tvDates.setText(date);
+
+            /**
+             *点击事件
+             */
+            itemview.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (listener != null) {
+                        listener.onItemClick(position);
+                    }
+                }
+            });
+
         }
+    }
+
+
+    /**
+     * item的点击事件用接口
+     */
+    public interface OnItemClickMagazineListener {
+
+        void onItemClick(int position);
+
+    }
+
+    private OnItemClickMagazineListener listener;
+
+    public void setOnItemClickMagazListener(OnItemClickMagazineListener l) {
+        this.listener = l;
     }
 
 }

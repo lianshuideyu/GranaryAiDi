@@ -1,6 +1,7 @@
 package com.atguigu.granaryaidi.view.fragment;
 
-import android.support.v7.widget.LinearLayoutManager;
+import android.content.Intent;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -14,6 +15,7 @@ import com.atguigu.granaryaidi.R;
 import com.atguigu.granaryaidi.bean.MagazineProductionItemBean;
 import com.atguigu.granaryaidi.common.NetLink;
 import com.atguigu.granaryaidi.utils.HttpUtils;
+import com.atguigu.granaryaidi.view.Activity.ShopWebviewActivity;
 import com.atguigu.granaryaidi.view.adapter.magzine.MagazineHomeAdapter;
 
 import org.json.JSONArray;
@@ -200,16 +202,40 @@ public class MagazineFragment extends BaseFragment {
     private void setData() {
 
         if (beans != null && beans.size() > 0) {
-            adapter = new MagazineHomeAdapter(context,beans,beanitems,keys);
+            adapter = new MagazineHomeAdapter(context, beans, beanitems, keys);
 
 //            adapter.refresh(beans, keys);
 
             rlvMagazine.setAdapter(adapter);
 
             //设置RecyclerView的布局模式
-            LinearLayoutManager manager = new LinearLayoutManager(context);
+            GridLayoutManager manager = new GridLayoutManager(context, 1);
 
             rlvMagazine.setLayoutManager(manager);
+            //监听item的位置变化
+            manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                @Override
+                public int getSpanSize(int position) {
+
+
+                    return 1;
+                }
+            });
+
+            /**
+             * 点击事件
+             */
+            adapter.setOnItemClickMagazListener(new MagazineHomeAdapter.OnItemClickMagazineListener() {
+                @Override
+                public void onItemClick(int position) {
+
+                    Intent intent = new Intent(context, ShopWebviewActivity.class);
+                    intent.putExtra(NetLink.HTML_URL,beanitems.get(position).getTopic_url());
+                    intent.putExtra(NetLink.HTML_TITLE,beanitems.get(position).getTopic_name());
+                    startActivity(intent);
+                }
+            });
+
         }
 
         pb_bar.setVisibility(View.GONE);
