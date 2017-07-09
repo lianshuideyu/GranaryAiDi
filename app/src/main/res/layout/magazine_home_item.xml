@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <ImageView
+        android:id="@+id/iv_magazine_home"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:background="@drawable/brand_bg"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/tv_magazine_home"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="#33000000"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        tools:text="content" />
+
+    <TextView
+        android:id="@+id/tv_dates"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@id/tv_magazine_home"
+        android:background="#262626"
+        android:gravity="center"
+        android:text="—— JUL.05 ——"
+        android:textColor="#4c78a4"
+        android:textSize="8dp" />
+</RelativeLayout>

@@ -1,5 +1,6 @@
 package com.atguigu.granaryaidi.view.fragment;
 
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -13,6 +14,7 @@ import com.atguigu.granaryaidi.R;
 import com.atguigu.granaryaidi.bean.MagazineProductionItemBean;
 import com.atguigu.granaryaidi.common.NetLink;
 import com.atguigu.granaryaidi.utils.HttpUtils;
+import com.atguigu.granaryaidi.view.adapter.magzine.MagazineHomeAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,6 +41,8 @@ public class MagazineFragment extends BaseFragment {
     @InjectView(R.id.pb_bar)
     ProgressBar pb_bar;
 
+
+    private MagazineHomeAdapter adapter;
 
 
     @Override
@@ -82,8 +86,7 @@ public class MagazineFragment extends BaseFragment {
                     //解析数据
                     processData(content);
 
-                    pb_bar.setVisibility(View.GONE);
-                    Log.e("magzine", "解析成功==" + beans.get(0).getTopic_name());
+                    Log.e("magzine", "解析成功==" + beans.get(0).get(0).getTopic_name());
                 }
 
             }
@@ -116,10 +119,17 @@ public class MagazineFragment extends BaseFragment {
 
     }
 
-    private String[] keys ;
-    private ArrayList<MagazineProductionItemBean> beans;
+    private String[] keys;
+    /**
+     * 集合里边套着一个集合
+     */
+    private ArrayList<ArrayList<MagazineProductionItemBean>> beans;
+
+    private ArrayList<MagazineProductionItemBean> beanitems;
+
     private void processData(String json) {
         beans = new ArrayList<>();
+        beanitems = new ArrayList<>();
 
         try {
             JSONObject object = new JSONObject(json);
@@ -160,7 +170,9 @@ public class MagazineFragment extends BaseFragment {
                                     list.add(productionBean);
                                 }
                                 if (list != null && list.size() > 0) {
-                                    beans.addAll(list);
+                                    beans.add(list);
+                                    beanitems.addAll(list);
+
                                 }
                             }
 //                            if (beans != null && beans.size() > 0) {
@@ -175,8 +187,34 @@ public class MagazineFragment extends BaseFragment {
             e.printStackTrace();
         }
 
+        /**
+         * 解析数据成功后 设置 数据
+         */
+        setData();
 
     }
+
+    /**
+     * 解析数据成功后 设置 数据
+     */
+    private void setData() {
+
+        if (beans != null && beans.size() > 0) {
+            adapter = new MagazineHomeAdapter(context,beans,beanitems,keys);
+
+//            adapter.refresh(beans, keys);
+
+            rlvMagazine.setAdapter(adapter);
+
+            //设置RecyclerView的布局模式
+            LinearLayoutManager manager = new LinearLayoutManager(context);
+
+            rlvMagazine.setLayoutManager(manager);
+        }
+
+        pb_bar.setVisibility(View.GONE);
+    }
+
 
     @Override
     protected void initListener() {

@@ -8,6 +8,7 @@
         layout="@layout/title_main" />
 
     <android.support.v7.widget.RecyclerView
+        android:background="#000000"
         android:id="@+id/rlv_magazine"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
