@@ -261,7 +261,6 @@
                 <RadioButton
                     android:id="@+id/rb_good_detail"
                     style="@style/MyRadioButton"
-                    android:checked="true"
                     android:gravity="center"
                     android:text="商品详情"
                     android:textSize="15dp" />
@@ -318,6 +317,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
+
 
                 </LinearLayout>
 

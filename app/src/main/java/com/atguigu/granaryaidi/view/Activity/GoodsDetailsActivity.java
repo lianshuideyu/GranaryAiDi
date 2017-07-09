@@ -1,6 +1,7 @@
 package com.atguigu.granaryaidi.view.Activity;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.atguigu.granaryaidi.Base.BaseActivity;
 import com.atguigu.granaryaidi.R;
 import com.atguigu.granaryaidi.bean.GoodsDetailsBean;
 import com.atguigu.granaryaidi.common.NetLink;
+import com.atguigu.granaryaidi.utils.DensityUtil;
 import com.atguigu.granaryaidi.utils.HttpUtils;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
@@ -110,17 +112,23 @@ public class GoodsDetailsActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int checkid) {
                 switch (checkid) {
-                    case R.id.rb_good_detail :
-                        llGoodDetail.setVisibility(View.VISIBLE);
+                    case R.id.rb_good_detail:
                         llGoodNote.setVisibility(View.GONE);
+                        llGoodDetail.setVisibility(View.VISIBLE);
+
+                        /**
+                         * 商品详情的数据
+                         */
+
+                        //initGoodDetail();
 
                         break;
-                    case R.id.rb_good_note :
+                    case R.id.rb_good_note:
                         llGoodDetail.setVisibility(View.GONE);
                         llGoodNote.setVisibility(View.VISIBLE);
 
                         //设置商品须知的
-                        if(items != null) {
+                        if (items != null) {
 
                             tvGoodNote.setText(items.getGood_guide().getContent());
 
@@ -130,10 +138,76 @@ public class GoodsDetailsActivity extends BaseActivity {
                 }
 
 
-
             }
         });
 
+        rgGoodDetailnote.check(R.id.rb_good_detail);
+    }
+
+    private void initGoodDetail() {
+        if (items != null) {
+            List<GoodsDetailsBean.DataBean.ItemsBean.GoodsInfoBean> goods_info = items.getGoods_info();
+
+            if(items.getGoods_desc().length() > 1) {
+                //表示该商品Goods_desc有数据
+
+                TextView textView0 = new TextView(GoodsDetailsActivity.this);
+                textView0.setTextColor(Color.GRAY);
+                textView0.setTextSize(DensityUtil.dip2px(GoodsDetailsActivity.this,6));
+                textView0.setText(items.getGoods_desc());
+//                                textView0.setPadding(0,DensityUtil.dip2px(GoodsDetailsActivity.this,10),0,DensityUtil.dip2px(GoodsDetailsActivity.this,10));
+                llGoodDetail.addView(textView0);
+            }
+
+            for (int i = 0; i < goods_info.size(); i++) {
+                //循环遍历，有什么控件创建什么
+                int type = goods_info.get(i).getType();
+
+
+                switch (type) {
+                    case DETAIL_TITLE :
+                        TextView textView = new TextView(GoodsDetailsActivity.this);
+                        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                        lp.setMargins(0, DensityUtil.dip2px(GoodsDetailsActivity.this,10), 0, DensityUtil.dip2px(GoodsDetailsActivity.this,10));
+                        textView.setLayoutParams(lp);
+
+                        textView.setTextColor(Color.WHITE);
+                        textView.setTextSize(DensityUtil.dip2px(GoodsDetailsActivity.this,7));
+                        textView.setText(goods_info.get(i).getContent().getText());
+//                                        textView.setPadding(0,DensityUtil.dip2px(GoodsDetailsActivity.this,10),0,DensityUtil.dip2px(GoodsDetailsActivity.this,10));
+                        llGoodDetail.addView(textView);
+
+                        break;
+                    case DETAIL_CONTENT :
+                        TextView textView2 = new TextView(GoodsDetailsActivity.this);
+
+                        LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                        lp2.setMargins(0, DensityUtil.dip2px(GoodsDetailsActivity.this,10), 0, DensityUtil.dip2px(GoodsDetailsActivity.this,10));
+                        textView2.setLayoutParams(lp2);
+
+                        textView2.setTextColor(Color.GRAY);
+                        textView2.setTextSize(DensityUtil.dip2px(GoodsDetailsActivity.this,6));
+                        textView2.setText(goods_info.get(i).getContent().getText());
+//                                        textView2.setPadding(0,DensityUtil.dip2px(GoodsDetailsActivity.this,10),0,DensityUtil.dip2px(GoodsDetailsActivity.this,10));
+                        llGoodDetail.addView(textView2);
+
+                        break;
+                    case DETAIL_IMAGE :
+                        ImageView imageView = new ImageView(GoodsDetailsActivity.this);
+                        imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT));
+
+                        Glide.with(GoodsDetailsActivity.this)
+                                .load(goods_info.get(i).getContent().getImg())
+                                .into(imageView);
+
+                        llGoodDetail.addView(imageView);
+                        break;
+                }
+
+            }
+
+        }
     }
 
     @Override
@@ -200,7 +274,7 @@ public class GoodsDetailsActivity extends BaseActivity {
             goodsBanner.setImageLoader(new GlideImageLoader());
             //设置图片集合
             List<String> images_item = items.getImages_item();
-            if(images_item != null && images_item.size() > 0) {
+            if (images_item != null && images_item.size() > 0) {
                 goodsBanner.setImages(images_item);
                 //设置是否轮播
                 goodsBanner.isAutoPlay(false);
@@ -214,10 +288,11 @@ public class GoodsDetailsActivity extends BaseActivity {
             tvBrand.setText(items.getOwner_name());//品牌名
             tvGoodsname.setText(items.getGoods_name());
             tvPromotionNote.setText(items.getPromotion_note());
+            tvCollect.setText(items.getLike_count());
 
-            if(TextUtils.isEmpty(items.getDiscount_price())) {//如果折扣价为空
+            if (TextUtils.isEmpty(items.getDiscount_price())) {//如果折扣价为空
                 tvPrice.setText("￥" + items.getPrice());
-            }else {
+            } else {
                 //显示折扣前的价格
                 rlPriceold.setVisibility(View.VISIBLE);
                 tvPrice.setText("￥" + items.getDiscount_price());
@@ -228,7 +303,10 @@ public class GoodsDetailsActivity extends BaseActivity {
             Glide.with(GoodsDetailsActivity.this).load(items.getBrand_info().getBrand_logo()).into(ivBrandIcon);
             tvBrandName.setText(items.getBrand_info().getBrand_name());
 
-
+            /**
+             * 一进来页面就加载详情内容
+             */
+            initGoodDetail();
         }
 
     }

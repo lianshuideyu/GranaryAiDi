@@ -779,6 +779,16 @@ public class GoodsDetailsBean {
                     private int height;
                     private int length;
 
+                    private String text;
+
+                    public String getText() {
+                        return text;
+                    }
+
+                    public void setText(String text) {
+                        this.text = text;
+                    }
+
                     public String getImg() {
                         return img;
                     }
