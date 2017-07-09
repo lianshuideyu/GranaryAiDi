@@ -14,7 +14,9 @@ import com.atguigu.granaryaidi.Base.BaseFragment;
 import com.atguigu.granaryaidi.R;
 import com.atguigu.granaryaidi.bean.MagazineProductionItemBean;
 import com.atguigu.granaryaidi.common.NetLink;
+import com.atguigu.granaryaidi.utils.DateChange;
 import com.atguigu.granaryaidi.utils.HttpUtils;
+import com.atguigu.granaryaidi.view.Activity.MagazineTwoActivity;
 import com.atguigu.granaryaidi.view.Activity.ShopWebviewActivity;
 import com.atguigu.granaryaidi.view.adapter.magzine.MagazineHomeAdapter;
 
@@ -216,7 +218,13 @@ public class MagazineFragment extends BaseFragment {
             manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
                 public int getSpanSize(int position) {
+                    String addtime = beanitems.get(position).getAddtime();
+                    String month = addtime.substring(5, 7);
+                    String day = addtime.substring(8, 10);
 
+                    String englishMon = DateChange.dateFormat(month);
+                    String date = englishMon + "." + day;
+                    tvDate.setText(date);
 
                     return 1;
                 }
@@ -230,8 +238,8 @@ public class MagazineFragment extends BaseFragment {
                 public void onItemClick(int position) {
 
                     Intent intent = new Intent(context, ShopWebviewActivity.class);
-                    intent.putExtra(NetLink.HTML_URL,beanitems.get(position).getTopic_url());
-                    intent.putExtra(NetLink.HTML_TITLE,beanitems.get(position).getTopic_name());
+                    intent.putExtra(NetLink.HTML_URL, beanitems.get(position).getTopic_url());
+                    intent.putExtra(NetLink.HTML_TITLE, beanitems.get(position).getTopic_name());
                     startActivity(intent);
                 }
             });
@@ -245,6 +253,15 @@ public class MagazineFragment extends BaseFragment {
     @Override
     protected void initListener() {
 
+        //标题栏的点击事件
+        tvTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(context, MagazineTwoActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 }
