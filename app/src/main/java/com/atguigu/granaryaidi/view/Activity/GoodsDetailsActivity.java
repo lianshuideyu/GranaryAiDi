@@ -1,6 +1,7 @@
 package com.atguigu.granaryaidi.view.Activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.text.TextUtils;
 import android.util.Log;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import com.atguigu.granaryaidi.Base.BaseActivity;
 import com.atguigu.granaryaidi.R;
 import com.atguigu.granaryaidi.bean.GoodsDetailsBean;
+import com.atguigu.granaryaidi.bean.ShopPinPaiBean;
 import com.atguigu.granaryaidi.common.NetLink;
 import com.atguigu.granaryaidi.utils.DensityUtil;
 import com.atguigu.granaryaidi.utils.HttpUtils;
@@ -196,7 +198,7 @@ public class GoodsDetailsActivity extends BaseActivity {
                         ImageView imageView = new ImageView(GoodsDetailsActivity.this);
                         imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                                 LinearLayout.LayoutParams.WRAP_CONTENT));
-
+                        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                         Glide.with(GoodsDetailsActivity.this)
                                 .load(goods_info.get(i).getContent().getImg())
                                 .into(imageView);
@@ -353,7 +355,17 @@ public class GoodsDetailsActivity extends BaseActivity {
                 showToast("选择尺寸颜色数量");
                 break;
             case R.id.ll_brand:
-                showToast("进入品牌介绍");
+//                showToast("进入品牌介绍");
+                //将bean对象传过去
+                Intent intent = new Intent(GoodsDetailsActivity.this, ShopPinpaiActivity.class);
+                ShopPinPaiBean.DataBean.ItemsBean bean = new ShopPinPaiBean.DataBean.ItemsBean();
+                bean.setBrand_id(Integer.parseInt(items.getBrand_info().getBrand_id()));
+                bean.setBrand_name(items.getBrand_info().getBrand_name());
+                bean.setBrand_logo(items.getBrand_info().getBrand_logo());
+
+                intent.putExtra(NetLink.SHOP_PINPAI_LIST,bean);
+                startActivity(intent);
+
                 break;
             case R.id.bt_good_note:
                 showToast("售后须知");

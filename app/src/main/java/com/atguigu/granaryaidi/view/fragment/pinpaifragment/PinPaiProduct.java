@@ -1,11 +1,15 @@
 package com.atguigu.granaryaidi.view.fragment.pinpaifragment;
 
+import android.content.Intent;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.atguigu.granaryaidi.Base.BaseFragment;
 import com.atguigu.granaryaidi.R;
 import com.atguigu.granaryaidi.bean.ShopPinPaiListBean;
+import com.atguigu.granaryaidi.view.Activity.GoodsDetailsActivity;
 import com.atguigu.granaryaidi.view.adapter.shop.PinpaiListAdapter;
 
 import java.util.List;
@@ -66,7 +70,15 @@ public class PinPaiProduct extends BaseFragment {
 
     @Override
     protected void initListener() {
+        gvShopPinpai.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
+                Intent intent = new Intent(context, GoodsDetailsActivity.class);
+                intent.putExtra("goods_id",items.get(position).getGoods_id());
+                startActivity(intent);
+            }
+        });
     }
 
 }

@@ -74,6 +74,7 @@ public class ShopTypeActivity extends BaseActivity {
     public void initView() {
         //获取传递过来的联网链接
         url = getIntent().getStringExtra(NetLink.SHOP_URL);
+        tvTitle.setText("商店");
 
         //标题栏的按键显示
         ibShopBack.setVisibility(View.VISIBLE);
