@@ -219,5 +219,7 @@ public class NetLink {
     //杂志 -- 作者 -- 良仓 --->将此页面定为杂志 模块的首页
     public static final String MAGAZINE_AUTHOR_LIANGCANG = "http://mobile.iliangcang.com/topic/magazineList?app_key=Android&author_id=1&sig=2FA0974FFF1BC3DFA562AA63C8B5A84F%7C118265010131868&v=1.0";
 
+    //杂志 -二级界面- 作者 -- 列表
+    public static final String MAGAZINE_AUTHOR_LIST = "http://mobile.iliangcang.com/topic/magazineAuthorList?app_key=Android&sig=2FA0974FFF1BC3DFA562AA63C8B5A84F%7C118265010131868&v=1.0";
 
 }

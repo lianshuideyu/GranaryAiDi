@@ -89,6 +89,8 @@ public class MagazineTwoActivity extends BaseActivity {
 
     @OnClick(R.id.ll_back)
     public void onViewClicked() {
+
+        finish();
     }
 
     private class ShopFragmentAdapter extends FragmentPagerAdapter {
