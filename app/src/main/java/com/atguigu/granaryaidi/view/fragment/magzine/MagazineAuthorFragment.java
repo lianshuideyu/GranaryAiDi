@@ -1,7 +1,10 @@
 package com.atguigu.granaryaidi.view.fragment.magzine;
 
+import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.atguigu.granaryaidi.Base.BaseFragment;
@@ -9,6 +12,7 @@ import com.atguigu.granaryaidi.R;
 import com.atguigu.granaryaidi.bean.MagazineAuthorListBean;
 import com.atguigu.granaryaidi.common.NetLink;
 import com.atguigu.granaryaidi.utils.HttpUtils;
+import com.atguigu.granaryaidi.view.Activity.MagazineAuthorActivity;
 import com.atguigu.granaryaidi.view.adapter.magzine.MagazineAuthorAdapter;
 import com.google.gson.Gson;
 
@@ -91,6 +95,18 @@ public class MagazineAuthorFragment extends BaseFragment {
     @Override
     protected void initListener() {
 
+        //点击事件
+        lvAuthor.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+
+                Intent intent = new Intent(context, MagazineAuthorActivity.class);
+                intent.putExtra(NetLink.MAGAZINE_AUTHOR_ID,items.get(position).getAuthor_id());
+                intent.putExtra(NetLink.MAGAZINE_AUTHOR_NAME,items.get(position).getAuthor_name());
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
     }
 
 }
