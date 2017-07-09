@@ -211,4 +211,13 @@ public class NetLink {
     public static final String GOODS_DETAILS_START = "http://mobile.iliangcang.com/goods/goodsDetail?app_key=Android&goods_id=";
     public static final String GOODS_DETAILS_END = "&sig=BF287AF953103F390674E73DDA18CFD8%7C639843030233268&v=1.0";
 
+
+    /**
+     * 杂志 相关  的接口
+     *
+     */
+    //杂志 -- 作者 -- 良仓 --->将此页面定为杂志 模块的首页
+    public static final String MAGAZINE_AUTHOR_LIANGCANG = "http://mobile.iliangcang.com/topic/magazineList?app_key=Android&author_id=1&sig=2FA0974FFF1BC3DFA562AA63C8B5A84F%7C118265010131868&v=1.0";
+
+
 }
