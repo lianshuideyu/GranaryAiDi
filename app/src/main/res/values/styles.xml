@@ -7,6 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <!--<item name="android:windowContentTransitions">true</item>-->
 
     <style name="tab_bottom_style">
@@ -77,7 +78,7 @@
 
     </style>
 
-    <style name="Activity_transparentmy">
+    <style name="Activity_transparentmy" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>

@@ -1,15 +1,28 @@
 package com.atguigu.granaryaidi.view.Activity;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-
+import com.atguigu.granaryaidi.Base.BaseActivity;
 import com.atguigu.granaryaidi.R;
 
-public class GoodsGotoBuyActivity extends AppCompatActivity {
+public class GoodsGotoBuyActivity extends BaseActivity {
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_goods_goto_buy);
+    public void initListener() {
+
+    }
+
+    @Override
+    public void initData() {
+
+    }
+
+    @Override
+    public void initView() {
+
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_goods_goto_buy;
     }
 }
