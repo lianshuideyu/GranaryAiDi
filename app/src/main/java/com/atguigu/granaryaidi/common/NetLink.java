@@ -204,7 +204,7 @@ public class NetLink {
 
     /*http://mobile.iliangcang.com/user/masterLike?app_key=Android&count=10&owner_id=
     455123940&page=1&sig=CD0E234053E25DD6111E3DBD450A4B85%7C954252010968868&v=1.0*/
-    //粉丝
+    //喜欢
     public static final String DAREN_DETAILS_LIKE_START = "http://mobile.iliangcang.com/user/masterLike?app_key=Android&count=10&owner_id=";
     public static final String DAREN_DETAILS_LIKE_END = "&page=1&sig=CD0E234053E25DD6111E3DBD450A4B85%7C954252010968868&v=1.0";
 

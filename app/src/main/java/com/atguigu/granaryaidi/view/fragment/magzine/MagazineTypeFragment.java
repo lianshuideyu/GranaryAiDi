@@ -7,6 +7,7 @@ import com.atguigu.granaryaidi.Base.BaseFragment;
  */
 
 public class MagazineTypeFragment extends BaseFragment {
+
     @Override
     public int getLayoutId() {
         return 0;

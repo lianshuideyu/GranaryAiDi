@@ -16,8 +16,7 @@ import android.widget.TextView;
 import com.atguigu.granaryaidi.Base.BaseActivity;
 import com.atguigu.granaryaidi.Base.BaseFragment;
 import com.atguigu.granaryaidi.R;
-import com.atguigu.granaryaidi.bean.DaRenDefaultBean;
-import com.atguigu.granaryaidi.bean.DaRenRecommendBean;
+import com.atguigu.granaryaidi.bean.DaRenLikeBean;
 import com.atguigu.granaryaidi.common.NetLink;
 import com.atguigu.granaryaidi.utils.HttpUtils;
 import com.atguigu.granaryaidi.view.fragment.darenfragment.DarenGuanzhufragment;
@@ -61,7 +60,7 @@ public class DarenDetailsActivity extends BaseActivity {
     public RadioButton rbDarenFans;
 
     //从上级页面传来的数据
-    private DaRenDefaultBean.DataBean.ItemsBean bean;
+//    private DaRenDefaultBean.DataBean.ItemsBean bean;
 
 
     private List<BaseFragment> fragments;
@@ -124,6 +123,10 @@ public class DarenDetailsActivity extends BaseActivity {
     public void initData() {
 
         initFragment();
+        /**
+         * 联网,这里是为了获取 喜欢，推荐，关注，粉丝的数量
+         */
+        getDataFromNet();
 
 //        if(bean != null) {
 //
@@ -168,10 +171,10 @@ public class DarenDetailsActivity extends BaseActivity {
             darenrecomm.setUrl(url);
 
             String url1 = NetLink.DAREN_DETAILS_GUANZHU_START + uid + NetLink.DAREN_DETAILS_GUANZHU_END;
-            darenguanzhu.setUrl(url1,2);//第二个参数为位置
+            darenguanzhu.setUrl(url1, 2);//第二个参数为位置
 
             String url2 = NetLink.DAREN_DETAILS_FANS_START + uid + NetLink.DAREN_DETAILS_FANS_END;
-            darenfans.setUrl(url2,3);
+            darenfans.setUrl(url2, 3);
 
             String url3 = NetLink.DAREN_DETAILS_LIKE_START + uid + NetLink.DAREN_DETAILS_LIKE_END;
             darenlike.setUrl(url3);
@@ -195,43 +198,51 @@ public class DarenDetailsActivity extends BaseActivity {
     }
 
     /**
-     * 联网
+     * 联网,这里是为了获取 喜欢，推荐，关注，粉丝的数量
      */
     private void getDataFromNet() {
         //这里需要拼接联网 链接
-        String url = NetLink.DAREN_DETAILS_RECOMMEND_START + bean.getUid() + NetLink.DAREN_DETAILS_RECOMMEND_END;
+        if (!TextUtils.isEmpty(uid)) {
 
-        HttpUtils.getInstance().get(url, new HttpUtils.MyHttpClickListener() {
-            @Override
-            public void onSuccess(String content) {
-                Log.e("daren", "联网成功==" + content);
-                if (!TextUtils.isEmpty(content)) {
-                    //解析数据
-                    processData(content);
+            String url = NetLink.DAREN_DETAILS_LIKE_START + uid + NetLink.DAREN_DETAILS_LIKE_END;
+
+            HttpUtils.getInstance().get(url, new HttpUtils.MyHttpClickListener() {
+                @Override
+                public void onSuccess(String content) {
+                    Log.e("daren", "联网成功==" + content);
+                    if (!TextUtils.isEmpty(content)) {
+                        //解析数据
+                        processData(content);
+                    }
+
                 }
 
-            }
+                @Override
+                public void onFailure(String content) {
+                    Log.e("daren", "联网失败==" + content);
+                }
+            });
 
-            @Override
-            public void onFailure(String content) {
-                Log.e("daren", "联网失败==" + content);
-            }
-        });
-
-
+        }
     }
 
     /**
-     * 解析数据
+     * 解析数据,设置 喜欢，推荐，关注，粉丝的数量
      */
     private void processData(String content) {
+        DaRenLikeBean bean = new Gson().fromJson(content, DaRenLikeBean.class);
 
-        DaRenRecommendBean bean = new Gson().fromJson(content, DaRenRecommendBean.class);
+//        Log.e("darenlike", "二级页面解析成功==" + bean.getData().getItems().getUser_name());
+        DaRenLikeBean.DataBean.ItemsBean items = bean.getData().getItems();
+        if(items != null) {
+            rbDarenLike.setText("喜欢\n" + items.getLike_count());
+            rbDarenRecommend.setText("推荐\n" + items.getRecommendation_count());
+            rbDarenCare.setText("关注\n" + items.getFollowing_count());
+            rbDarenFans.setText("粉丝\n" + items.getFollowed_count());
 
-        bean.getData().getItems();
-//
-        Log.e("daren", "二级页面解析成功==" + bean.getData().getItems().getUser_name());
-//
+        }
+
+
 //        if(items != null && items.size() > 0) {
 //            //将相应的数据传递给fragment
 //            //将品牌故事传给 PinPaiStory
@@ -244,9 +255,10 @@ public class DarenDetailsActivity extends BaseActivity {
 
     }
 
-    public static Activity getInstance(){
+    public static Activity getInstance() {
         return instance;
     }
+
     @Override
     public void initView() {
 
