@@ -125,9 +125,6 @@ public class MagazineTwoActivity extends BaseActivity {
     public void activityAnmotion() {
         super.activityAnmotion();
 
-        //        getWindow().setEnterTransition(new Explode().setDuration(2000));
-//        getWindow().setExitTransition(new Explode().setDuration(2000));
-        // 设置contentFeature,可使用切换动画
 
 //        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
 //        android.transition.Transition explode = null;
@@ -135,13 +132,21 @@ public class MagazineTwoActivity extends BaseActivity {
 //            explode = TransitionInflater.from(this).inflateTransition(android.R.transition.slide_right);
 //        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setEnterTransition(new Explode().setDuration(900));
-            getWindow().setExitTransition(new Explode().setDuration(800));
+            //方法一
+            getWindow().setEnterTransition(new Explode().setDuration(700));
+            getWindow().setExitTransition(new Explode().setDuration(700));
 
+            //效果二
 //            getWindow().setEnterTransition(new Slide().setDuration(1000));
 //            getWindow().setExitTransition(new Slide().setDuration(1000));
+            //效果三
 //            getWindow().setEnterTransition(new Fade().setDuration(2000));
 //            getWindow().setExitTransition(new Fade().setDuration(2000));
+
+            //方法二
+//            android.transition.Transition explode = TransitionInflater.from(this)
+//                    .inflateTransition(android.R.transition.slide_top);
+//            getWindow().setEnterTransition(explode);
         }
     }
 

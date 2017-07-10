@@ -1,7 +1,9 @@
 package com.atguigu.granaryaidi;
 
+import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.transition.TransitionInflater;
 import android.util.Log;
 import android.widget.RadioGroup;
 
@@ -29,6 +31,23 @@ public class MainActivity extends BaseActivity {
     private int position;
 
     private Fragment tempFragment;//用于缓存的Fragment
+
+    /**
+     * 设置转场动画
+     */
+    @Override
+    public void activityAnmotion() {
+        super.activityAnmotion();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+            //方法二,从右边进来
+            android.transition.Transition explode = TransitionInflater.from(this)
+                    .inflateTransition(android.R.transition.slide_right);
+            getWindow().setEnterTransition(explode);
+        }
+
+    }
 
     @Override
     public void initListener() {

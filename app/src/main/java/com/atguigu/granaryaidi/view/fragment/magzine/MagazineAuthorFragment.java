@@ -1,6 +1,8 @@
 package com.atguigu.granaryaidi.view.fragment.magzine;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -100,11 +102,27 @@ public class MagazineAuthorFragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
-                Intent intent = new Intent(context, MagazineAuthorActivity.class);
-                intent.putExtra(NetLink.MAGAZINE_AUTHOR_ID,items.get(position).getAuthor_id());
-                intent.putExtra(NetLink.MAGAZINE_AUTHOR_NAME,items.get(position).getAuthor_name());
-                startActivity(intent);
-                getActivity().finish();
+//                Intent intent = new Intent(context, MagazineAuthorActivity.class);
+//                intent.putExtra(NetLink.MAGAZINE_AUTHOR_ID,items.get(position).getAuthor_id());
+//                intent.putExtra(NetLink.MAGAZINE_AUTHOR_NAME,items.get(position).getAuthor_name());
+//                startActivity(intent);
+//                getActivity().finish();
+
+                //设置转场动画
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    Intent intent = new Intent(context, MagazineAuthorActivity.class);
+                    intent.putExtra(NetLink.MAGAZINE_AUTHOR_ID,items.get(position).getAuthor_id());
+                    intent.putExtra(NetLink.MAGAZINE_AUTHOR_NAME,items.get(position).getAuthor_name());
+
+                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+                    getActivity().finish();
+                } else {
+                    Intent intent = new Intent(context, MagazineAuthorActivity.class);
+                    intent.putExtra(NetLink.MAGAZINE_AUTHOR_ID,items.get(position).getAuthor_id());
+                    intent.putExtra(NetLink.MAGAZINE_AUTHOR_NAME,items.get(position).getAuthor_name());
+                    startActivity(intent);
+                    getActivity().finish();
+                }
             }
         });
     }

@@ -1,6 +1,8 @@
 package com.atguigu.granaryaidi.view.fragment.shopfragment;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -131,10 +133,23 @@ public class ClassifyFragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
-                Intent intent = new Intent(context, ShopTypeActivity.class);
-                //将对应的类型链接传到 商品列表页面
-                intent.putExtra(NetLink.SHOP_URL,typeUrls[position]);
-                startActivity(intent);
+//                Intent intent = new Intent(context, ShopTypeActivity.class);
+//                //将对应的类型链接传到 商品列表页面
+//                intent.putExtra(NetLink.SHOP_URL,typeUrls[position]);
+//                startActivity(intent);
+
+                //设置转场动画
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    Intent intent = new Intent(context, ShopTypeActivity.class);
+                    intent.putExtra(NetLink.SHOP_URL,typeUrls[position]);
+                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+                } else {
+
+                    Intent intent = new Intent(context, ShopTypeActivity.class);
+                    //将对应的类型链接传到 商品列表页面
+                    intent.putExtra(NetLink.SHOP_URL,typeUrls[position]);
+                    startActivity(intent);
+                }
             }
         });
 

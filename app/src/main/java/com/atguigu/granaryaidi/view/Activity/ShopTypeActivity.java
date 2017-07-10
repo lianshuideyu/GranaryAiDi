@@ -1,7 +1,9 @@
 package com.atguigu.granaryaidi.view.Activity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.text.TextUtils;
+import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -46,6 +48,23 @@ public class ShopTypeActivity extends BaseActivity {
      */
     private List<ShopTypeListBean.DataBean.ItemsBean> items;
     private ClassifyListAdapter adapter;
+
+    /**
+     * 设置转场动画
+     */
+    @Override
+    public void activityAnmotion() {
+        super.activityAnmotion();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+            //方法二,从右边进来
+            android.transition.Transition explode = TransitionInflater.from(this)
+                    .inflateTransition(android.R.transition.slide_right);
+            getWindow().setEnterTransition(explode);
+        }
+
+    }
 
     @Override
     public void initListener() {

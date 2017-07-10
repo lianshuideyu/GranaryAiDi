@@ -80,7 +80,7 @@ public class MagazineFragment extends BaseFragment {
             public View makeView() {
                 TextView tv = new TextView(context);
                 //设置文字大小
-                tv.setTextSize(DensityUtil.dip2px(context, 7));
+                tv.setTextSize(DensityUtil.dip2px(context, 5));
                 //设置文字 颜色getResources().getColor(R.color.TextSwitcher)
                 tv.setTextColor(Color.parseColor("#4c78a4"));
 
@@ -306,14 +306,6 @@ public class MagazineFragment extends BaseFragment {
                     Intent intent = new Intent(context, MagazineTwoActivity.class);
                     startActivity(intent);
                 }
-
-                /**
-                 * 自定义动画
-                 */
-//                ActivityOptionsCompat compat = ActivityOptionsCompat.makeCustomAnimation(this,
-//                        R.anim.translate_in, R.anim.translate_none);
-//                ActivityCompat.startActivity(this,
-//                        new Intent(this, Activity2.class), compat.toBundle());
 
             }
         });

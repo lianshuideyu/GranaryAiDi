@@ -1,9 +1,12 @@
 package com.atguigu.granaryaidi.view.Activity;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -57,11 +60,35 @@ public class MagazineAuthorActivity extends BaseActivity {
         tvTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MagazineAuthorActivity.this, MagazineTwoActivity.class);
-                startActivity(intent);
+
+                //设置转场动画
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    startActivity(new Intent(MagazineAuthorActivity.this, MagazineTwoActivity.class),
+                            ActivityOptions.makeSceneTransitionAnimation(MagazineAuthorActivity.this).toBundle());
+                } else {
+                    Intent intent = new Intent(MagazineAuthorActivity.this, MagazineTwoActivity.class);
+                    startActivity(intent);
+                }
 
             }
         });
+    }
+
+    /**
+     * 设置转场动画
+     */
+    @Override
+    public void activityAnmotion() {
+        super.activityAnmotion();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+            //方法二,从右边进来
+            android.transition.Transition explode = TransitionInflater.from(this)
+                    .inflateTransition(android.R.transition.slide_right);
+            getWindow().setEnterTransition(explode);
+        }
+
     }
 
     @Override
