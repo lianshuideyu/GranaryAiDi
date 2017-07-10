@@ -1,8 +1,10 @@
 package com.atguigu.granaryaidi.view.Activity;
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -398,12 +400,44 @@ public class GoodsDetailsActivity extends BaseActivity {
                 break;
             case R.id.bt_incart:
 //                showToast("加入购物车");
-                startActivity(new Intent(this, GoodsGotoBuyActivity.class));
+
+                //设置转场动画
+                startActivityAnimation();
+
                 break;
             case R.id.bt_gobuy:
 //                showToast("直接购买");
-                startActivity(new Intent(this, GoodsGotoBuyActivity.class));
+                startActivityAnimation();
                 break;
         }
+    }
+
+    /**
+     * 设置转场动画
+     */
+    private void startActivityAnimation() {
+        if(items != null ) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                Intent intent1 = new Intent(GoodsDetailsActivity.this, GoodsGotoBuyActivity.class);
+//                intent1.putExtra("goods_image",items.getGoods_image());
+//                intent1.putExtra("goods_name",items.getGoods_name());
+//                intent1.putExtra("price",items.getPrice());
+//                intent1.putExtra("brand_name",items.getBrand_info().getBrand_name());
+//                intent1.putExtra("discount_price",items.getDiscount_price());
+//                intent1.putExtra("sku_info", (Serializable)items.getSku_info());
+
+
+                intent1.putExtra("goodsbean",items);
+                startActivity(intent1, ActivityOptions.makeSceneTransitionAnimation(GoodsDetailsActivity.this).toBundle());
+            } else {
+
+                Intent intent1 = new Intent(GoodsDetailsActivity.this, GoodsGotoBuyActivity.class);
+
+                intent1.putExtra("goodsbean",items);
+                //将对应的类型链接传到 商品列表页面
+                startActivity(intent1);
+            }
+        }
+
     }
 }

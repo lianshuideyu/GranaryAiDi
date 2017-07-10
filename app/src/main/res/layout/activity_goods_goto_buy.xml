@@ -60,10 +60,10 @@
             android:textSize="25dp" />
 
         <View
-            android:layout_marginTop="20dp"
-            android:background="#C5C5C5"
             android:layout_width="match_parent"
-            android:layout_height="1dp"/>
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
+            android:background="#C5C5C5" />
         <!--动态改变-->
         <TextView
             android:id="@+id/tv_product_type"
@@ -95,16 +95,17 @@
 
         <!--自定义控件 可 加减数量-->
         <com.atguigu.granaryaidi.view.viewmyself.AddSubView
-            android:layout_marginTop="20dp"
             android:id="@+id/nas_goodinfo_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-             />
+            android:layout_marginTop="20dp" />
 
     </LinearLayout>
 
     <!--商品图标-->
     <ImageView
+        android:scaleType="fitXY"
+        android:id="@+id/iv_brand_buy_logo"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_centerHorizontal="true"

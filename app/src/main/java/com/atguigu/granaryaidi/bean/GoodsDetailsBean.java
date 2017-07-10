@@ -1,5 +1,6 @@
 package com.atguigu.granaryaidi.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -163,7 +164,7 @@ public class GoodsDetailsBean {
             this.items = items;
         }
 
-        public static class ItemsBean {
+        public static class ItemsBean implements Serializable {
             /**
              * goods_id : 258055
              * goods_image : http://imgs-qn.iliangcang.com/ware/goods/big/2/258/258055.jpg?t=1497525912
@@ -518,7 +519,7 @@ public class GoodsDetailsBean {
                 this.goods_info = goods_info;
             }
 
-            public static class BrandInfoBean {
+            public static class BrandInfoBean implements Serializable{
                 /**
                  * brand_id : 819
                  * brand_name : JEX捷古斯
@@ -564,7 +565,7 @@ public class GoodsDetailsBean {
                 }
             }
 
-            public static class GoodGuideBean {
+            public static class GoodGuideBean implements Serializable{
                 /**
                  * title : 购物指南
                  * content : 所有商品均为正品保证。
@@ -593,7 +594,7 @@ public class GoodsDetailsBean {
                 }
             }
 
-            public static class SkuInfoBean {
+            public static class SkuInfoBean implements Serializable{
                 /**
                  * type_id : 7
                  * type_name : 数量
@@ -638,7 +639,7 @@ public class GoodsDetailsBean {
                     this.attrList = attrList;
                 }
 
-                public static class AttrListBean {
+                public static class AttrListBean implements Serializable{
                     /**
                      * attr_id : 24
                      * attr_name : 一瓶
@@ -675,7 +676,7 @@ public class GoodsDetailsBean {
                 }
             }
 
-            public static class SkuInvBean {
+            public static class SkuInvBean implements Serializable{
                 /**
                  * goods_sku_sn : 0101000000000000258055000700240000000000000000000000000000000000
                  * type_keys : 7
@@ -741,7 +742,7 @@ public class GoodsDetailsBean {
                 }
             }
 
-            public static class GoodsInfoBean {
+            public static class GoodsInfoBean implements Serializable{
                 /**
                  * type : 1
                  * content : {"img":"http://imgs-qn.iliangcang.com//ware/ueditor/image/20170615/1497517601881120.jpg","width":661,"height":792,"length":79}
@@ -766,7 +767,7 @@ public class GoodsDetailsBean {
                     this.content = content;
                 }
 
-                public static class ContentBean {
+                public static class ContentBean implements Serializable{
                     /**
                      * img : http://imgs-qn.iliangcang.com//ware/ueditor/image/20170615/1497517601881120.jpg
                      * width : 661

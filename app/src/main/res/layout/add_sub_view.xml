@@ -11,7 +11,7 @@
         android:layout_height="35dp"
         android:layout_marginRight="10dp"
         android:background="#424950"
-        android:src="@drawable/goods_sub_btn" />
+        android:src="@drawable/minus" />
 
     <TextView
         android:id="@+id/tv_value"
@@ -29,6 +29,6 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:background="#424950"
-        android:src="@drawable/goods_add_btn" />
+        android:src="@drawable/add" />
 
 </LinearLayout>
