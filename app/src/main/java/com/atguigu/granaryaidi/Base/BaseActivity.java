@@ -16,6 +16,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //转场动画
+        activityAnmotion();
+
         setContentView(getLayoutId());
 
         ButterKnife.inject(this);
@@ -25,6 +28,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         initData();
 
         initListener();
+    }
+
+    public void activityAnmotion() {
+
     }
 
     public abstract void initListener();

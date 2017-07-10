@@ -1,7 +1,9 @@
 package com.atguigu.granaryaidi.view.fragment;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -50,9 +52,10 @@ public class MagazineFragment extends BaseFragment {
     @InjectView(R.id.pb_bar)
     ProgressBar pb_bar;
 
-/*
-* android:textColor="#4c78a4"
-        android:textSize="10sp"*/
+
+    /*
+    * android:textColor="#4c78a4"
+            android:textSize="10sp"*/
     private MagazineHomeAdapter adapter;
 
 
@@ -75,9 +78,9 @@ public class MagazineFragment extends BaseFragment {
         tvDate.setFactory(new ViewSwitcher.ViewFactory() {
             //这里 用来创建内部的视图，这里创建TextView，用来显示文字
             public View makeView() {
-                TextView tv =new TextView(context);
+                TextView tv = new TextView(context);
                 //设置文字大小
-                tv.setTextSize(DensityUtil.dip2px(context,7));
+                tv.setTextSize(DensityUtil.dip2px(context, 7));
                 //设置文字 颜色getResources().getColor(R.color.TextSwitcher)
                 tv.setTextColor(Color.parseColor("#4c78a4"));
 
@@ -293,8 +296,25 @@ public class MagazineFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(context, MagazineTwoActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(context, MagazineTwoActivity.class);
+//                startActivity(intent);
+                //设置转场动画
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    startActivity(new Intent(context, MagazineTwoActivity.class),
+                            ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+                } else {
+                    Intent intent = new Intent(context, MagazineTwoActivity.class);
+                    startActivity(intent);
+                }
+
+                /**
+                 * 自定义动画
+                 */
+//                ActivityOptionsCompat compat = ActivityOptionsCompat.makeCustomAnimation(this,
+//                        R.anim.translate_in, R.anim.translate_none);
+//                ActivityCompat.startActivity(this,
+//                        new Intent(this, Activity2.class), compat.toBundle());
+
             }
         });
     }

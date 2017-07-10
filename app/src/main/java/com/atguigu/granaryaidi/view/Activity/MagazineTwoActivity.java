@@ -1,13 +1,18 @@
 package com.atguigu.granaryaidi.view.Activity;
 
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.transition.Explode;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.atguigu.granaryaidi.Base.BaseActivity;
@@ -34,6 +39,10 @@ public class MagazineTwoActivity extends BaseActivity {
     @InjectView(R.id.ll_back)
     LinearLayout llBack;
 
+    @InjectView(R.id.iv_a)
+    ImageView iv_a;
+    @InjectView(R.id.iv_b)
+    ImageView iv_b;
     /**
      * TagbLayout的标题信息
      */
@@ -46,6 +55,34 @@ public class MagazineTwoActivity extends BaseActivity {
     @Override
     public void initListener() {
 
+        final Drawable backgrounda = iv_a.getBackground();
+        final Drawable backgroundb = iv_b.getBackground();
+
+        vpMagazine.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+            @Override
+            public void onPageSelected(int position) {
+
+
+                if(position == 0) {
+                    iv_a.setBackground(null);
+                    iv_b.setBackground(backgroundb);
+                }else {
+                    iv_a.setBackground(backgrounda);
+                    iv_b.setBackground(null);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     @Override
@@ -81,6 +118,34 @@ public class MagazineTwoActivity extends BaseActivity {
 
     }
 
+    /*
+    * 设置Activity的转场动画，要在 activity的setContentView(getLayoutId());前设置
+     */
+    @Override
+    public void activityAnmotion() {
+        super.activityAnmotion();
+
+        //        getWindow().setEnterTransition(new Explode().setDuration(2000));
+//        getWindow().setExitTransition(new Explode().setDuration(2000));
+        // 设置contentFeature,可使用切换动画
+
+//        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+//        android.transition.Transition explode = null;
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            explode = TransitionInflater.from(this).inflateTransition(android.R.transition.slide_right);
+//        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setEnterTransition(new Explode().setDuration(900));
+            getWindow().setExitTransition(new Explode().setDuration(800));
+
+//            getWindow().setEnterTransition(new Slide().setDuration(1000));
+//            getWindow().setExitTransition(new Slide().setDuration(1000));
+//            getWindow().setEnterTransition(new Fade().setDuration(2000));
+//            getWindow().setExitTransition(new Fade().setDuration(2000));
+        }
+    }
+
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_magazine_two;
@@ -90,7 +155,15 @@ public class MagazineTwoActivity extends BaseActivity {
     @OnClick(R.id.ll_back)
     public void onViewClicked() {
 
-        finish();
+        //系统的返回键
+        onBackPressed();
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+//        ActivityCompat.finishAfterTransition(this);
     }
 
     private class ShopFragmentAdapter extends FragmentPagerAdapter {
