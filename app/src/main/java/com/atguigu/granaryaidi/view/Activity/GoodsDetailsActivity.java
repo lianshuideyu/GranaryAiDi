@@ -264,7 +264,7 @@ public class GoodsDetailsActivity extends BaseActivity {
         GoodsDetailsBean bean = new Gson().fromJson(content, GoodsDetailsBean.class);
         items = bean.getData().getItems();
 
-        Log.e("gooddetail", "解析成功==" + items.getGoods_name());
+//        Log.e("gooddetail", "解析成功==" + items.getGoods_name());
 
         if (items != null) {
 
@@ -309,6 +309,23 @@ public class GoodsDetailsActivity extends BaseActivity {
              * 一进来页面就加载详情内容
              */
             initGoodDetail();
+        }else {
+            //没有数据
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    showToast("商品已下架");
+                }
+            });
+            //品牌栏不能点击
+            llBrand.setEnabled(false);
+            llChooseColorsize.setEnabled(false);
+            tvCallservice.setEnabled(false);
+            btIncart.setEnabled(false);
+            btGobuy.setEnabled(false);
+            tvCollect.setEnabled(false);
+            ivShare.setEnabled(false);
+            ibTopCart.setEnabled(false);
         }
 
     }

@@ -1,6 +1,5 @@
 package com.atguigu.granaryaidi.view.fragment.darenfragment;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
@@ -118,7 +117,6 @@ public class DarenGuanzhufragment extends BaseFragment {
     /**
      * 解析数据
      */
-    private boolean isFirst = false;//判断是否为第一次切换到该页面
 
     private void processData(String content) {
 
@@ -133,19 +131,6 @@ public class DarenGuanzhufragment extends BaseFragment {
             adapter = new DarenGuanzhuAdapter(context, users);
 
             gvDarenGuanzhu.setAdapter(adapter);
-            //设置数据
-            Activity instance = DarenDetailsActivity.getInstance();
-            DarenDetailsActivity activity = (DarenDetailsActivity) instance;
-
-            if (!isFirst) {//为了解决 进行多次点击事件，进入多级页面后 回退 出现空指针异常的现象
-                if (position == 2) {
-
-//                    activity.rbDarenCare.setText("关注\n" + bean.getData().getNum_items());
-                } else if (position == 3) {
-//                    activity.rbDarenFans.setText("粉丝\n" + bean.getData().getNum_items());
-                }
-                isFirst = true;
-            }
 
         }
 

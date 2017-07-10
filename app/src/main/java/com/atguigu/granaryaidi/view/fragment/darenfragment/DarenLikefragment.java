@@ -1,15 +1,17 @@
 package com.atguigu.granaryaidi.view.fragment.darenfragment;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.atguigu.granaryaidi.Base.BaseFragment;
 import com.atguigu.granaryaidi.R;
 import com.atguigu.granaryaidi.bean.DaRenLikeBean;
 import com.atguigu.granaryaidi.utils.HttpUtils;
-import com.atguigu.granaryaidi.view.Activity.DarenDetailsActivity;
+import com.atguigu.granaryaidi.view.Activity.GoodsDetailsActivity;
 import com.atguigu.granaryaidi.view.adapter.daren.DarenLikeAdapter;
 import com.google.gson.Gson;
 
@@ -48,6 +50,20 @@ public class DarenLikefragment extends BaseFragment {
     @Override
     protected void initListener() {
 
+        /**
+         * 点击事件，点击进入商品详情页
+         */
+        gvDarenRecommend.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                if(goods != null && goods.size() > 0) {
+                    Intent intent = new Intent(context, GoodsDetailsActivity.class);
+                    intent.putExtra("goods_id",goods.get(position).getGoods_id());
+                    startActivity(intent);
+
+                }
+            }
+        });
     }
 
     /**
@@ -101,7 +117,6 @@ public class DarenLikefragment extends BaseFragment {
     /**
      * 解析数据
      */
-    private boolean isFirst = false;
 
     private void processData(String content) {
 
@@ -117,14 +132,7 @@ public class DarenLikefragment extends BaseFragment {
             gvDarenRecommend.setAdapter(adapter);
             //设置数据
 
-            //设置数据
-            Activity instance = DarenDetailsActivity.getInstance();
-            DarenDetailsActivity activity = (DarenDetailsActivity) instance;
 
-            if (!isFirst) {
-//                activity.rbDarenLike.setText("喜欢\n" + bean.getData().getNum_items());
-                isFirst = true;
-            }
         }
 
     }
