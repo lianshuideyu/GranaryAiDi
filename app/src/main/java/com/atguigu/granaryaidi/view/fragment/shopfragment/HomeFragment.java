@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.atguigu.granaryaidi.Base.BaseFragment;
 import com.atguigu.granaryaidi.R;
-import com.atguigu.granaryaidi.bean.ShopHomeBean;
+import com.atguigu.granaryaidi.bean.Shoptwo.ShopTwoHomeBean;
 import com.atguigu.granaryaidi.common.NetLink;
 import com.atguigu.granaryaidi.utils.HttpUtils;
 import com.atguigu.granaryaidi.view.adapter.shop.HomeAdapter;
@@ -38,7 +38,7 @@ public class HomeFragment extends BaseFragment {
     ImageButton ibTop;
 
 
-    private List<ShopHomeBean.DataBean.ItemsBean.ListBean> lists;
+    private List<ShopTwoHomeBean.DataBean.ItemsBean.ListBeanX> lists;
     private HomeAdapter adapter;
     /**
      * RecyclerView的布局管理器
@@ -90,11 +90,11 @@ public class HomeFragment extends BaseFragment {
      * 解析数据
      */
     private void processData(String content) {
-        ShopHomeBean bean = new Gson().fromJson(content, ShopHomeBean.class);
+        ShopTwoHomeBean bean = new Gson().fromJson(content, ShopTwoHomeBean.class);
 
         lists = bean.getData().getItems().getList();
 
-        Log.e("home", "解析==" + bean.getData().getItems().getList().get(0).getOne().getTopic_name());
+//        Log.e("home", "解析==" + bean.getData().getItems().getList().get(0).getOne().getTopic_name());
 
         if (lists != null && lists.size() > 0) {
 

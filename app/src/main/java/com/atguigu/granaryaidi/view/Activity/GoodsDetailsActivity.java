@@ -398,9 +398,11 @@ public class GoodsDetailsActivity extends BaseActivity {
                 break;
             case R.id.bt_incart:
                 showToast("加入购物车");
+                startActivity(new Intent(this, GoodsGotoBuyActivity.class));
                 break;
             case R.id.bt_gobuy:
                 showToast("直接购买");
+                startActivity(new Intent(this, GoodsGotoBuyActivity.class));
                 break;
         }
     }

@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.atguigu.granaryaidi.R;
-import com.atguigu.granaryaidi.bean.ShopHomeBean;
+import com.atguigu.granaryaidi.bean.Shoptwo.ShopTwoHomeBean;
 import com.atguigu.granaryaidi.view.Activity.ShopWebviewActivity;
 import com.bumptech.glide.Glide;
 
@@ -22,11 +22,11 @@ import java.util.List;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder> {
 
-    private final List<ShopHomeBean.DataBean.ItemsBean.ListBean> datas;
+    private final List<ShopTwoHomeBean.DataBean.ItemsBean.ListBeanX> datas;
     private final Context context;
 
 
-    public HomeAdapter(Context context, List<ShopHomeBean.DataBean.ItemsBean.ListBean> lists) {
+    public HomeAdapter(Context context, List<ShopTwoHomeBean.DataBean.ItemsBean.ListBeanX> lists) {
         this.context = context;
         this.datas = lists;
     }
@@ -46,19 +46,25 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
      * 文字
      */
     private static final int TYPE_FOUR = 2;
+    /**
+     * 购物接口
+     */
+    private static final int TYPE_shop = 3;
 
     @Override
     public int getItemViewType(int position) {
         int itemViewType = -1;
-        ShopHomeBean.DataBean.ItemsBean.ListBean bean = datas.get(position);
+        ShopTwoHomeBean.DataBean.ItemsBean.ListBeanX bean = datas.get(position);
         //根据位置，从列表中得到一个数据对象
-        String type = bean.getHome_type();
-        if ("1".equals(type)) {
+        int type = bean.getHome_type();
+        if (type == 1) {
             itemViewType = TYPE_ONE;
-        } else if ("2".equals(type)) {
+        } else if (type == 2) {
             itemViewType = TYPE_TWO;
-        } else if ("4".equals(type)) {
+        } else if (type == 4) {
             itemViewType = TYPE_FOUR;
+        } else if (type == 6) {
+            itemViewType = TYPE_shop;
         }
 
 //        Log.e("home", "homeadapter__type==" + itemViewType);
@@ -85,6 +91,11 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
                 baseViewHolder = new FourViewHolder(LayoutInflater.from(context)
                         .inflate(R.layout.four_home_item, parent, false));
                 Log.e("home", "onCreateViewHolder---TYPE_FOUR");
+                break;
+            case TYPE_shop:
+                baseViewHolder = new ShopViewHolder(LayoutInflater.from(context)
+                        .inflate(R.layout.shop_home_item, parent, false));
+                Log.e("home", "onCreateViewHolder---TYPE_shop");
                 break;
 
         }
@@ -117,12 +128,42 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
                 fourHoder.setData(datas.get(position));
 
                 break;
+            case TYPE_shop:
+                ShopViewHolder shopHoder = (ShopViewHolder) holder;
+
+                shopHoder.setData(datas.get(position));
+
+                break;
         }
     }
 
     @Override
     public int getItemCount() {
         return datas.size();
+    }
+
+    class ShopViewHolder extends BaseViewHolder {
+
+        private ImageView iv_home_shop;
+
+        public ShopViewHolder(View itemView) {
+            super(itemView);
+
+            iv_home_shop = (ImageView) itemView.findViewById(R.id.iv_home_shop);
+        }
+
+        @Override
+        public void setData(ShopTwoHomeBean.DataBean.ItemsBean.ListBeanX bean) {
+            super.setData(bean);
+
+            //加载图片
+            String img = bean.getList().get(0).getPic_url();
+            Glide.with(context)
+                    .load(img)
+                    .error(R.drawable.brand_bg)
+                    .placeholder(R.drawable.brand_bg)
+                    .into(this.iv_home_shop);
+        }
     }
 
     class BaseViewHolder extends RecyclerView.ViewHolder {
@@ -135,7 +176,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
         /**
          * 设置公共的数据
          */
-        public void setData(ShopHomeBean.DataBean.ItemsBean.ListBean bean) {
+        public void setData(ShopTwoHomeBean.DataBean.ItemsBean.ListBeanX bean) {
 
         }
     }
@@ -154,7 +195,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
         }
 
         @Override
-        public void setData(final ShopHomeBean.DataBean.ItemsBean.ListBean bean) {
+        public void setData(final ShopTwoHomeBean.DataBean.ItemsBean.ListBeanX bean) {
             super.setData(bean);
 
             //加载图片
@@ -171,8 +212,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
 //                    Toast.makeText(context, "点击了", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(context, ShopWebviewActivity.class);
 //                    intent.putExtra("html",bean.getOne());
-                    intent.putExtra("htmlurl",bean.getOne().getTopic_url());
-                    intent.putExtra("htmlname",bean.getOne().getTopic_name());
+                    intent.putExtra("htmlurl", bean.getOne().getTopic_url());
+                    intent.putExtra("htmlname", bean.getOne().getTopic_name());
                     context.startActivity(intent);
                 }
             });
@@ -195,7 +236,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
         }
 
         @Override
-        public void setData(final ShopHomeBean.DataBean.ItemsBean.ListBean bean) {
+        public void setData(final ShopTwoHomeBean.DataBean.ItemsBean.ListBeanX bean) {
             super.setData(bean);
 
             //加载图片
@@ -214,8 +255,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
 //                    Toast.makeText(context, "点击了", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(context, ShopWebviewActivity.class);
 //                    intent.putExtra("html",bean.getOne());
-                    intent.putExtra("htmlurl",bean.getOne().getTopic_url());
-                    intent.putExtra("htmlname",bean.getOne().getTopic_name());
+                    intent.putExtra("htmlurl", bean.getOne().getTopic_url());
+                    intent.putExtra("htmlname", bean.getOne().getTopic_name());
                     context.startActivity(intent);
                 }
             });
@@ -226,8 +267,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
 //                    Toast.makeText(context, "点击了", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(context, ShopWebviewActivity.class);
 //                    intent.putExtra("html",bean.getTwo());
-                    intent.putExtra("htmlurl",bean.getTwo().getTopic_url());
-                    intent.putExtra("htmlname",bean.getTwo().getTopic_name());
+                    intent.putExtra("htmlurl", bean.getTwo().getTopic_url());
+                    intent.putExtra("htmlname", bean.getTwo().getTopic_name());
                     context.startActivity(intent);
                 }
             });
@@ -254,7 +295,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
         }
 
         @Override
-        public void setData(final ShopHomeBean.DataBean.ItemsBean.ListBean bean) {
+        public void setData(final ShopTwoHomeBean.DataBean.ItemsBean.ListBeanX bean) {
             super.setData(bean);
 
             //加载图片
@@ -283,8 +324,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
 //                    Toast.makeText(context, "点击了", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(context, ShopWebviewActivity.class);
 //                    intent.putExtra("html",bean.getOne());
-                    intent.putExtra("htmlurl",bean.getOne().getTopic_url());
-                    intent.putExtra("htmlname",bean.getOne().getTopic_name());
+                    intent.putExtra("htmlurl", bean.getOne().getTopic_url());
+                    intent.putExtra("htmlname", bean.getOne().getTopic_name());
                     context.startActivity(intent);
                 }
             });
@@ -295,8 +336,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
 //                    Toast.makeText(context, "点击了", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(context, ShopWebviewActivity.class);
 //                    intent.putExtra("html",bean.getTwo());
-                    intent.putExtra("htmlurl",bean.getTwo().getTopic_url());
-                    intent.putExtra("htmlname",bean.getTwo().getTopic_name());
+                    intent.putExtra("htmlurl", bean.getTwo().getTopic_url());
+                    intent.putExtra("htmlname", bean.getTwo().getTopic_name());
                     context.startActivity(intent);
                 }
             });
@@ -307,8 +348,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
 //                    Toast.makeText(context, "点击了", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(context, ShopWebviewActivity.class);
 //                    intent.putExtra("html",bean.getThree());
-                    intent.putExtra("htmlurl",bean.getThree().getTopic_url());
-                    intent.putExtra("htmlname",bean.getThree().getTopic_name());
+                    intent.putExtra("htmlurl", bean.getThree().getTopic_url());
+                    intent.putExtra("htmlname", bean.getThree().getTopic_name());
                     context.startActivity(intent);
                 }
             });
@@ -319,8 +360,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.BaseViewHolder
 //                    Toast.makeText(context, "点击了", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(context, ShopWebviewActivity.class);
 //                    intent.putExtra("html",bean.getFour());
-                    intent.putExtra("htmlurl",bean.getFour().getTopic_url());
-                    intent.putExtra("htmlname",bean.getFour().getTopic_name());
+                    intent.putExtra("htmlurl", bean.getFour().getTopic_url());
+                    intent.putExtra("htmlname", bean.getFour().getTopic_name());
                     context.startActivity(intent);
                 }
             });
