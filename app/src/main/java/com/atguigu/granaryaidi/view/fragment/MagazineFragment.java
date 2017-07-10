@@ -1,20 +1,25 @@
 package com.atguigu.granaryaidi.view.fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextSwitcher;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import com.atguigu.granaryaidi.Base.BaseFragment;
 import com.atguigu.granaryaidi.R;
 import com.atguigu.granaryaidi.bean.MagazineProductionItemBean;
 import com.atguigu.granaryaidi.common.NetLink;
 import com.atguigu.granaryaidi.utils.DateChange;
+import com.atguigu.granaryaidi.utils.DensityUtil;
 import com.atguigu.granaryaidi.utils.HttpUtils;
 import com.atguigu.granaryaidi.view.Activity.MagazineTwoActivity;
 import com.atguigu.granaryaidi.view.Activity.ShopWebviewActivity;
@@ -41,11 +46,13 @@ public class MagazineFragment extends BaseFragment {
     @InjectView(R.id.rlv_magazine)
     RecyclerView rlvMagazine;
     @InjectView(R.id.tv_date)
-    TextView tvDate;
+    TextSwitcher tvDate;
     @InjectView(R.id.pb_bar)
     ProgressBar pb_bar;
 
-
+/*
+* android:textColor="#4c78a4"
+        android:textSize="10sp"*/
     private MagazineHomeAdapter adapter;
 
 
@@ -64,6 +71,26 @@ public class MagazineFragment extends BaseFragment {
     protected void initView() {
         ivJiantou.setVisibility(View.VISIBLE);
         tvDate.setVisibility(View.VISIBLE);
+
+        tvDate.setFactory(new ViewSwitcher.ViewFactory() {
+            //这里 用来创建内部的视图，这里创建TextView，用来显示文字
+            public View makeView() {
+                TextView tv =new TextView(context);
+                //设置文字大小
+                tv.setTextSize(DensityUtil.dip2px(context,7));
+                //设置文字 颜色getResources().getColor(R.color.TextSwitcher)
+                tv.setTextColor(Color.parseColor("#4c78a4"));
+
+                return tv;
+            }
+        });
+
+//        // 设置切入动画
+        tvDate.setInAnimation(AnimationUtils.loadAnimation(context, R.anim.slide_in_bottom));
+//        // 设置切出动画
+        tvDate.setOutAnimation(AnimationUtils.loadAnimation(context, R.anim.slide_out_up));
+//        //items是一个字符串列表，index就是动态的要显示的items中的索引
+        tvDate.setText(" TODAY ");
     }
 
     @Override
@@ -211,13 +238,21 @@ public class MagazineFragment extends BaseFragment {
             rlvMagazine.setAdapter(adapter);
 
             //设置RecyclerView的布局模式
-            GridLayoutManager manager = new GridLayoutManager(context, 1);
+            final GridLayoutManager manager = new GridLayoutManager(context, 1);
 
             rlvMagazine.setLayoutManager(manager);
-            //监听item的位置变化
-            manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+
+
+            /**
+             * 监听item
+             * 为了 得到 item的位置-->position
+             */
+            rlvMagazine.addOnScrollListener(new RecyclerView.OnScrollListener() {
                 @Override
-                public int getSpanSize(int position) {
+                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                    super.onScrollStateChanged(recyclerView, newState);
+
+                    int position = manager.findFirstVisibleItemPosition();
                     String addtime = beanitems.get(position).getAddtime();
                     String month = addtime.substring(5, 7);
                     String day = addtime.substring(8, 10);
@@ -226,9 +261,9 @@ public class MagazineFragment extends BaseFragment {
                     String date = englishMon + "." + day;
                     tvDate.setText(date);
 
-                    return 1;
                 }
             });
+
 
             /**
              * 点击事件
