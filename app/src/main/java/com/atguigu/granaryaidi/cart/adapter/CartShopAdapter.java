@@ -1,7 +1,8 @@
 package com.atguigu.granaryaidi.cart.adapter;
 
 import android.content.Context;
-import android.util.Log;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -11,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.atguigu.granaryaidi.R;
+import com.atguigu.granaryaidi.cart.CartStorage;
 import com.atguigu.granaryaidi.cart.GoodsBean;
 import com.atguigu.granaryaidi.view.viewmyself.AddSubViewTwo;
 import com.bumptech.glide.Glide;
@@ -50,18 +52,18 @@ public class CartShopAdapter extends BaseAdapter {
     }
 
     public void showTotalPrice() {
-        tvPriceAll.setText("总价 ： ￥"+getTotalPrice());
+        tvPriceAll.setText("总价 ： ￥" + getTotalPrice());
 
     }
 
     private double getTotalPrice() {
         double result = 0;
-        if(products != null && products.size() > 0){
-            for(int i = 0; i < products.size(); i++) {
+        if (products != null && products.size() > 0) {
+            for (int i = 0; i < products.size(); i++) {
                 GoodsBean goodsBean = products.get(i);
                 //判断是否勾选
-                if(goodsBean.isChecked()){
-                    result = result + goodsBean.getNumber()* Double.parseDouble(goodsBean.getCover_price());
+                if (goodsBean.isChecked()) {
+                    result = result + goodsBean.getNumber() * Double.parseDouble(goodsBean.getCover_price());
                 }
             }
         }
@@ -69,45 +71,72 @@ public class CartShopAdapter extends BaseAdapter {
     }
 
     private void checkAll() {
-        if(products != null && products.size() >0){
+        if (products != null && products.size() > 0) {
             int number = 0;
 
-            for(int i = 0; i < products.size(); i++) {
+            for (int i = 0; i < products.size(); i++) {
                 GoodsBean goodsBean = products.get(i);
                 //只要有一个不选中就设置非全选
-                if(!goodsBean.isChecked()){
+                if (!goodsBean.isChecked()) {
                     cbAllIscheck.setChecked(false);
-                }else{
-                    number ++;
+                } else {
+                    number++;
                 }
             }
 
-            if(number ==products.size()){
+            if (number == products.size()) {
                 cbAllIscheck.setChecked(true);
             }
 
 
-        }else {
+        } else {
             //没有数据
             cbAllIscheck.setChecked(false);
         }
 
     }
 
+    /**
+     * 全选
+     *
+     * @param isCheck
+     */
     public void checkAll_none(boolean isCheck) {
-        if(products != null && products.size() >0){
+        if (products != null && products.size() > 0) {
             int number = 0;
 
-            for(int i = 0; i < products.size(); i++) {
+            for (int i = 0; i < products.size(); i++) {
                 GoodsBean goodsBean = products.get(i);
                 //只要有一个不选中就设置非全选
                 goodsBean.setChecked(isCheck);
                 notifyDataSetChanged();
             }
-        }else{
+        } else {
             cbAllIscheck.setChecked(false);
         }
 
+    }
+
+    /**
+     * 删除商品
+     */
+    public void deleteData() {
+
+        if (products != null && products.size() > 0) {
+
+            for (int i = 0; i < products.size(); i++) {
+
+                GoodsBean goodsBean = products.get(i);
+                if (goodsBean.isChecked()) {
+                    products.remove(goodsBean);
+                    //同步到本地
+                    CartStorage.getInstance(context).deleteData(goodsBean);
+
+                    notifyDataSetChanged();
+                    i--;
+                }
+            }
+        }
     }
 
     @Override
@@ -261,8 +290,8 @@ public class CartShopAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View view) {
                     //点击删除
-                    Log.e("cart", "删除商品");
-
+//                    Log.e("cart", "删除商品");
+                    deleteProduct();
                 }
             });
 
@@ -284,5 +313,22 @@ public class CartShopAdapter extends BaseAdapter {
                 }
             });
         }
+    }
+
+    /**
+     * 删除商品
+     */
+    private void deleteProduct() {
+        new AlertDialog.Builder(context)
+                .setMessage("确认删除此物品？")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteData();
+                    }
+                })
+                .setNegativeButton("取消", null)
+                .show();
+
     }
 }
