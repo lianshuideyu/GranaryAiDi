@@ -169,7 +169,7 @@ public class CartShopAdapter extends BaseAdapter {
                 convertView = View.inflate(context, R.layout.cart_shop_item, null);
                 viewHolder = new ViewHolder(convertView, position);
 
-                convertView.setTag(viewHolder);
+//                convertView.setTag(viewHolder);
             } else {
 //                viewHolder = (ViewHolder) convertView.getTag();
                 convertView = View.inflate(context, R.layout.cart_shop_item, null);
@@ -202,7 +202,7 @@ public class CartShopAdapter extends BaseAdapter {
                 convertView = View.inflate(context, R.layout.cart_shop_edit_item, null);
                 viewHolder = new ViewHolderTwo(convertView, position);
 
-                convertView.setTag(viewHolder);
+//                convertView.setTag(viewHolder);
             } else {
 //                viewHolder = (ViewHolderTwo) convertView.getTag();
                 convertView = View.inflate(context, R.layout.cart_shop_edit_item, null);
@@ -210,6 +210,7 @@ public class CartShopAdapter extends BaseAdapter {
             }
 
             viewHolder.cbEditProduct.setChecked(bean.isChecked());//bean默认是为true的
+            viewHolder.editGoodinfoNum.setValue(bean.getNumber());
 
             viewHolder.tvEditName.setText(bean.getName());
             viewHolder.tvEditPrice.setText(bean.getCover_price());
@@ -282,7 +283,7 @@ public class CartShopAdapter extends BaseAdapter {
 
         ViewHolderTwo(View view, final int position) {
             ButterKnife.inject(this, view);
-
+            final GoodsBean bean = products.get(position);
             /**
              * 点击事件，点击删除
              */
@@ -299,7 +300,6 @@ public class CartShopAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View view) {
                     //状态取反
-                    GoodsBean bean = products.get(position);
 
                     bean.setChecked(!bean.isChecked());
 
@@ -310,6 +310,16 @@ public class CartShopAdapter extends BaseAdapter {
                     showTotalPrice();
                     //校验是否全选
                     checkAll();
+                }
+            });
+
+            editGoodinfoNum.setOnNumberChangerListener(new AddSubViewTwo.OnNumberChangerListener() {
+                @Override
+                public void onNumberChanger(int number) {
+                    //把Bean对象更新一下
+                    bean.setNumber(number);
+                    //更新存储到本地或者服务器上
+                    CartStorage.getInstance(context).updateData(bean);
                 }
             });
         }

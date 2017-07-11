@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.atguigu.granaryaidi.Base.BaseActivity;
 import com.atguigu.granaryaidi.R;
 import com.atguigu.granaryaidi.bean.ShopTypeListBean;
+import com.atguigu.granaryaidi.cart.ShopCartActivity;
 import com.atguigu.granaryaidi.common.NetLink;
 import com.atguigu.granaryaidi.utils.HttpUtils;
 import com.atguigu.granaryaidi.view.adapter.shop.ClassifyListAdapter;
@@ -124,7 +125,9 @@ public class ShopTypeActivity extends BaseActivity {
 
                 break;
             case R.id.ib_shop_cart:
-                showToast("购物车");
+//                showToast("购物车");
+                Intent intent3 = new Intent(ShopTypeActivity.this, ShopCartActivity.class);
+                startActivity(intent3);
                 break;
         }
     }

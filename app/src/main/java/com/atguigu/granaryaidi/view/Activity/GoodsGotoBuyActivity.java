@@ -263,7 +263,8 @@ public class GoodsGotoBuyActivity extends BaseActivity {
     //动态添加视图
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     public RadioGroup addview(RadioGroup radiogroup, int id) {
-
+        //设置RadioGroup中的RadioButton水平排列
+        radiogroup.setOrientation(LinearLayout.HORIZONTAL);
         for (int i = 0; i < items.getSku_info().get(id).getAttrList().size(); i++) {
             final List<GoodsDetailsBean.DataBean.ItemsBean.SkuInfoBean.AttrListBean> attrList
                     = items.getSku_info().get(id).getAttrList();
@@ -275,8 +276,11 @@ public class GoodsGotoBuyActivity extends BaseActivity {
 
             LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) button
                     .getLayoutParams();
-
             layoutParams.setMargins(0, 0, DensityUtil.dip2px(GoodsGotoBuyActivity.this, 10), 0);//4个参数按顺序分别是左上右下
+
+            button.setPadding(DensityUtil.dip2px(GoodsGotoBuyActivity.this, 5),
+                    0,DensityUtil.dip2px(GoodsGotoBuyActivity.this, 5),0);
+
             button.setLayoutParams(layoutParams);
         }
 
@@ -295,6 +299,7 @@ public class GoodsGotoBuyActivity extends BaseActivity {
         codeBtn.setButtonDrawable(new ColorDrawable(Color.TRANSPARENT));
         //codeBtn.setTextSize( ( textSize > 16 )?textSize:24 );
         codeBtn.setId(id);
+        codeBtn.setTextSize(10);
         codeBtn.setText(btnContent);
         //codeBtn.setPadding(2, 0, 2, 0);
 
@@ -303,6 +308,7 @@ public class GoodsGotoBuyActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(GoodsGotoBuyActivity.this, codeBtn.getText().toString(), Toast.LENGTH_SHORT).show();
+
             }
         });
         //DensityUtilHelps.Dp2Px(this,40)
