@@ -1,5 +1,6 @@
 package com.atguigu.granaryaidi.view.fragment;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import com.atguigu.granaryaidi.Base.BaseFragment;
 import com.atguigu.granaryaidi.R;
+import com.atguigu.granaryaidi.cart.ShopCartActivity;
 import com.atguigu.granaryaidi.view.fragment.shopfragment.ClassifyFragment;
 import com.atguigu.granaryaidi.view.fragment.shopfragment.GiftFragment;
 import com.atguigu.granaryaidi.view.fragment.shopfragment.HomeFragment;
@@ -135,7 +137,10 @@ public class ShopFragment extends BaseFragment {
 
                 break;
             case R.id.ib_shop_cart:
-                Toast.makeText(context, "购物车", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "购物车", Toast.LENGTH_SHORT).show();
+                Intent intent3 = new Intent(context, ShopCartActivity.class);
+                startActivity(intent3);
+
                 break;
         }
     }

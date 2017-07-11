@@ -28,9 +28,10 @@
         <activity android:name=".view.Activity.GoodsDetailsActivity" />
         <activity android:name=".view.Activity.MagazineTwoActivity" />
         <activity android:name=".view.Activity.MagazineAuthorActivity" />
-        <activity android:name=".view.Activity.GoodsGotoBuyActivity"
-            android:theme="@style/Activity_transparentmy"
-            />
+        <activity
+            android:name=".view.Activity.GoodsGotoBuyActivity"
+            android:theme="@style/Activity_transparentmy" />
+        <activity android:name=".cart.ShopCartActivity"></activity>
     </application>
 
 </manifest>

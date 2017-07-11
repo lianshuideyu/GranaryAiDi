@@ -22,6 +22,7 @@ import com.atguigu.granaryaidi.Base.BaseActivity;
 import com.atguigu.granaryaidi.R;
 import com.atguigu.granaryaidi.bean.GoodsDetailsBean;
 import com.atguigu.granaryaidi.bean.ShopPinPaiBean;
+import com.atguigu.granaryaidi.cart.ShopCartActivity;
 import com.atguigu.granaryaidi.common.NetLink;
 import com.atguigu.granaryaidi.utils.DensityUtil;
 import com.atguigu.granaryaidi.utils.HttpUtils;
@@ -393,7 +394,10 @@ public class GoodsDetailsActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.ib_top_cart:
-                showToast("购物车");
+//                showToast("购物车");
+
+                Intent intent3 = new Intent(GoodsDetailsActivity.this, ShopCartActivity.class);
+                startActivity(intent3);
                 break;
             case R.id.tv_callservice:
                 showToast("客服");
