@@ -44,6 +44,9 @@ public class CartShopAdapter extends BaseAdapter {
         this.cbAllIscheck = cbAllIscheck;
         this.tvPriceAll = tvPriceAll;
         showTotalPrice();
+
+        //校验是否全选
+        checkAll();
     }
 
     public void showTotalPrice() {
@@ -63,6 +66,48 @@ public class CartShopAdapter extends BaseAdapter {
             }
         }
         return result;
+    }
+
+    private void checkAll() {
+        if(products != null && products.size() >0){
+            int number = 0;
+
+            for(int i = 0; i < products.size(); i++) {
+                GoodsBean goodsBean = products.get(i);
+                //只要有一个不选中就设置非全选
+                if(!goodsBean.isChecked()){
+                    cbAllIscheck.setChecked(false);
+                }else{
+                    number ++;
+                }
+            }
+
+            if(number ==products.size()){
+                cbAllIscheck.setChecked(true);
+            }
+
+
+        }else {
+            //没有数据
+            cbAllIscheck.setChecked(false);
+        }
+
+    }
+
+    public void checkAll_none(boolean isCheck) {
+        if(products != null && products.size() >0){
+            int number = 0;
+
+            for(int i = 0; i < products.size(); i++) {
+                GoodsBean goodsBean = products.get(i);
+                //只要有一个不选中就设置非全选
+                goodsBean.setChecked(isCheck);
+                notifyDataSetChanged();
+            }
+        }else{
+            cbAllIscheck.setChecked(false);
+        }
+
     }
 
     @Override
@@ -185,6 +230,8 @@ public class CartShopAdapter extends BaseAdapter {
 
                     //重新显示总价格
                     showTotalPrice();
+                    //校验是否全选
+                    checkAll();
                 }
             });
         }
@@ -232,6 +279,8 @@ public class CartShopAdapter extends BaseAdapter {
 
                     //重新显示总价格
                     showTotalPrice();
+                    //校验是否全选
+                    checkAll();
                 }
             });
         }

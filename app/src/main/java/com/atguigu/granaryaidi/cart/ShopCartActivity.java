@@ -83,7 +83,7 @@ public class ShopCartActivity extends BaseActivity {
      * 购物车是否为编辑状态
      */
     private boolean iseditCart = false;
-    @OnClick({R.id.ib_shop_back, R.id.tv_edit, R.id.bt_tobuy})
+    @OnClick({R.id.ib_shop_back, R.id.tv_edit, R.id.bt_tobuy,R.id.cb_all_ischeck})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ib_shop_back:
@@ -97,6 +97,15 @@ public class ShopCartActivity extends BaseActivity {
                 break;
             case R.id.bt_tobuy:
                 showToast("去结算");
+
+                break;
+            case R.id.cb_all_ischeck:
+                boolean checked = cbAllIscheck.isChecked();
+                //设置是否选择
+                adapter.checkAll_none(checked);
+
+                //重新计算价格
+                adapter.showTotalPrice();
 
                 break;
         }
