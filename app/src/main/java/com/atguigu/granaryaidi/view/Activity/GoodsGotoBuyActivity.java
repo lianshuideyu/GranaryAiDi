@@ -1,16 +1,21 @@
 package com.atguigu.granaryaidi.view.Activity;
 
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.atguigu.granaryaidi.Base.BaseActivity;
 import com.atguigu.granaryaidi.R;
@@ -105,10 +110,13 @@ public class GoodsGotoBuyActivity extends BaseActivity {
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void setllProductTypeData() {
 
-        //放第一种类型的数据
+        /**
+         * 放第一种类型的数据
+         */
         LinearLayout linearLayout1 = getTypeLinearLayout(0);
-
         llProductType.addView(linearLayout1);
+
+
         /**
          * 设置第二行以后的类型数据
          */
@@ -117,8 +125,6 @@ public class GoodsGotoBuyActivity extends BaseActivity {
             for(int i = 1; i < items.getSku_info().size(); i++) {
 
                 LinearLayout typeLinearLayout = getTypeLinearLayout(i);
-
-
 
                 llProductType.addView(typeLinearLayout);
             }
@@ -130,49 +136,80 @@ public class GoodsGotoBuyActivity extends BaseActivity {
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @NonNull
     private LinearLayout getTypeLinearLayout(int id) {
-        //设置每行类型的标题
+        /**
+         * 设置每行类型的标题
+         */
         if(id != 0) {
             TextView text1 = new TextView(GoodsGotoBuyActivity.this);
-            LinearLayout.LayoutParams lpp1 = new LinearLayout.LayoutParams(//字体高20sp
-                    LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams lpp1 = new LinearLayout.LayoutParams(//字体高30sp
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
+
             text1.setLayoutParams(lpp1);
             lpp1.setMargins(0,10,0,10);
 
             text1.setTextColor(Color.parseColor("#C5C5C5"));
             text1.setTextSize(15);
             text1.setText(items.getSku_info().get(id).getType_name());
-//                                        textView2.setPadding(0,DensityUtil.dip2px(GoodsDetailsActivity.this,10),0,DensityUtil.dip2px(GoodsDetailsActivity.this,10));
             llProductType.addView(text1);
         }
 
 
-        //设置具体没行内容----------------------------------------
-        LinearLayout linearLayout1 = new LinearLayout(this);
-        LinearLayout.LayoutParams lp1 = new LinearLayout
-                .LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
-        lp1.setLayoutDirection(LinearLayout.HORIZONTAL);
-        lp1.setMargins(0, 10, 0, 0);
-        linearLayout1.setLayoutParams(lp1);
-        for(int i = 0; i < items.getSku_info().get(id).getAttrList().size(); i++) {
-            List<GoodsDetailsBean.DataBean.ItemsBean.SkuInfoBean.AttrListBean> attrList
-                    = items.getSku_info().get(id).getAttrList();
+        /**
+         * 设置具体没行内容----------------------------------------
+         */
+        RadioGroup group = new RadioGroup(this);
 
-            TextView text = new TextView(GoodsGotoBuyActivity.this);
-            LinearLayout.LayoutParams lpp = new LinearLayout.LayoutParams(//字体高20sp
-                    LinearLayout.LayoutParams.WRAP_CONTENT, DensityUtil.dip2px(GoodsGotoBuyActivity.this,30));
-            text.setBackgroundColor(Color.parseColor("#424950"));
-            text.setPadding(10,10,10,10);
-            lpp.setMargins(0, 0, 10, 0);//右边距为10dp
-            text.setLayoutParams(lpp);
+        RadioGroup groupend = addview(group, id);
 
-            text.setTextColor(Color.WHITE);
-            text.setTextSize(12);
-            text.setText(attrList.get(i).getAttr_name());
-//                                        textView2.setPadding(0,DensityUtil.dip2px(GoodsDetailsActivity.this,10),0,DensityUtil.dip2px(GoodsDetailsActivity.this,10));
-            linearLayout1.addView(text);
-        }
-        return linearLayout1;
+//        RadioGroup.LayoutParams lp1 = new RadioGroup
+//                .LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT,
+//                RadioGroup.LayoutParams.WRAP_CONTENT);
+//        lp1.setLayoutDirection(RadioGroup.HORIZONTAL);
+//        lp1.setMargins(0, 10, 0, 0);
+//        linearLayout1.setLayoutParams(lp1);
+
+//        for(int i = 0; i < items.getSku_info().get(id).getAttrList().size(); i++) {
+//            final List<GoodsDetailsBean.DataBean.ItemsBean.SkuInfoBean.AttrListBean> attrList
+//                    = items.getSku_info().get(id).getAttrList();
+//
+//            RadioButton text = new RadioButton(GoodsGotoBuyActivity.this);
+////            LinearLayout.LayoutParams lpp = new LinearLayout.LayoutParams(//字体高20sp
+////                    LinearLayout.LayoutParams.WRAP_CONTENT,
+////                    DensityUtil.dip2px(GoodsGotoBuyActivity.this,30));
+//            text.setButtonDrawable(null);//设置radiobutton的圆点消失
+//
+//            text.setBackgroundResource(R.drawable.goods_gobuy);
+////            if(i == 0) {
+////                text.setChecked(true);
+////            }else {
+////                text.setChecked(false);
+////            }
+//            text.setPadding(10,15,10,15);
+////            lpp.setMargins(0, 0, 10, 0);//右边距为10dp
+//            text.setLayoutParams(lp1);
+//
+//            text.setTextColor(Color.WHITE);
+//            text.setTextSize(12);
+//            text.setGravity(Gravity.CENTER);
+//            text.setText(attrList.get(i).getAttr_name());
+//
+//            group.addView(text);
+//
+//            /**
+//             * textview的监听，得到文字信息
+//             */
+////            final int finalI = i;
+////            text.setOnClickListener(new View.OnClickListener() {
+////                @Override
+////                public void onClick(View view) {
+////                    //将数据传给购物车
+////                    showToast(attrList.get(finalI).getAttr_name());
+////                }
+////            });
+//
+//        }
+        return groupend;
     }
 
     @Override
@@ -200,5 +237,56 @@ public class GoodsGotoBuyActivity extends BaseActivity {
 
                 break;
         }
+    }
+
+    //动态添加视图
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+    public RadioGroup addview(RadioGroup radiogroup, int id){
+
+        for(int i = 0; i < items.getSku_info().get(id).getAttrList().size(); i++) {
+            final List<GoodsDetailsBean.DataBean.ItemsBean.SkuInfoBean.AttrListBean> attrList
+                    = items.getSku_info().get(id).getAttrList();
+
+            RadioButton  button=new RadioButton(GoodsGotoBuyActivity.this);
+            setRaidBtnAttribute(button,attrList.get(i).getAttr_name(),i);
+
+            radiogroup.addView(button);
+
+            LinearLayout.LayoutParams layoutParams= (LinearLayout.LayoutParams) button
+                    .getLayoutParams();
+
+            layoutParams.setMargins(0, 0, DensityUtil.dip2px(GoodsGotoBuyActivity.this,10), 0);//4个参数按顺序分别是左上右下
+            button.setLayoutParams(layoutParams);
+        }
+
+        return radiogroup;
+
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+    private void setRaidBtnAttribute(final RadioButton codeBtn, String btnContent, int id ){
+        if( null == codeBtn ){
+            return;
+        }
+        codeBtn.setBackgroundResource(R.drawable.goods_gobuy);
+        codeBtn.setTextColor(Color.WHITE);
+        codeBtn.setButtonDrawable(new ColorDrawable(Color.TRANSPARENT));
+        //codeBtn.setTextSize( ( textSize > 16 )?textSize:24 );
+        codeBtn.setId( id );
+        codeBtn.setText( btnContent );
+        //codeBtn.setPadding(2, 0, 2, 0);
+
+        codeBtn.setGravity( Gravity.CENTER );
+        codeBtn.setOnClickListener( new View.OnClickListener( ) {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(GoodsGotoBuyActivity.this, codeBtn.getText().toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        //DensityUtilHelps.Dp2Px(this,40)
+        LinearLayout.LayoutParams rlp = new LinearLayout.LayoutParams( LinearLayout.LayoutParams.WRAP_CONTENT
+                , DensityUtil.dip2px(GoodsGotoBuyActivity.this,25) );
+        codeBtn.setLayoutParams( rlp );
     }
 }
