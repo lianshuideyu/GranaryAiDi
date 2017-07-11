@@ -36,7 +36,7 @@ public class ProductDAO {
      * 查询所有联系人产品
      *
      */
-    public List<GoodsBean> getContacts() {
+    public List<GoodsBean> getProducts() {
 
         //关联数据库
         SQLiteDatabase database = helperDB.getWritableDatabase();
@@ -179,5 +179,18 @@ public class ProductDAO {
 
         }
 
+    }
+
+    // 更新邀请状态
+    public void updateProduct(GoodsBean bean){
+        if (bean == null){
+            return;
+        }
+
+        SQLiteDatabase database = helperDB.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(ProductTable.COL_NUMBER,bean.getNumber());
+        database.update(ProductTable.TABLE_NAME,contentValues,
+                ProductTable.COL_PRODUCT_ID+"=?",new String[]{bean.getProduct_id()});
     }
 }

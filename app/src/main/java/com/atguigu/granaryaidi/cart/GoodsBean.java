@@ -7,6 +7,18 @@ package com.atguigu.granaryaidi.cart;
 public class GoodsBean {
 
 
+    public GoodsBean(String type, String cover_price, String figure, String name, String product_id, int number) {
+        this.type = type;
+        this.cover_price = cover_price;
+        this.figure = figure;
+        this.name = name;
+        this.product_id = product_id;
+        this.number = number;
+    }
+
+    public GoodsBean() {
+    }
+
     /**
      * cover_price : 138.00
      * figure : /supplier/1478873740576.jpg
