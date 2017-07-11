@@ -31,7 +31,6 @@ import butterknife.OnClick;
 
 public class GoodsGotoBuyActivity extends BaseActivity {
 
-
     @InjectView(R.id.brand_name)
     TextView brandName;
     @InjectView(R.id.tv_product_name)
