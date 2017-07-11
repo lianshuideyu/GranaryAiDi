@@ -7,18 +7,6 @@ package com.atguigu.granaryaidi.cart;
 public class GoodsBean {
 
 
-    public GoodsBean(String type, String cover_price, String figure, String name, String product_id, int number) {
-        this.type = type;
-        this.cover_price = cover_price;
-        this.figure = figure;
-        this.name = name;
-        this.product_id = product_id;
-        this.number = number;
-    }
-
-    public GoodsBean() {
-    }
-
     /**
      * cover_price : 138.00
      * figure : /supplier/1478873740576.jpg
@@ -32,6 +20,32 @@ public class GoodsBean {
     private String name;//商品名
     private String product_id;//识别码
     private int number = 1;
+
+    /**
+     * 是否选中
+     */
+    private boolean isChecked =true;
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
+
+
+    public GoodsBean(String type, String cover_price, String figure, String name, String product_id, int number) {
+        this.type = type;
+        this.cover_price = cover_price;
+        this.figure = figure;
+        this.name = name;
+        this.product_id = product_id;
+        this.number = number;
+    }
+
+    public GoodsBean() {
+    }
 
     public String getType() {
         return type;

@@ -10,11 +10,11 @@
     <include layout="@layout/title_main" />
 
     <ListView
-        android:background="#1E2125"
         android:id="@+id/lv_cart"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:background="#1E2125">
 
 
     </ListView>
@@ -27,10 +27,10 @@
         android:padding="7dp">
 
         <LinearLayout
-            android:gravity="center_vertical"
-            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical">
 
             <TextView
                 android:layout_width="0dp"
@@ -52,11 +52,10 @@
         </LinearLayout>
 
         <LinearLayout
-            android:gravity="center_vertical"
-            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            >
+            android:layout_weight="1"
+            android:gravity="center_vertical">
 
             <TextView
                 android:layout_width="0dp"
@@ -78,11 +77,10 @@
         </LinearLayout>
 
         <LinearLayout
-            android:gravity="center_vertical"
-            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            >
+            android:layout_weight="1"
+            android:gravity="center_vertical">
 
             <TextView
                 android:layout_width="0dp"
@@ -111,11 +109,10 @@
         </LinearLayout>
 
         <LinearLayout
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            >
+            android:gravity="center_vertical">
 
             <TextView
                 android:layout_width="0dp"
@@ -152,19 +149,13 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <!--<RadioButton-->
-            <!--android:id="@+id/rb_all_ischeck"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="30dp"-->
-            <!--android:layout_marginLeft="20dp"-->
-            <!--android:text="    全选 "-->
-            <!--android:textColor="#ffffff"-->
-            <!--android:textSize="12dp" />-->
         <CheckBox
             android:id="@+id/cb_all_ischeck"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_marginLeft="10dp"
+            android:button="@null"
+            android:drawableLeft="@drawable/mycheckbox_selector"
             android:text="    全选 "
             android:textColor="#ffffff"
             android:textSize="12dp" />

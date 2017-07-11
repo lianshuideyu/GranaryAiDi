@@ -33,7 +33,7 @@ public class ProductDAO {
     private String product_id;//识别码
     private int number = 1;*/
     /**
-     * 查询所有联系人产品
+     * 查询所有产品
      *
      */
     public List<GoodsBean> getProducts() {
