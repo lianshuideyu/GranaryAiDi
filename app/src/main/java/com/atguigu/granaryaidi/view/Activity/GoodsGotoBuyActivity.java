@@ -104,10 +104,17 @@ public class GoodsGotoBuyActivity extends BaseActivity {
 
             brandName.setText(items.getBrand_info().getBrand_name());
             tvProductName.setText(items.getGoods_name());
-            if (TextUtils.isEmpty(items.getDiscount_price())) {
-                tvPrice.setText("￥" + items.getPrice());
-            } else {
-                tvPrice.setText("￥" + items.getDiscount_price());
+//            if (TextUtils.isEmpty(items.getDiscount_price())) {
+//                tvPrice.setText("￥" + items.getPrice());
+//            } else {
+//                tvPrice.setText("￥" + items.getDiscount_price());
+//            }
+
+            if(TextUtils.isEmpty(items.getSku_inv().get(0).getDiscount_price())) {
+                tvPrice.setText("￥" + items.getSku_inv().get(0).getPrice());
+            }else {
+                tvPrice.setText("￥" + items.getSku_inv().get(0).getDiscount_price());
+
             }
             //第一行的类型先设置了后边动态new
             tvProductType.setText(items.getSku_info().get(0).getType_name());
@@ -203,8 +210,34 @@ public class GoodsGotoBuyActivity extends BaseActivity {
 
                 //测试数据保存到数据库
                 //String type, String cover_price, String figure, String name, String product_id, int number
-                ensureToBuy();
+//                ensureToBuy();
+                if (cartStorage != null && items != null) {
+                    if(TextUtils.isEmpty(price)) {
+                        GoodsBean bean = new GoodsBean(
+                                items.getSku_info().get(0).getAttrList().get(0).getAttr_name()
+                                , items.getPrice(), items.getGoods_image(), items.getGoods_name(),
+                                items.getGoods_id(), nasGoodinfoNum.getValue()
+                        );
+                        cartStorage.addData(bean);
+                        if(TextUtils.isEmpty(items.getSku_inv().get(0).getDiscount_price())) {
+                            tvPrice.setText("￥" + items.getSku_inv().get(0).getPrice());
+                        }else {
+                            tvPrice.setText("￥" + items.getSku_inv().get(0).getDiscount_price());
 
+                        }
+                    }else {
+                        GoodsBean bean = new GoodsBean(
+                                items.getSku_info().get(0).getAttrList().get(0).getAttr_name()
+                                , price, items.getGoods_image(), items.getGoods_name(),
+                                items.getGoods_id(), nasGoodinfoNum.getValue()
+                        );
+                        cartStorage.addData(bean);
+                        tvPrice.setText("￥" + price);
+                    }
+
+                }
+                onBackPressed();
+                showToast("添加购物车成功");
                 break;
         }
     }
@@ -214,30 +247,53 @@ public class GoodsGotoBuyActivity extends BaseActivity {
      * //然后页面返回后跳转...
      * //测试数据保存到数据库
      */
+    String price = "";
     private HashMap<Integer, Integer> hashMap = new HashMap<>();
+
     private void ensureToBuy() {
 
         if (cartStorage != null && items != null) {
             if (hashMap.size() == items.getSku_info().size()) {
 
                 //items.getSku_info().get(id).getAttrList().get(i).getAttr_id()
-                //id 为 key ，i 为value
+                //id 为 key ，i 为value,遍历HashMap
+                String attr_id = null;
                 Iterator iter = hashMap.entrySet().iterator();
                 while (iter.hasNext()) {
                     Map.Entry entry = (Map.Entry) iter.next();
                     Integer key = (Integer) entry.getKey();
                     Integer val = (Integer) entry.getValue();
-                    Log.e("buy",key + "," + val);
+                    Log.e("buy", key + "," + val);
+                    attr_id = items.getSku_info().get(key).getAttrList().get(val).getAttr_id() + ",";
+
+                }
+                String priceid = attr_id.substring(0, attr_id.length() - 1);//去掉最后一个逗号
+                //再拿priceid与价格的集合去比较id的到具体的价格
+                List<GoodsDetailsBean.DataBean.ItemsBean.SkuInvBean> sku_inv = items.getSku_inv();
+
+                for (int i = 0; i < sku_inv.size(); i++) {
+
+                    if (priceid.equals(sku_inv.get(i).getAttr_keys())) {
+                        //匹配价格成功
+                        price = sku_inv.get(i).getPrice();
+                    }
+
                 }
 
-                GoodsBean bean = new GoodsBean(
-                        items.getSku_info().get(0).getAttrList().get(0).getAttr_name()
-                        , items.getPrice(), items.getGoods_image(), items.getGoods_name(),
-                        items.getGoods_id(), nasGoodinfoNum.getValue()
-                );
-                cartStorage.addData(bean);
-                showToast("添加购物车成功");
-                onBackPressed();
+                if(TextUtils.isEmpty(price)) {
+                    tvPrice.setText("￥" + items.getPrice());
+                }else {
+                    tvPrice.setText("￥" + price);
+                }
+                Log.e("buy", "priceid==price==" + priceid + "," + price);
+//                GoodsBean bean = new GoodsBean(
+//                        items.getSku_info().get(0).getAttrList().get(0).getAttr_name()
+//                        , items.getPrice(), items.getGoods_image(), items.getGoods_name(),
+//                        items.getGoods_id(), nasGoodinfoNum.getValue()
+//                );
+//                cartStorage.addData(bean);
+//                showToast("添加购物车成功");
+
             } else {
                 showToast("请选择商品类型");
             }
@@ -276,8 +332,6 @@ public class GoodsGotoBuyActivity extends BaseActivity {
     }
 
 
-
-
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void setRaidBtnAttribute(final RadioButton codeBtn, String btnContent, final int i, final int id) {
         if (null == codeBtn) {//id 代表类型的第几行//i 代表每行的第几个
@@ -309,6 +363,7 @@ public class GoodsGotoBuyActivity extends BaseActivity {
                 //id 为 行号，getAttr_id（）；id和i都是从0开始
                 Toast.makeText(GoodsGotoBuyActivity.this, id + "," + i, Toast.LENGTH_SHORT).show();
                 hashMap.put(id, i);
+                ensureToBuy();
             }
         });
         //DensityUtilHelps.Dp2Px(this,40)
