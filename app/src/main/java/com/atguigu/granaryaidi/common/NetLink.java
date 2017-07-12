@@ -230,4 +230,11 @@ public class NetLink {
     public static final String MAGAZINE_AUTHOR_START = "http://mobile.iliangcang.com/topic/magazineList?app_key=Android&author_id=";
     public static final String MAGAZINE_AUTHOR_END = "&sig=2FA0974FFF1BC3DFA562AA63C8B5A84F%7C118265010131868&v=1.0";
 
+
+    /**
+     * 百思不得姐
+     */
+    //段子接口
+    public static final String SHARE_JOKE = "http://s.budejie.com/topic/tag-topic/64/hot/budejie-android-6.6.3/0-20.json";
+
 }
