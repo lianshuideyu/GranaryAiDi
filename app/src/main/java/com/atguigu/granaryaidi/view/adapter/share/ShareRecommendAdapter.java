@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -292,7 +291,7 @@ public class ShareRecommendAdapter extends RecyclerView.Adapter<ShareRecommendAd
             super.setData(mediaItem);
 
             //设置文本-所有的都有,只有广告没有哦
-            tvContext.setText(mediaItem.getText() + "_" + mediaItem.getType());
+            tvContext.setText(mediaItem.getText() );
 
             //视频特有的------------------------
             //第一个参数是视频播放地址，第二个参数是显示封面的地址，第三参数是标题
@@ -327,7 +326,7 @@ public class ShareRecommendAdapter extends RecyclerView.Adapter<ShareRecommendAd
             super.setData(mediaItem);
 
             //设置文本-所有的都有
-            tvContext.setText(mediaItem.getText() + "_" + mediaItem.getType());
+            tvContext.setText(mediaItem.getText() );
             //图片特有的
 
             ivImageIcon.setImageResource(R.drawable.bg_item);
@@ -355,7 +354,7 @@ public class ShareRecommendAdapter extends RecyclerView.Adapter<ShareRecommendAd
             super.setData(mediaItem);
 
             //设置文本-所有的都有
-            tvContext.setText(mediaItem.getText() + "_" + mediaItem.getType());
+            tvContext.setText(mediaItem.getText() );
         }
     }
 
@@ -375,7 +374,7 @@ public class ShareRecommendAdapter extends RecyclerView.Adapter<ShareRecommendAd
         public void setData(BaisiRecommendBean.ListBean mediaItem) {
             super.setData(mediaItem);
             //设置文本-所有的都有
-            tvContext.setText(mediaItem.getText() + "_" + mediaItem.getType());
+            tvContext.setText(mediaItem.getText() );
 
             //下面是gif
             if (mediaItem.getGif() != null && mediaItem.getGif() != null && mediaItem.getGif().getImages() != null) {
@@ -392,19 +391,17 @@ public class ShareRecommendAdapter extends RecyclerView.Adapter<ShareRecommendAd
     class HTMLHolder extends BaseViewHolder{
         TextView tvContext;
         ImageView ivImageIcon;
-        Button btnInstall;
 
         public HTMLHolder(View itemView) {
             super(itemView);
 
             //中间公共部分 -所有的都有
             tvContext = (TextView) itemView.findViewById(R.id.tv_context);
-            btnInstall = (Button) itemView.findViewById(R.id.btn_install);
             ivImageIcon = (ImageView) itemView.findViewById(R.id.iv_image_icon);
         }
 
         public void setData() {
-            tvContext.setText("网络推广");
+            tvContext.setText("HTML");
         }
     }
 }
