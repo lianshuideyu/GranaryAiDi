@@ -57,6 +57,7 @@ public class ShareJokeAdapter extends RecyclerView.Adapter<ShareJokeAdapter.MyVi
 
     //加载图标圆形图片用
     private RequestManager glideRequest;
+
     class MyViewHolder extends RecyclerView.ViewHolder {
 
         @InjectView(R.id.iv_user_icon)
@@ -96,8 +97,8 @@ public class ShareJokeAdapter extends RecyclerView.Adapter<ShareJokeAdapter.MyVi
 
         public MyViewHolder(View itemView) {
             super(itemView);
-
-            ButterKnife.inject(this,itemView);
+            ButterKnife.inject(this, itemView);
+//            tvDown = (TextView) itemView.findViewById(R.id.tv_down_joke);
         }
 
         public void setData(BaisiJokeBean.ListBean bean, int position) {
@@ -126,14 +127,14 @@ public class ShareJokeAdapter extends RecyclerView.Adapter<ShareJokeAdapter.MyVi
 
             tvPinglunName1.setText(top_comments.get(0).getU().getName() + ": ");
             tvPinglunContent1.setText(top_comments.get(0).getContent());
-            if(top_comments.size() > 1) {
+            if (top_comments.size() > 1) {
                 llPinglunTwo.setVisibility(View.VISIBLE);
 
                 tvPinglunName2.setText(top_comments.get(1).getU().getName() + ": ");
                 tvPinglunContent2.setText(top_comments.get(1).getContent());
             }
-            
-            if(top_comments.size() > 2) {
+
+            if (top_comments.size() > 2) {
                 llPinglunThree.setVisibility(View.VISIBLE);
 
                 tvPinglunName3.setText(top_comments.get(2).getU().getName() + ": ");
