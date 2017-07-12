@@ -124,21 +124,24 @@ public class ShareJokeAdapter extends RecyclerView.Adapter<ShareJokeAdapter.MyVi
 
             //设置第一条评论的消息
             List<BaisiJokeBean.ListBean.TopCommentsBean> top_comments = bean.getTop_comments();
+            if (top_comments != null) {
 
-            tvPinglunName1.setText(top_comments.get(0).getU().getName() + ": ");
-            tvPinglunContent1.setText(top_comments.get(0).getContent());
-            if (top_comments.size() > 1) {
-                llPinglunTwo.setVisibility(View.VISIBLE);
+                tvPinglunName1.setText(top_comments.get(0).getU().getName() + ": ");
+                tvPinglunContent1.setText(top_comments.get(0).getContent());
 
-                tvPinglunName2.setText(top_comments.get(1).getU().getName() + ": ");
-                tvPinglunContent2.setText(top_comments.get(1).getContent());
-            }
+                if (top_comments.size() > 1) {
+                    llPinglunTwo.setVisibility(View.VISIBLE);
 
-            if (top_comments.size() > 2) {
-                llPinglunThree.setVisibility(View.VISIBLE);
+                    tvPinglunName2.setText(top_comments.get(1).getU().getName() + ": ");
+                    tvPinglunContent2.setText(top_comments.get(1).getContent());
+                }
 
-                tvPinglunName3.setText(top_comments.get(2).getU().getName() + ": ");
-                tvPinglunContent3.setText(top_comments.get(2).getContent());
+                if (top_comments.size() > 2) {
+                    llPinglunThree.setVisibility(View.VISIBLE);
+
+                    tvPinglunName3.setText(top_comments.get(2).getU().getName() + ": ");
+                    tvPinglunContent3.setText(top_comments.get(2).getContent());
+                }
             }
         }
     }

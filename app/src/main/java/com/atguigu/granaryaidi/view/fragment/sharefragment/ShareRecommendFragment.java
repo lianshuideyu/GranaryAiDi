@@ -1,5 +1,6 @@
 package com.atguigu.granaryaidi.view.fragment.sharefragment;
 
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -11,7 +12,10 @@ import com.atguigu.granaryaidi.R;
 import com.atguigu.granaryaidi.bean.baisi.BaisiRecommendBean;
 import com.atguigu.granaryaidi.common.NetLink;
 import com.atguigu.granaryaidi.utils.HttpUtils;
+import com.atguigu.granaryaidi.view.adapter.share.ShareRecommendAdapter;
 import com.google.gson.Gson;
+
+import java.util.List;
 
 import butterknife.InjectView;
 
@@ -25,6 +29,9 @@ public class ShareRecommendFragment extends BaseFragment {
     RecyclerView rlShareRecommend;
     @InjectView(R.id.progressbar)
     ProgressBar progressbar;
+
+    private List<BaisiRecommendBean.ListBean> lists;
+    private ShareRecommendAdapter adapter;
 
     @Override
     public int getLayoutId() {
@@ -77,25 +84,26 @@ public class ShareRecommendFragment extends BaseFragment {
      */
     private void processData(String content) {
         BaisiRecommendBean bean = new Gson().fromJson(content, BaisiRecommendBean.class);
-//        lists = bean.getList();
+        lists = bean.getList();
 //
         Log.e("sharere", "解析==" + bean.getList().get(0).getU().getName());
 //
-//        if (lists != null && lists.size() > 0) {
-//
-//            adapter = new ShareJokeAdapter(context, lists);
-//            //设置适配器
-//
-//            rv_share_joke.setAdapter(adapter);
-//
-//            //设置RecyclerView的布局模式
-//            LinearLayoutManager manager = new LinearLayoutManager(context);
-//
-//            rv_share_joke.setLayoutManager(manager);
-//        }
+        if (lists != null && lists.size() > 0) {
+
+            adapter = new ShareRecommendAdapter(context, lists);
+            //设置适配器
+
+            rlShareRecommend.setAdapter(adapter);
+
+            //设置RecyclerView的布局模式
+            LinearLayoutManager manager = new LinearLayoutManager(context);
+
+            rlShareRecommend.setLayoutManager(manager);
+        }
         progressbar.setVisibility(View.GONE);
 
     }
+
     @Override
     protected void initListener() {
 
