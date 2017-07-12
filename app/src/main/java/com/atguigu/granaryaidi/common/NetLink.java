@@ -237,4 +237,5 @@ public class NetLink {
     //段子接口
     public static final String SHARE_JOKE = "http://s.budejie.com/topic/tag-topic/64/hot/budejie-android-6.6.3/0-20.json";
 
+    public static final String SHARE_RECOMMEND = "http://s.budejie.com/topic/list/jingxuan/1/budejie-android-6.6.3/0-20.json";
 }

@@ -133,7 +133,7 @@ public class GoodsDetailsActivity extends BaseActivity {
                         llGoodNote.setVisibility(View.VISIBLE);
 
                         //设置商品须知的
-                        if (items != null) {
+                        if (items != null && items.getGood_guide() !=null) {
 
                             tvGoodNote.setText(items.getGood_guide().getContent());
 
@@ -153,12 +153,12 @@ public class GoodsDetailsActivity extends BaseActivity {
         if (items != null) {
             List<GoodsDetailsBean.DataBean.ItemsBean.GoodsInfoBean> goods_info = items.getGoods_info();
 
-            if(items.getGoods_desc().length() > 1) {
+            if (items.getGoods_desc().length() > 1) {
                 //表示该商品Goods_desc有数据
 
                 TextView textView0 = new TextView(GoodsDetailsActivity.this);
                 textView0.setTextColor(Color.GRAY);
-                textView0.setTextSize(DensityUtil.dip2px(GoodsDetailsActivity.this,6));
+                textView0.setTextSize(DensityUtil.dip2px(GoodsDetailsActivity.this, 6));
                 textView0.setText(items.getGoods_desc());
 //                                textView0.setPadding(0,DensityUtil.dip2px(GoodsDetailsActivity.this,10),0,DensityUtil.dip2px(GoodsDetailsActivity.this,10));
                 llGoodDetail.addView(textView0);
@@ -170,34 +170,34 @@ public class GoodsDetailsActivity extends BaseActivity {
 
 
                 switch (type) {
-                    case DETAIL_TITLE :
+                    case DETAIL_TITLE:
                         TextView textView = new TextView(GoodsDetailsActivity.this);
                         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                        lp.setMargins(0, DensityUtil.dip2px(GoodsDetailsActivity.this,10), 0, DensityUtil.dip2px(GoodsDetailsActivity.this,10));
+                        lp.setMargins(0, DensityUtil.dip2px(GoodsDetailsActivity.this, 10), 0, DensityUtil.dip2px(GoodsDetailsActivity.this, 10));
                         textView.setLayoutParams(lp);
 
                         textView.setTextColor(Color.WHITE);
-                        textView.setTextSize(DensityUtil.dip2px(GoodsDetailsActivity.this,7));
+                        textView.setTextSize(DensityUtil.dip2px(GoodsDetailsActivity.this, 7));
                         textView.setText(goods_info.get(i).getContent().getText());
 //                                        textView.setPadding(0,DensityUtil.dip2px(GoodsDetailsActivity.this,10),0,DensityUtil.dip2px(GoodsDetailsActivity.this,10));
                         llGoodDetail.addView(textView);
 
                         break;
-                    case DETAIL_CONTENT :
+                    case DETAIL_CONTENT:
                         TextView textView2 = new TextView(GoodsDetailsActivity.this);
 
                         LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                        lp2.setMargins(0, DensityUtil.dip2px(GoodsDetailsActivity.this,10), 0, DensityUtil.dip2px(GoodsDetailsActivity.this,10));
+                        lp2.setMargins(0, DensityUtil.dip2px(GoodsDetailsActivity.this, 10), 0, DensityUtil.dip2px(GoodsDetailsActivity.this, 10));
                         textView2.setLayoutParams(lp2);
 
                         textView2.setTextColor(Color.GRAY);
-                        textView2.setTextSize(DensityUtil.dip2px(GoodsDetailsActivity.this,6));
+                        textView2.setTextSize(DensityUtil.dip2px(GoodsDetailsActivity.this, 6));
                         textView2.setText(goods_info.get(i).getContent().getText());
 //                                        textView2.setPadding(0,DensityUtil.dip2px(GoodsDetailsActivity.this,10),0,DensityUtil.dip2px(GoodsDetailsActivity.this,10));
                         llGoodDetail.addView(textView2);
 
                         break;
-                    case DETAIL_IMAGE :
+                    case DETAIL_IMAGE:
                         ImageView imageView = new ImageView(GoodsDetailsActivity.this);
                         imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                                 LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -305,14 +305,18 @@ public class GoodsDetailsActivity extends BaseActivity {
                 Glide.with(GoodsDetailsActivity.this).load(items.getPromotion_imgurl()).into(ivDiscount);
             }
             //设置品牌的图标
-            Glide.with(GoodsDetailsActivity.this).load(items.getBrand_info().getBrand_logo()).into(ivBrandIcon);
-            tvBrandName.setText(items.getBrand_info().getBrand_name());
+            if (items.getBrand_info() != null) {
+
+                Log.e("test", "--" + items.getBrand_info().getBrand_logo());
+                Glide.with(GoodsDetailsActivity.this).load(items.getBrand_info().getBrand_logo()).into(ivBrandIcon);
+                tvBrandName.setText(items.getBrand_info().getBrand_name());
+            }
 
             /**
              * 一进来页面就加载详情内容
              */
             initGoodDetail();
-        }else {
+        } else {
             //没有数据
             runOnUiThread(new Runnable() {
                 @Override
@@ -377,14 +381,17 @@ public class GoodsDetailsActivity extends BaseActivity {
             case R.id.ll_brand:
 //                showToast("进入品牌介绍");
                 //将bean对象传过去
-                Intent intent = new Intent(GoodsDetailsActivity.this, ShopPinpaiActivity.class);
-                ShopPinPaiBean.DataBean.ItemsBean bean = new ShopPinPaiBean.DataBean.ItemsBean();
-                bean.setBrand_id(Integer.parseInt(items.getBrand_info().getBrand_id()));
-                bean.setBrand_name(items.getBrand_info().getBrand_name());
-                bean.setBrand_logo(items.getBrand_info().getBrand_logo());
+                if (items.getBrand_info() != null) {
 
-                intent.putExtra(NetLink.SHOP_PINPAI_LIST,bean);
-                startActivity(intent);
+                    Intent intent = new Intent(GoodsDetailsActivity.this, ShopPinpaiActivity.class);
+                    ShopPinPaiBean.DataBean.ItemsBean bean = new ShopPinPaiBean.DataBean.ItemsBean();
+                    bean.setBrand_id(Integer.parseInt(items.getBrand_info().getBrand_id()));
+                    bean.setBrand_name(items.getBrand_info().getBrand_name());
+                    bean.setBrand_logo(items.getBrand_info().getBrand_logo());
+
+                    intent.putExtra(NetLink.SHOP_PINPAI_LIST, bean);
+                    startActivity(intent);
+                }
 
                 break;
             case R.id.bt_good_note:
@@ -420,7 +427,7 @@ public class GoodsDetailsActivity extends BaseActivity {
      * 设置转场动画
      */
     private void startActivityAnimation() {
-        if(items != null ) {
+        if (items != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 Intent intent1 = new Intent(GoodsDetailsActivity.this, GoodsGotoBuyActivity.class);
 //                intent1.putExtra("goods_image",items.getGoods_image());
@@ -431,13 +438,13 @@ public class GoodsDetailsActivity extends BaseActivity {
 //                intent1.putExtra("sku_info", (Serializable)items.getSku_info());
 
 
-                intent1.putExtra("goodsbean",items);
+                intent1.putExtra("goodsbean", items);
                 startActivity(intent1, ActivityOptions.makeSceneTransitionAnimation(GoodsDetailsActivity.this).toBundle());
             } else {
 
                 Intent intent1 = new Intent(GoodsDetailsActivity.this, GoodsGotoBuyActivity.class);
 
-                intent1.putExtra("goodsbean",items);
+                intent1.putExtra("goodsbean", items);
                 //将对应的类型链接传到 商品列表页面
                 startActivity(intent1);
             }

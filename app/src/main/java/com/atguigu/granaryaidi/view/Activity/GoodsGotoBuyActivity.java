@@ -101,8 +101,10 @@ public class GoodsGotoBuyActivity extends BaseActivity {
             Glide.with(GoodsGotoBuyActivity.this)
                     .load(items.getGoods_image())
                     .into(ivBrandBuyLogo);
+            if(items.getBrand_info() != null) {
 
-            brandName.setText(items.getBrand_info().getBrand_name());
+                brandName.setText(items.getBrand_info().getBrand_name());
+            }
             tvProductName.setText(items.getGoods_name());
 //            if (TextUtils.isEmpty(items.getDiscount_price())) {
 //                tvPrice.setText("￥" + items.getPrice());
@@ -110,17 +112,24 @@ public class GoodsGotoBuyActivity extends BaseActivity {
 //                tvPrice.setText("￥" + items.getDiscount_price());
 //            }
 
-            if(TextUtils.isEmpty(items.getSku_inv().get(0).getDiscount_price())) {
-                tvPrice.setText("￥" + items.getSku_inv().get(0).getPrice());
-            }else {
-                tvPrice.setText("￥" + items.getSku_inv().get(0).getDiscount_price());
+            if(items.getSku_inv().size() > 0 && items.getSku_inv() != null) {//针对个别商品艺术品
+                if(TextUtils.isEmpty(items.getSku_inv().get(0).getDiscount_price())) {
+                    tvPrice.setText("￥" + items.getSku_inv().get(0).getPrice());
+                }else {
+                    tvPrice.setText("￥" + items.getSku_inv().get(0).getDiscount_price());
 
-            }
-            //第一行的类型先设置了后边动态new
-            tvProductType.setText(items.getSku_info().get(0).getType_name());
+                }
+                //第一行的类型先设置了后边动态new
+                tvProductType.setText(items.getSku_info().get(0).getType_name());
 
 //            设置可购买的类型
-            setllProductTypeData();
+                setllProductTypeData();
+
+            }else {
+                tvPrice.setText("￥" + items.getPrice());
+
+            }
+
         }
 
     }

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.atguigu.granaryaidi.Base.BaseFragment;
 import com.atguigu.granaryaidi.R;
@@ -57,9 +58,14 @@ public class DarenLikefragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 if(goods != null && goods.size() > 0) {
-                    Intent intent = new Intent(context, GoodsDetailsActivity.class);
-                    intent.putExtra("goods_id",goods.get(position).getGoods_id());
-                    startActivity(intent);
+
+                    if(goods.get(position).getIs_outter().equals("0")) {
+                        Intent intent = new Intent(context, GoodsDetailsActivity.class);
+                        intent.putExtra("goods_id",goods.get(position).getGoods_id());
+                        startActivity(intent);
+                    }else {
+                        Toast.makeText(context, "需打开另一个页面", Toast.LENGTH_SHORT).show();
+                    }
 
                 }
             }
