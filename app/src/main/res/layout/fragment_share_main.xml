@@ -3,11 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <include layout="@layout/title_main"/>
-    <TextView
+
+    <include layout="@layout/title_main" />
+
+    <!--ViewPagerIndicator-->
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tl_share"
+        style="@style/MyCustomTabLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="分享页面"
-        android:textColor="@color/holo_red_light"
-        android:textSize="30dp" />
+        android:layout_height="35dp" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_share"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
 </LinearLayout>
