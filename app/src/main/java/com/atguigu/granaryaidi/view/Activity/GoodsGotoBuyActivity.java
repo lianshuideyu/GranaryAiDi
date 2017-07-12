@@ -8,6 +8,7 @@ import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -26,7 +27,10 @@ import com.atguigu.granaryaidi.utils.DensityUtil;
 import com.atguigu.granaryaidi.view.viewmyself.AddSubView;
 import com.bumptech.glide.Glide;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -101,9 +105,9 @@ public class GoodsGotoBuyActivity extends BaseActivity {
             brandName.setText(items.getBrand_info().getBrand_name());
             tvProductName.setText(items.getGoods_name());
             if (TextUtils.isEmpty(items.getDiscount_price())) {
-                tvPrice.setText(items.getPrice());
+                tvPrice.setText("￥" + items.getPrice());
             } else {
-                tvPrice.setText(items.getDiscount_price());
+                tvPrice.setText("￥" + items.getDiscount_price());
             }
             //第一行的类型先设置了后边动态new
             tvProductType.setText(items.getSku_info().get(0).getType_name());
@@ -169,53 +173,6 @@ public class GoodsGotoBuyActivity extends BaseActivity {
 
         RadioGroup groupend = addview(group, id);
 
-//        RadioGroup.LayoutParams lp1 = new RadioGroup
-//                .LayoutParams(RadioGroup.LayoutParams.WRAP_CONTENT,
-//                RadioGroup.LayoutParams.WRAP_CONTENT);
-//        lp1.setLayoutDirection(RadioGroup.HORIZONTAL);
-//        lp1.setMargins(0, 10, 0, 0);
-//        linearLayout1.setLayoutParams(lp1);
-
-//        for(int i = 0; i < items.getSku_info().get(id).getAttrList().size(); i++) {
-//            final List<GoodsDetailsBean.DataBean.ItemsBean.SkuInfoBean.AttrListBean> attrList
-//                    = items.getSku_info().get(id).getAttrList();
-//
-//            RadioButton text = new RadioButton(GoodsGotoBuyActivity.this);
-////            LinearLayout.LayoutParams lpp = new LinearLayout.LayoutParams(//字体高20sp
-////                    LinearLayout.LayoutParams.WRAP_CONTENT,
-////                    DensityUtil.dip2px(GoodsGotoBuyActivity.this,30));
-//            text.setButtonDrawable(null);//设置radiobutton的圆点消失
-//
-//            text.setBackgroundResource(R.drawable.goods_gobuy);
-////            if(i == 0) {
-////                text.setChecked(true);
-////            }else {
-////                text.setChecked(false);
-////            }
-//            text.setPadding(10,15,10,15);
-////            lpp.setMargins(0, 0, 10, 0);//右边距为10dp
-//            text.setLayoutParams(lp1);
-//
-//            text.setTextColor(Color.WHITE);
-//            text.setTextSize(12);
-//            text.setGravity(Gravity.CENTER);
-//            text.setText(attrList.get(i).getAttr_name());
-//
-//            group.addView(text);
-//
-//            /**
-//             * textview的监听，得到文字信息
-//             */
-////            final int finalI = i;
-////            text.setOnClickListener(new View.OnClickListener() {
-////                @Override
-////                public void onClick(View view) {
-////                    //将数据传给购物车
-////                    showToast(attrList.get(finalI).getAttr_name());
-////                }
-////            });
-//
-//        }
         return groupend;
     }
 
@@ -246,31 +203,61 @@ public class GoodsGotoBuyActivity extends BaseActivity {
 
                 //测试数据保存到数据库
                 //String type, String cover_price, String figure, String name, String product_id, int number
-                if (cartStorage != null && items != null) {
-                    GoodsBean bean = new GoodsBean(
-                            items.getSku_info().get(0).getAttrList().get(0).getAttr_name()
-                            , items.getPrice(), items.getGoods_image(), items.getGoods_name(),
-                            items.getGoods_id(), nasGoodinfoNum.getValue()
-                    );
-                    cartStorage.addData(bean);
-                    showToast("添加购物车成功");
-                }
-                onBackPressed();
+                ensureToBuy();
+
                 break;
+        }
+    }
+
+    /**
+     * //点击确定加入购物车或者直接购买
+     * //然后页面返回后跳转...
+     * //测试数据保存到数据库
+     */
+    private HashMap<Integer, Integer> hashMap = new HashMap<>();
+    private void ensureToBuy() {
+
+        if (cartStorage != null && items != null) {
+            if (hashMap.size() == items.getSku_info().size()) {
+
+                //items.getSku_info().get(id).getAttrList().get(i).getAttr_id()
+                //id 为 key ，i 为value
+                Iterator iter = hashMap.entrySet().iterator();
+                while (iter.hasNext()) {
+                    Map.Entry entry = (Map.Entry) iter.next();
+                    Integer key = (Integer) entry.getKey();
+                    Integer val = (Integer) entry.getValue();
+                    Log.e("buy",key + "," + val);
+                }
+
+                GoodsBean bean = new GoodsBean(
+                        items.getSku_info().get(0).getAttrList().get(0).getAttr_name()
+                        , items.getPrice(), items.getGoods_image(), items.getGoods_name(),
+                        items.getGoods_id(), nasGoodinfoNum.getValue()
+                );
+                cartStorage.addData(bean);
+                showToast("添加购物车成功");
+                onBackPressed();
+            } else {
+                showToast("请选择商品类型");
+            }
         }
     }
 
     //动态添加视图
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
-    public RadioGroup addview(RadioGroup radiogroup, int id) {
+    public RadioGroup addview(RadioGroup radiogroup, int id) {//id 代表类型的第几行
         //设置RadioGroup中的RadioButton水平排列
         radiogroup.setOrientation(LinearLayout.HORIZONTAL);
+//        ViewGroup.LayoutParams pa = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT
+//                ,ViewGroup.LayoutParams.WRAP_CONTENT);
+//        radiogroup.setLayoutParams(pa);
         for (int i = 0; i < items.getSku_info().get(id).getAttrList().size(); i++) {
             final List<GoodsDetailsBean.DataBean.ItemsBean.SkuInfoBean.AttrListBean> attrList
                     = items.getSku_info().get(id).getAttrList();
 
             RadioButton button = new RadioButton(GoodsGotoBuyActivity.this);
-            setRaidBtnAttribute(button, attrList.get(i).getAttr_name(), i);
+            setRaidBtnAttribute(button, attrList.get(i).getAttr_name(), i, id);//i 代表每行的第几个
 
             radiogroup.addView(button);
 
@@ -279,7 +266,7 @@ public class GoodsGotoBuyActivity extends BaseActivity {
             layoutParams.setMargins(0, 0, DensityUtil.dip2px(GoodsGotoBuyActivity.this, 10), 0);//4个参数按顺序分别是左上右下
 
             button.setPadding(DensityUtil.dip2px(GoodsGotoBuyActivity.this, 5),
-                    0,DensityUtil.dip2px(GoodsGotoBuyActivity.this, 5),0);
+                    0, DensityUtil.dip2px(GoodsGotoBuyActivity.this, 5), 0);
 
             button.setLayoutParams(layoutParams);
         }
@@ -289,26 +276,39 @@ public class GoodsGotoBuyActivity extends BaseActivity {
     }
 
 
+
+
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
-    private void setRaidBtnAttribute(final RadioButton codeBtn, String btnContent, int id) {
-        if (null == codeBtn) {
+    private void setRaidBtnAttribute(final RadioButton codeBtn, String btnContent, final int i, final int id) {
+        if (null == codeBtn) {//id 代表类型的第几行//i 代表每行的第几个
             return;
         }
         codeBtn.setBackgroundResource(R.drawable.goods_gobuy);
         codeBtn.setTextColor(Color.WHITE);
         codeBtn.setButtonDrawable(new ColorDrawable(Color.TRANSPARENT));
         //codeBtn.setTextSize( ( textSize > 16 )?textSize:24 );
-        codeBtn.setId(id);
+        codeBtn.setId(i);
         codeBtn.setTextSize(10);
         codeBtn.setText(btnContent);
         //codeBtn.setPadding(2, 0, 2, 0);
-
+        if (i == 0) {
+            codeBtn.setChecked(true);
+        }
         codeBtn.setGravity(Gravity.CENTER);
+//        Log.e("buy", "id--i---" + id + i);
+
+        hashMap.put(id, 0);//默认选中 每一行的第一个类型
+
         codeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(GoodsGotoBuyActivity.this, codeBtn.getText().toString(), Toast.LENGTH_SHORT).show();
-
+//                Toast.makeText(GoodsGotoBuyActivity.this, codeBtn.getText().toString(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(GoodsGotoBuyActivity.this,
+//                        items.getSku_info().get(id).getAttrList().get(i).getAttr_id(),
+//                        Toast.LENGTH_SHORT).show();
+                //id 为 行号，getAttr_id（）；id和i都是从0开始
+                Toast.makeText(GoodsGotoBuyActivity.this, id + "," + i, Toast.LENGTH_SHORT).show();
+                hashMap.put(id, i);
             }
         });
         //DensityUtilHelps.Dp2Px(this,40)
