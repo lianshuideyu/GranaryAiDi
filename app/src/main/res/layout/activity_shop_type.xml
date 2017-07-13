@@ -19,6 +19,7 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/tv_selector_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -37,12 +38,12 @@
     </LinearLayout>
 
     <GridView
-        android:paddingLeft="10dp"
-        android:numColumns="2"
         android:id="@+id/gv_shop_type"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:numColumns="2"
+        android:paddingLeft="10dp">
 
     </GridView>
 </LinearLayout>

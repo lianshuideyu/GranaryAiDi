@@ -73,6 +73,17 @@ public class DaRenFragment extends BaseFragment {
         ibShopMenu.setVisibility(View.VISIBLE);
         ibShopSearch.setVisibility(View.VISIBLE);
 
+        ibShopMenu.setBackgroundResource(R.drawable.actionbar_navigation_menu);
+
+        /**
+         * 初始化popuwindow 相关
+         */
+        contentView = LayoutInflater.from(context).inflate(
+                R.layout.pop_window, null);
+
+        popupWindow = new PopupWindow(contentView,
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+
         url = NetLink.DAREN_DEFAULT;
     }
 
@@ -101,8 +112,18 @@ public class DaRenFragment extends BaseFragment {
                 intent.putExtra("duty", items.get(position).getDuty());//行业
                 intent.putExtra("orig", items.get(position).getUser_images().getOrig());//头像链接
 
-
                 startActivity(intent);
+            }
+        });
+
+        /**
+         * popuwindow 消失的监听，当popuwindow消失的时候方法会回调
+         */
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+//                Toast.makeText(context, "00", Toast.LENGTH_SHORT).show();
+                ibShopMenu.setBackgroundResource(R.drawable.actionbar_navigation_menu);
             }
         });
 
@@ -118,7 +139,6 @@ public class DaRenFragment extends BaseFragment {
                     //解析数据
                     processData(content);
                 }
-
             }
 
             @Override
@@ -147,7 +167,6 @@ public class DaRenFragment extends BaseFragment {
 
     }
 
-
     @OnClick({R.id.ib_shop_search, R.id.ib_shop_menu})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -155,7 +174,7 @@ public class DaRenFragment extends BaseFragment {
                 Toast.makeText(context, "搜索", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.ib_shop_menu:
-//                Toast.makeText(context, "筛选", Toast.LENGTH_SHORT).show();
+
                 showPopupWindow(view);
 
 
@@ -168,6 +187,7 @@ public class DaRenFragment extends BaseFragment {
      * 以下写成全局的保证为同一个对象
      */
     private TextView temptext;
+    // 一个自定义的布局，作为显示的内容
     View contentView;
     TextView text1;
     TextView text2;
@@ -178,12 +198,7 @@ public class DaRenFragment extends BaseFragment {
 
     private void showPopupWindow(View view) {
 
-        // 一个自定义的布局，作为显示的内容
-        if (contentView == null) {
 
-            contentView = LayoutInflater.from(context).inflate(
-                    R.layout.pop_window, null);
-        }
         // 设置按钮的点击事件
         if (text1 == null && text2 == null && text3 == null && text4 == null && text5 == null) {
 
@@ -192,11 +207,6 @@ public class DaRenFragment extends BaseFragment {
             text3 = (TextView) contentView.findViewById(R.id.text3);
             text4 = (TextView) contentView.findViewById(R.id.text4);
             text5 = (TextView) contentView.findViewById(R.id.text5);
-        }
-        if (popupWindow == null) {
-
-            popupWindow = new PopupWindow(contentView,
-                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
         }
 
 
@@ -213,6 +223,8 @@ public class DaRenFragment extends BaseFragment {
         // TODO: 2016/5/17 以下拉的方式显示，并且可以设置显示的位置
         //        popupWindow.showAsDropDown(btnPopup, );
         popupWindow.showAsDropDown(rlbasetitle, 0, 0);
+        //popupWindow打开的时候菜单按钮的图标就改变
+        ibShopMenu.setBackgroundResource(R.drawable.close);
 
         /**
          * 如果第一次打开popuwindow ，temptext为空则显示默认推荐为选择状态

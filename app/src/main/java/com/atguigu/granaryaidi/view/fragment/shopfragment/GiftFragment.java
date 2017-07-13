@@ -3,7 +3,6 @@ package com.atguigu.granaryaidi.view.fragment.shopfragment;
 import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.atguigu.granaryaidi.Base.BaseFragment;
@@ -34,7 +33,7 @@ public class GiftFragment extends BaseFragment {
     @InjectView(R.id.iv_gift_parent)
     ImageView ivGiftParent;
     @InjectView(R.id.ll_setting_gift)
-    LinearLayout llSettingGift;
+    ImageView llSettingGift;
 
     /**
      * 链接的数组
