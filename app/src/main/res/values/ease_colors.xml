@@ -21,6 +21,7 @@
     <color name="bottom_text_color_normal">#ffffff</color>
     <color name="btn_white_normal">#f7f8f8</color>
     <color name="btn_white_pressed">#b5b5b6</color>
+    <color name="btn_white_pressed1">#878787</color>
     <color name="btn_green_noraml">#68C270</color>
     <color name="btn_green_pressed">#6FCD78</color>
     <color name="btn_gray_normal">#c0c0c0</color>
@@ -37,6 +38,8 @@
     <color name="grid_state_focused">#80000000</color>
     <color name="voip_interface_text_color">#bababa</color>
     <color name="black_deep">#FF000000</color>
+    <color name="black_deep2">#313335</color>
+    <color name="black_deep3">#878787</color>
     <color name="btn_answer_pressed">#4ebcd3</color>
     <color name="btn_answer_normal">#2dafa3</color>
 	<color name="list_itease_secondary_color">#888888</color>

@@ -238,4 +238,12 @@ public class NetLink {
     public static final String SHARE_JOKE = "http://s.budejie.com/topic/tag-topic/64/hot/budejie-android-6.6.3/0-20.json";
 
     public static final String SHARE_RECOMMEND = "http://s.budejie.com/topic/list/jingxuan/1/budejie-android-6.6.3/0-20.json";
+
+    /**
+     * 达人 最多推荐
+     */
+    public static final String DAREN_MOST_RECOMMEND = "http://mobile.iliangcang.com/user/masterList?app_key=Android&count=18&orderby=goods_sum&page=1&sig=79F01B94B8EBEFAC8EEB344EE2B20AA2%7C383889010803768&v=1.0";
+    public static final String DAREN_MOST_WELCOME = "http://mobile.iliangcang.com/user/masterList?app_key=Android&count=18&orderby=followers&page=1&sig=79F01B94B8EBEFAC8EEB344EE2B20AA2%7C383889010803768&v=1.0";
+    public static final String DAREN_NEW_RECOMMEND = "http://mobile.iliangcang.com/user/masterList?app_key=Android&count=18&orderby=action_time&page=1&sig=CD0E234053E25DD6111E3DBD450A4B85%7C954252010968868&v=1.0";
+    public static final String DAREN_NEW_JOIN = "http://mobile.iliangcang.com/user/masterList?app_key=Android&count=18&orderby=reg_time&page=1&sig=79F01B94B8EBEFAC8EEB344EE2B20AA2%7C383889010803768&v=1.0";
 }
