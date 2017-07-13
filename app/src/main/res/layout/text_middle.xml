@@ -6,6 +6,7 @@
 
 
     <TextView
+        android:lineSpacingMultiplier="1.2"
         android:id="@+id/tv_context"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

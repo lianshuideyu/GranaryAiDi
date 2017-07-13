@@ -17,7 +17,7 @@
     <RelativeLayout
         android:id="@+id/rl_holder"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="5dp">
 
         <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
@@ -27,11 +27,11 @@
             android:orientation="vertical" />
 
         <TextView
-            android:layout_margin="5dp"
             android:id="@+id/tv_play_nums"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:layout_margin="5dp"
             android:background="#33000000"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
@@ -40,14 +40,14 @@
             android:textSize="14dp" />
 
         <TextView
-            android:layout_margin="5dp"
-            android:padding="2dp"
             android:id="@+id/tv_video_duration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
+            android:layout_margin="5dp"
             android:background="#33000000"
+            android:padding="2dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:text="12:23"
@@ -62,19 +62,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-         />
+        android:scaleType="fitXY" />
 
-    <TextView
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp"
-        android:id="@+id/tv_commant_context"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#11000000"
-        android:gravity="center_vertical"
-        android:paddingLeft="5dp"
-        android:text="楼主，要不是我玩过98，我差点就信了"
-        android:textSize="14sp" />
+
+
 </LinearLayout>
 
 

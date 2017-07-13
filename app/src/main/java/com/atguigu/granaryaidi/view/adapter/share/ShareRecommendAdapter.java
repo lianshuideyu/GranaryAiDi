@@ -1,7 +1,12 @@
 package com.atguigu.granaryaidi.view.adapter.share;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +17,7 @@ import android.widget.TextView;
 
 import com.atguigu.granaryaidi.R;
 import com.atguigu.granaryaidi.bean.baisi.BaisiRecommendBean;
+import com.atguigu.granaryaidi.view.Activity.ShowImageAndGifActivity;
 import com.atguigu.granaryaidi.view.utils.GlideCircleTransform;
 import com.atguigu.granaryaidi.view.utils.Utils;
 import com.bumptech.glide.Glide;
@@ -89,30 +95,30 @@ public class ShareRecommendAdapter extends RecyclerView.Adapter<ShareRecommendAd
         return itemViewType;
     }
 
-    
+
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         BaseViewHolder baseViewHolder = null;
         switch (viewType) {
-            case TYPE_VIDEO :
+            case TYPE_VIDEO:
                 baseViewHolder = new VideoHoder(LayoutInflater.from(context)
                         .inflate(R.layout.all_video_item, parent, false));
-                Log.e("TAG","onCreateViewHolder---TYPE_VIDEO");
+                Log.e("TAG", "onCreateViewHolder---TYPE_VIDEO");
 
                 break;
-            case TYPE_IMAGE :
+            case TYPE_IMAGE:
                 baseViewHolder = new ImageHolder(LayoutInflater.from(context)
                         .inflate(R.layout.all_image_item, parent, false));
                 break;
-            case TYPE_TEXT :
+            case TYPE_TEXT:
                 baseViewHolder = new TextHolder(LayoutInflater.from(context)
                         .inflate(R.layout.all_text_item, parent, false));
                 break;
-            case TYPE_GIF :
+            case TYPE_GIF:
                 baseViewHolder = new GifHolder(LayoutInflater.from(context)
                         .inflate(R.layout.all_gif_item, parent, false));
                 break;
-            case TYPE_HTML :
+            case TYPE_HTML:
                 baseViewHolder = new HTMLHolder(LayoutInflater.from(context)
                         .inflate(R.layout.all_ad_item, parent, false));
 
@@ -125,21 +131,21 @@ public class ShareRecommendAdapter extends RecyclerView.Adapter<ShareRecommendAd
 
     /**
      * //当视图滚动到这的时候回调该方法
+     *
      * @param holder
-     * @param position
-     * 在这里设置不同的item的数据,或点击事件
+     * @param position 在这里设置不同的item的数据,或点击事件
      */
     @Override
     public void onBindViewHolder(BaseViewHolder holder, final int position) {
         int itemViewType = getItemViewType(position);
         switch (itemViewType) {
-            case TYPE_VIDEO :
+            case TYPE_VIDEO:
                 VideoHoder videoHoder = (VideoHoder) holder;
 
                 videoHoder.setData(lists.get(position));
 
                 break;
-            case TYPE_IMAGE :
+            case TYPE_IMAGE:
                 ImageHolder imageHolder = (ImageHolder) holder;
 
                 imageHolder.setData(lists.get(position));
@@ -149,22 +155,22 @@ public class ShareRecommendAdapter extends RecyclerView.Adapter<ShareRecommendAd
                     public void onClick(View view) {
                         //Toast.makeText(context, "点击image", Toast.LENGTH_SHORT).show();
                         BaisiRecommendBean.ListBean listBean = lists.get(position);
-                        if(listBean != null) {
+                        if (listBean != null) {
                             //3.传递视频列表
-//                            Intent intent = new Intent(context, ShowImageAndGifActivity.class);
-//                            String url = listBean.getImage().getBig().get(0);
-//                            intent.putExtra("url",url);
-//                            context.startActivity(intent);
+                            Intent intent = new Intent(context, ShowImageAndGifActivity.class);
+                            String url = listBean.getImage().getBig().get(0);
+                            intent.putExtra("url",url);
+                            context.startActivity(intent);
                         }
                     }
                 });
                 break;
-            case TYPE_TEXT :
+            case TYPE_TEXT:
                 TextHolder textHolder = (TextHolder) holder;
 
                 textHolder.setData(lists.get(position));
                 break;
-            case TYPE_GIF :
+            case TYPE_GIF:
                 GifHolder gifHolder = (GifHolder) holder;
 
                 gifHolder.setData(lists.get(position));
@@ -174,17 +180,21 @@ public class ShareRecommendAdapter extends RecyclerView.Adapter<ShareRecommendAd
                     public void onClick(View view) {
                         //Toast.makeText(context, "点击gif", Toast.LENGTH_SHORT).show();
                         BaisiRecommendBean.ListBean listBean = lists.get(position);
-                        if(listBean != null) {
-                            //3.传递视频列表
-//                            Intent intent = new Intent(context, ShowImageAndGifActivity.class);
-//                            String url = listBean.getGif().getImages().get(0);
-//                            intent.putExtra("url",url);
-//                            context.startActivity(intent);
+                        if (listBean != null) {
+                            if (listBean.getGif() != null && listBean.getGif().getImages() != null
+                                    && listBean.getGif().getImages().size() > 0) {
+
+                                //3.传递视频列表
+                                Intent intent = new Intent(context, ShowImageAndGifActivity.class);
+                                String url = listBean.getGif().getImages().get(0);
+                                intent.putExtra("url", url);
+                                context.startActivity(intent);
+                            }
                         }
                     }
                 });
                 break;
-            case TYPE_HTML :
+            case TYPE_HTML:
                 HTMLHolder adHolder = (HTMLHolder) holder;
 
                 adHolder.setData();
@@ -192,10 +202,11 @@ public class ShareRecommendAdapter extends RecyclerView.Adapter<ShareRecommendAd
         }
 
     }
+
     //加载图标圆形图片用
     private RequestManager glideRequest;
 
-    class BaseViewHolder extends RecyclerView.ViewHolder{
+    class BaseViewHolder extends RecyclerView.ViewHolder {
         ImageView ivHeadpic;
         TextView tvName;
         TextView tvTimeRefresh;
@@ -206,6 +217,10 @@ public class ShareRecommendAdapter extends RecyclerView.Adapter<ShareRecommendAd
         TextView tvShenheCaiNumber;
         TextView tvPostsNumber;
         LinearLayout llDownload;
+
+        TextView tvPinglunContent1;
+        TextView tvPinglunContent2;
+        TextView tvPinglunContent3;
 
         public BaseViewHolder(View convertView) {
             super(convertView);
@@ -222,6 +237,10 @@ public class ShareRecommendAdapter extends RecyclerView.Adapter<ShareRecommendAd
             tvShenheCaiNumber = (TextView) convertView.findViewById(R.id.tv_shenhe_cai_number);
             tvPostsNumber = (TextView) convertView.findViewById(R.id.tv_posts_number);
             llDownload = (LinearLayout) convertView.findViewById(R.id.ll_download);
+
+            tvPinglunContent1 = (TextView) convertView.findViewById(R.id.tv_pinglun_content1);
+            tvPinglunContent2 = (TextView) convertView.findViewById(R.id.tv_pinglun_content2);
+            tvPinglunContent3 = (TextView) convertView.findViewById(R.id.tv_pinglun_content3);
         }
 
         /**
@@ -260,19 +279,55 @@ public class ShareRecommendAdapter extends RecyclerView.Adapter<ShareRecommendAd
             tvShenheCaiNumber.setText(mediaItem.getDown() + "");
             tvPostsNumber.setText(mediaItem.getForward() + "");
 
+            //设置第一条评论的消息
+            List<BaisiRecommendBean.ListBean.TopCommentsBean> top_comments = mediaItem.getTop_comments();
+            if (top_comments != null && top_comments.size() > 0) {
+
+                BaisiRecommendBean.ListBean.TopCommentsBean bean2 = top_comments.get(0);
+                tvPinglunContent1.setText(bean2.getU().getName() + ": " + bean2.getContent());
+                //使名字变色
+                SpannableStringBuilder builder = new SpannableStringBuilder(tvPinglunContent1.getText().toString());
+                ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.parseColor("#1f83a4"));
+                builder.setSpan(colorSpan, 0, bean2.getU().getName().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                tvPinglunContent1.setText(builder);
+
+                if (top_comments.size() > 1) {
+                    tvPinglunContent2.setVisibility(View.VISIBLE);
+
+                    BaisiRecommendBean.ListBean.TopCommentsBean bean3 = top_comments.get(1);
+                    tvPinglunContent2.setText(bean3.getU().getName() + ": " + bean3.getContent());
+                    //使名字变色
+                    SpannableStringBuilder builder3 = new SpannableStringBuilder(tvPinglunContent2.getText().toString());
+                    ForegroundColorSpan colorSpan3 = new ForegroundColorSpan(Color.parseColor("#1f83a4"));
+                    builder3.setSpan(colorSpan3, 0, bean3.getU().getName().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    tvPinglunContent2.setText(builder3);
+                }
+
+                if (top_comments.size() > 2) {
+                    tvPinglunContent3.setVisibility(View.VISIBLE);
+
+                    BaisiRecommendBean.ListBean.TopCommentsBean bean4 = top_comments.get(2);
+                    tvPinglunContent3.setText(bean4.getU().getName() + ": " + bean4.getContent());
+                    //使名字变色
+                    SpannableStringBuilder builder3 = new SpannableStringBuilder(tvPinglunContent3.getText().toString());
+                    ForegroundColorSpan colorSpan3 = new ForegroundColorSpan(Color.parseColor("#1f83a4"));
+                    builder3.setSpan(colorSpan3, 0, bean4.getU().getName().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    tvPinglunContent3.setText(builder3);
+                }
+            }
         }
 
     }
 
 
-    class VideoHoder extends BaseViewHolder{
+    class VideoHoder extends BaseViewHolder {
         Utils utils;
         TextView tvContext;
         JCVideoPlayerStandard jcvVideoplayer;
         TextView tvPlayNums;
         TextView tvVideoDuration;
         ImageView ivCommant;
-        TextView tvCommantContext;
+
 
         public VideoHoder(View convertView) {
             super(convertView);
@@ -283,15 +338,15 @@ public class ShareRecommendAdapter extends RecyclerView.Adapter<ShareRecommendAd
             tvPlayNums = (TextView) convertView.findViewById(R.id.tv_play_nums);
             tvVideoDuration = (TextView) convertView.findViewById(R.id.tv_video_duration);
             ivCommant = (ImageView) convertView.findViewById(R.id.iv_commant);
-            tvCommantContext = (TextView) convertView.findViewById(R.id.tv_commant_context);
             jcvVideoplayer = (JCVideoPlayerStandard) convertView.findViewById(R.id.jcv_videoplayer);
         }
+
 
         public void setData(BaisiRecommendBean.ListBean mediaItem) {
             super.setData(mediaItem);
 
             //设置文本-所有的都有,只有广告没有哦
-            tvContext.setText(mediaItem.getText() );
+            tvContext.setText(mediaItem.getText());
 
             //视频特有的------------------------
             //第一个参数是视频播放地址，第二个参数是显示封面的地址，第三参数是标题
@@ -300,9 +355,10 @@ public class ShareRecommendAdapter extends RecyclerView.Adapter<ShareRecommendAd
                     "");
             //加载图片
             if (setUp) {
-//                ImageLoader.getInstance().displayImage(mediaItem.getVideo().getThumbnail().get(0),
-//                        jcvVideoplayer.thumbImageView);
-                Glide.with(context).load(mediaItem.getVideo().getThumbnail().get(0)).into(jcvVideoplayer.thumbImageView);
+                Glide.with(context)
+                        .load(mediaItem.getVideo().getThumbnail().get(0))
+                        .centerCrop()//是图片填充父窗体
+                        .into(jcvVideoplayer.thumbImageView);
             }
             tvPlayNums.setText(mediaItem.getVideo().getPlaycount() + "次播放");
             tvVideoDuration.setText(utils.stringForTime(mediaItem.getVideo().getDuration() * 1000) + "");
@@ -310,7 +366,7 @@ public class ShareRecommendAdapter extends RecyclerView.Adapter<ShareRecommendAd
         }
     }
 
-    class ImageHolder extends BaseViewHolder{
+    class ImageHolder extends BaseViewHolder {
         TextView tvContext;
         ImageView ivImageIcon;
 
@@ -326,11 +382,11 @@ public class ShareRecommendAdapter extends RecyclerView.Adapter<ShareRecommendAd
             super.setData(mediaItem);
 
             //设置文本-所有的都有
-            tvContext.setText(mediaItem.getText() );
+            tvContext.setText(mediaItem.getText());
             //图片特有的
 
             ivImageIcon.setImageResource(R.drawable.bg_item);
-            if (mediaItem.getImage() != null && mediaItem.getImage() != null && mediaItem.getImage().getSmall() != null) {
+            if (mediaItem.getImage() != null && mediaItem.getImage().getSmall() != null) {
                 Glide.with(context)
                         .load(mediaItem.getImage().getDownload_url().get(0))
                         .placeholder(R.drawable.bg_item)
@@ -341,7 +397,7 @@ public class ShareRecommendAdapter extends RecyclerView.Adapter<ShareRecommendAd
         }
     }
 
-    class TextHolder extends BaseViewHolder{
+    class TextHolder extends BaseViewHolder {
         TextView tvContext;
 
         public TextHolder(View itemView) {
@@ -354,11 +410,11 @@ public class ShareRecommendAdapter extends RecyclerView.Adapter<ShareRecommendAd
             super.setData(mediaItem);
 
             //设置文本-所有的都有
-            tvContext.setText(mediaItem.getText() );
+            tvContext.setText(mediaItem.getText());
         }
     }
 
-    class GifHolder extends BaseViewHolder{
+    class GifHolder extends BaseViewHolder {
         TextView tvContext;
         ImageView ivImageGif;
 
@@ -374,12 +430,13 @@ public class ShareRecommendAdapter extends RecyclerView.Adapter<ShareRecommendAd
         public void setData(BaisiRecommendBean.ListBean mediaItem) {
             super.setData(mediaItem);
             //设置文本-所有的都有
-            tvContext.setText(mediaItem.getText() );
+            tvContext.setText(mediaItem.getText());
 
             //下面是gif
-            if (mediaItem.getGif() != null && mediaItem.getGif() != null && mediaItem.getGif().getImages() != null) {
+            if (mediaItem.getGif() != null && mediaItem.getGif().getImages() != null) {
                 Glide.with(context)
                         .load(mediaItem.getGif().getImages().get(0))
+                        .fitCenter()
                         .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                         .into(ivImageGif);
 
@@ -388,7 +445,7 @@ public class ShareRecommendAdapter extends RecyclerView.Adapter<ShareRecommendAd
         }
     }
 
-    class HTMLHolder extends BaseViewHolder{
+    class HTMLHolder extends BaseViewHolder {
         TextView tvContext;
         ImageView ivImageIcon;
 

@@ -31,7 +31,8 @@
         <activity
             android:name=".view.Activity.GoodsGotoBuyActivity"
             android:theme="@style/Activity_transparentmy" />
-        <activity android:name=".cart.ShopCartActivity"></activity>
+        <activity android:name=".cart.ShopCartActivity" />
+        <activity android:name=".view.Activity.ShowImageAndGifActivity"></activity>
     </application>
 
 </manifest>

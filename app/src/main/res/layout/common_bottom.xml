@@ -143,5 +143,42 @@
 
         </LinearLayout>
     </LinearLayout>
+
+    <!--评论-->
+    <LinearLayout
+        android:id="@+id/ll_pinglun"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F2F2F2"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tv_pinglun_content1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="评论内容"
+            android:textSize="15dp" />
+
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_pinglun_content2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="评论内容"
+            android:textSize="15dp" />
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_pinglun_content3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="评论内容"
+            android:textSize="15dp" />
+
+    </LinearLayout>
 </LinearLayout>
 
