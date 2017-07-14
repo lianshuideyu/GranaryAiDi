@@ -35,8 +35,6 @@ public class NetLink {
     //商品模块--分类首页
     public static final String SHOP_CLASSIFY = "http://mobile.iliangcang.com/goods/goodsCategory?app_key=Android&sig=430BD99E6C913B8B8C3ED109737ECF15%7C830952120106768&v=1.0";
 
-    //商品模块--品牌首页
-    public static final String SHOP_PINPAI = "http://mobile.iliangcang.com/brand/brandList?app_key=Android&count=20&page=1&sig=430BD99E6C913B8B8C3ED109737ECF15%7C830952120106768&v=1.0";
 
     //商品模块--专题首页
     public static final String SHOP_SPECIAL = "http://mobile.iliangcang.com/goods/shopSpecial?app_key=Android&count=10&page=1&sig=3780CB0808528F7CE99081D295EE8C0F%7C116941220826768&uid=626138098&user_token=0516ed9429352c8e1e3bd11c63ba6f54&v=1.0";
@@ -169,6 +167,11 @@ public class NetLink {
     /**
      * 商店模块----品牌页面的二级页面链接
      */
+    //商品模块--品牌首页
+    public static final String SHOP_PINPAI = "http://mobile.iliangcang.com/brand/brandList?app_key=Android&count=20&page=1&sig=430BD99E6C913B8B8C3ED109737ECF15%7C830952120106768&v=1.0";
+    public static final String SHOP_PINPAI_START = "http://mobile.iliangcang.com/brand/brandList?app_key=Android&count=20&page=";
+    public static final String SHOP_PINPAI_END = "&sig=430BD99E6C913B8B8C3ED109737ECF15%7C830952120106768&v=1.0";
+
     //品牌二级页面中 品牌产品的 链接 前半部分---中间需要拼接的是从品牌一级页面传来的brand_id=840字段
     public static final String SHOP_PINPAI_LISTSTART = "http://mobile.iliangcang.com/brand/brandShopList?app_key=Android&brand_id=";
     //品牌二级页面中 品牌产品的 链接 后半部分
@@ -244,9 +247,11 @@ public class NetLink {
      */
     //段子接口
     public static final String SHARE_JOKE = "http://s.budejie.com/topic/tag-topic/64/hot/budejie-android-6.6.3/0-20.json";
-
+    //推荐的接口
     public static final String SHARE_RECOMMEND = "http://s.budejie.com/topic/list/jingxuan/1/budejie-android-6.6.3/0-20.json";
 
     public static final String SHARE_BASE_RECOMMEND = "http://s.budejie.com/topic/list/jingxuan/1/budejie-android-6.6.3/0-";
+
+    public static final String SHARE_BASE_JOKE = "http://s.budejie.com/topic/tag-topic/64/hot/budejie-android-6.6.3/0-";
 
 }

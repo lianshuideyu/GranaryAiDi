@@ -108,20 +108,20 @@ public class HomeFragment extends BaseFragment {
             /**
              * 通过GridLayoutManager监听recyclerview的位置变化
              */
-            manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-                @Override
-                public int getSpanSize(int position) {
-                    Log.e("home","setSpanSizeLookup==" + position);
-                    if(position <= 2) {
-                        ibTop.setVisibility(View.GONE);
-                    }else {
-                        ibTop.setVisibility(View.VISIBLE);
-                    }
-
-                    //只能返回1
-                    return 1;
-                }
-            });
+//            manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+//                @Override
+//                public int getSpanSize(int position) {
+//                    Log.e("home","setSpanSizeLookup==" + position);
+//                    if(position <= 2) {
+//                        ibTop.setVisibility(View.GONE);
+//                    }else {
+//                        ibTop.setVisibility(View.VISIBLE);
+//                    }
+//
+//                    //只能返回1
+//                    return 1;
+//                }
+//            });
             rvShopHome.setLayoutManager(manager);
         } else {
             //么有数据

@@ -102,7 +102,6 @@ public class ShareRecommendFragment extends BaseFragment {
 
     private void processData(String content) {
 
-
         bean = new Gson().fromJson(content, BaisiRecommendBean.class);
 
         lists = bean.getList();
