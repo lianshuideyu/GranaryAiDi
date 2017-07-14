@@ -222,7 +222,6 @@ public class GoodsDetailsActivity extends BaseActivity {
          * 购物须知 和 折扣价格 默认是 gone 的
          */
 
-
     }
 
     @Override
@@ -374,6 +373,8 @@ public class GoodsDetailsActivity extends BaseActivity {
                 break;
             case R.id.iv_share:
                 showToast("分享");
+
+
                 break;
             case R.id.ll_choose_colorsize:
                 showToast("选择尺寸颜色数量");

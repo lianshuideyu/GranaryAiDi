@@ -28,9 +28,7 @@ import com.atguigu.granaryaidi.view.viewmyself.AddSubView;
 import com.bumptech.glide.Glide;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -125,6 +123,8 @@ public class GoodsGotoBuyActivity extends BaseActivity {
 //            设置可购买的类型
                 setllProductTypeData();
 
+                //进来初始化先调一次
+                ensureToBuy();
             }else {
                 tvPrice.setText("￥" + items.getPrice());
 
@@ -220,7 +220,7 @@ public class GoodsGotoBuyActivity extends BaseActivity {
 
                 //测试数据保存到数据库
                 //String type, String cover_price, String figure, String name, String product_id, int number
-                ensureToBuy();
+//                ensureToBuy();
 
                 if (cartStorage != null && items != null) {
                     if(TextUtils.isEmpty(price)) {
@@ -286,21 +286,25 @@ public class GoodsGotoBuyActivity extends BaseActivity {
                 //items.getSku_info().get(id).getAttrList().get(i).getAttr_id()
                 //id 为 key ，i 为value,遍历HashMap
                 String attr_id = "";
-                Iterator iter = hashMap.entrySet().iterator();
+
+//                Iterator iter = hashMap.entrySet().iterator();
+
                 String typename = "";
-                while (iter.hasNext()) {
-                    Map.Entry entry = (Map.Entry) iter.next();
-                    Integer key = (Integer) entry.getKey();
-                    Integer val = (Integer) entry.getValue();
-                    Log.e("buy","key,val===" + key + "," + val);
-                    attr_id += items.getSku_info().get(key).getAttrList().get(val).getAttr_id() + ",";
+               for (int i = 0; i < hashMap.size();i++){
+//                    Map.Entry entry = (Map.Entry) iter.next();
+
+//                    Integer key = (Integer) entry.getKey();
+//                    Integer val = (Integer) entry.getValue();
+                   Integer val = hashMap.get(i);
+                   Log.e("buy","key,val===" + i + "," + val);
+                    attr_id += items.getSku_info().get(i).getAttrList().get(val).getAttr_id() + ",";
 
                     //用于拼接商品的具体名称
-                    typename += items.getSku_info().get(key).getType_name() + ":"
-                            + items.getSku_info().get(key).getAttrList().get(val).getAttr_name() + ";";
+                    typename += items.getSku_info().get(i).getType_name() + ":"
+                            + items.getSku_info().get(i).getAttrList().get(val).getAttr_name() + ";";
 
                     //用于存到数据库，作为商品的主键拼接用
-                    attr_idcart += items.getSku_info().get(key).getAttrList().get(val).getAttr_id();
+                    attr_idcart += items.getSku_info().get(i).getAttrList().get(val).getAttr_id();
                 }
                 this.typename = typename;
 
