@@ -214,12 +214,14 @@ public class GoodsGotoBuyActivity extends BaseActivity {
 
                 break;
             case R.id.tv_ensure:
+//                Log.e("buy","hashsize==" + hashMap.size());
                 //点击确定加入购物车或者直接购买
                 //然后页面返回后跳转...
 
                 //测试数据保存到数据库
                 //String type, String cover_price, String figure, String name, String product_id, int number
-//                ensureToBuy();
+                ensureToBuy();
+
                 if (cartStorage != null && items != null) {
                     if(TextUtils.isEmpty(price)) {
                         GoodsBean bean = new GoodsBean(
@@ -234,13 +236,25 @@ public class GoodsGotoBuyActivity extends BaseActivity {
                             tvPrice.setText("￥" + items.getSku_inv().get(0).getDiscount_price());
 
                         }
-                    }else {
-                        GoodsBean bean = new GoodsBean(
-                                items.getSku_info().get(0).getAttrList().get(0).getAttr_name()
-                                , price, items.getGoods_image(), items.getGoods_name(),
-                                items.getGoods_id(), nasGoodinfoNum.getValue()
-                        );
-                        cartStorage.addData(bean);
+                    }else {//一般都会进这里
+                        //attr_idcart为获取相应价格的id
+                        if(items.getGoods_id().length() > 2) {//一般进这里
+                            String subid = items.getGoods_id().substring(items.getGoods_id().length() - 2);
+                            GoodsBean bean = new GoodsBean(
+                                    typename
+                                    , price, items.getGoods_image(), items.getGoods_name(),
+                                    subid + attr_idcart, nasGoodinfoNum.getValue()
+                            );
+                            cartStorage.addData(bean);
+
+                        }else {
+                            GoodsBean bean = new GoodsBean(
+                                    typename
+                                    , price, items.getGoods_image(), items.getGoods_name(),
+                                    items.getGoods_id() + attr_idcart, nasGoodinfoNum.getValue()
+                            );
+                            cartStorage.addData(bean);
+                        }
                         tvPrice.setText("￥" + price);
                     }
 
@@ -256,27 +270,45 @@ public class GoodsGotoBuyActivity extends BaseActivity {
      * //然后页面返回后跳转...
      * //测试数据保存到数据库
      */
-    String price = "";
+    private String price = "";
+    private String priceid = "";
+    private String attr_idcart = "";//记得初始值为""，不然下边会与null叠加
+    private String typename = "";
+
     private HashMap<Integer, Integer> hashMap = new HashMap<>();
 
     private void ensureToBuy() {
+        attr_idcart = "";
 
         if (cartStorage != null && items != null) {
             if (hashMap.size() == items.getSku_info().size()) {
 
                 //items.getSku_info().get(id).getAttrList().get(i).getAttr_id()
                 //id 为 key ，i 为value,遍历HashMap
-                String attr_id = null;
+                String attr_id = "";
                 Iterator iter = hashMap.entrySet().iterator();
+                String typename = "";
                 while (iter.hasNext()) {
                     Map.Entry entry = (Map.Entry) iter.next();
                     Integer key = (Integer) entry.getKey();
                     Integer val = (Integer) entry.getValue();
-                    Log.e("buy", key + "," + val);
-                    attr_id = items.getSku_info().get(key).getAttrList().get(val).getAttr_id() + ",";
+                    Log.e("buy","key,val===" + key + "," + val);
+                    attr_id += items.getSku_info().get(key).getAttrList().get(val).getAttr_id() + ",";
 
+                    //用于拼接商品的具体名称
+                    typename += items.getSku_info().get(key).getType_name() + ":"
+                            + items.getSku_info().get(key).getAttrList().get(val).getAttr_name() + ";";
+
+                    //用于存到数据库，作为商品的主键拼接用
+                    attr_idcart += items.getSku_info().get(key).getAttrList().get(val).getAttr_id();
                 }
-                String priceid = attr_id.substring(0, attr_id.length() - 1);//去掉最后一个逗号
+                this.typename = typename;
+
+//                Log.e("buy", "attr_id===" + attr_id);
+                priceid = attr_id.substring(0, attr_id.length() - 1);//去掉最后一个逗号
+                Log.e("buy", "priceid===" + priceid);
+                Log.e("buy", "hashmapsize===" + hashMap.size());
+
                 //再拿priceid与价格的集合去比较id的到具体的价格
                 List<GoodsDetailsBean.DataBean.ItemsBean.SkuInvBean> sku_inv = items.getSku_inv();
 
@@ -294,7 +326,7 @@ public class GoodsGotoBuyActivity extends BaseActivity {
                 }else {
                     tvPrice.setText("￥" + price);
                 }
-                Log.e("buy", "priceid==price==" + priceid + "," + price);
+                Log.e("buy", "priceid,price===" + priceid + "," + price);
 //                GoodsBean bean = new GoodsBean(
 //                        items.getSku_info().get(0).getAttrList().get(0).getAttr_name()
 //                        , items.getPrice(), items.getGoods_image(), items.getGoods_name(),
@@ -312,11 +344,9 @@ public class GoodsGotoBuyActivity extends BaseActivity {
     //动态添加视图
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     public RadioGroup addview(RadioGroup radiogroup, int id) {//id 代表类型的第几行
+
         //设置RadioGroup中的RadioButton水平排列
         radiogroup.setOrientation(LinearLayout.HORIZONTAL);
-//        ViewGroup.LayoutParams pa = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT
-//                ,ViewGroup.LayoutParams.WRAP_CONTENT);
-//        radiogroup.setLayoutParams(pa);
         for (int i = 0; i < items.getSku_info().get(id).getAttrList().size(); i++) {
             final List<GoodsDetailsBean.DataBean.ItemsBean.SkuInfoBean.AttrListBean> attrList
                     = items.getSku_info().get(id).getAttrList();
