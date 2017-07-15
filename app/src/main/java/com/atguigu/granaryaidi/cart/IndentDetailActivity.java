@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.atguigu.granaryaidi.Base.BaseActivity;
 import com.atguigu.granaryaidi.R;
+import com.atguigu.granaryaidi.cart.payutils.PayDemo;
 import com.bumptech.glide.Glide;
 import com.chaychan.library.ExpandableLinearLayout;
 
@@ -42,6 +43,7 @@ public class IndentDetailActivity extends BaseActivity {
 
     private List<GoodsBean> goodsBeens;
 
+    private PayDemo payDemo;
     @Override
     public void initListener() {
 
@@ -56,6 +58,8 @@ public class IndentDetailActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        payDemo = new PayDemo(this);
+
         ibShopBack.setVisibility(View.VISIBLE);
 
         ellProduct.removeAllViews();//清除所有的子View（避免重新刷新数据时重复添加）
@@ -145,6 +149,10 @@ public class IndentDetailActivity extends BaseActivity {
                 break;
             case R.id.tv_gotopay:
                 showToast("付款");
+
+//                payDemo.pay(getTotalPrice());
+                payDemo.pay(0.01);
+
                 break;
         }
     }

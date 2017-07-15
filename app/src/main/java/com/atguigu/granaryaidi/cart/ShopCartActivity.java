@@ -98,9 +98,13 @@ public class ShopCartActivity extends BaseActivity {
                 break;
             case R.id.bt_tobuy:
 //                showToast("去结算");
+                if(products != null && products.size() > 0) {
 
-                Intent intent = new Intent(this, IndentDetailActivity.class);
-                startActivity(intent);
+                    Intent intent = new Intent(this, IndentDetailActivity.class);
+                    startActivity(intent);
+                }else {
+                    showToast("请选择商品");
+                }
                 break;
             case R.id.cb_all_ischeck:
                 boolean checked = cbAllIscheck.isChecked();

@@ -29,7 +29,7 @@ public class NetLink {
     public static final String MAGAZINE_AUTHOR_NAME = "author_name";
 
 
-//------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------
     public static final int PAGE = 1;
 
     //商品模块--分类首页
@@ -44,7 +44,6 @@ public class NetLink {
 
     //商品模块--首页--首页
     public static final String SHOP_HOME = "http://mobile.iliangcang.com/goods/newShopHome?app_key=Android&sig=3780CB0808528F7CE99081D295EE8C0F%7C116941220826768&uid=626138098&user_token=0516ed9429352c8e1e3bd11c63ba6f54&v=1.0";
-
 
 
     /**
@@ -221,7 +220,6 @@ public class NetLink {
 
     /**
      * 杂志 相关  的接口
-     *
      */
     //杂志 -- 作者 -- 良仓 --->将此页面定为杂志 模块的首页
     public static final String MAGAZINE_AUTHOR_LIANGCANG = "http://mobile.iliangcang.com/topic/magazineList?app_key=Android&author_id=1&sig=2FA0974FFF1BC3DFA562AA63C8B5A84F%7C118265010131868&v=1.0";
@@ -253,5 +251,6 @@ public class NetLink {
     public static final String SHARE_BASE_RECOMMEND = "http://s.budejie.com/topic/list/jingxuan/1/budejie-android-6.6.3/0-";
 
     public static final String SHARE_BASE_JOKE = "http://s.budejie.com/topic/tag-topic/64/hot/budejie-android-6.6.3/0-";
+
 
 }

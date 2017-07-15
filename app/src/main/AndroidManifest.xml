@@ -5,6 +5,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- if you want to load images from a file OR from the internet -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".common.MyApplication"
@@ -20,7 +24,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            />
         <activity android:name=".view.Activity.ShopWebviewActivity" />
         <activity android:name=".view.Activity.ShopTypeActivity" />
         <activity android:name=".view.Activity.ShopPinpaiActivity" />
@@ -34,6 +40,15 @@
         <activity android:name=".cart.ShopCartActivity" />
         <activity android:name=".view.Activity.ShowImageAndGifActivity" />
         <activity android:name=".cart.IndentDetailActivity"></activity>
+
+        <!-- alipay sdk begin 当手机没有装支付宝的时候会调用网页支付-->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
     </application>
 
 </manifest>

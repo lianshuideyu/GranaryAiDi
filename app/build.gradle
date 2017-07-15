@@ -45,4 +45,7 @@ dependencies {
     compile project(':PhotoView_library')
     compile 'com.jwenfeng.pulltorefresh:library:1.2.0'
     compile 'com.github.chaychan:ExpandableLinearLayout:1.0.0'
+    compile files('libs/alipaysdk.jar')
+    compile files('libs/alipaysecsdk.jar')
+    compile files('libs/alipayutdid.jar')
 }
