@@ -81,6 +81,126 @@
 
             </com.chaychan.library.ExpandableLinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="#1E2125" />
+
+            <LinearLayout
+                android:padding="15dp"
+                android:background="#292D32"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:text="商品原价"
+                        android:textColor="#a9a9a9"
+                        android:textSize="12dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/tv_pricec_total"
+                        android:text="￥ 0.00"
+                        android:textColor="#6F98C3"
+                        android:textSize="12dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:text="满减/折扣"
+                        android:textColor="#a9a9a9"
+                        android:textSize="12dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:text="-￥ 0.00"
+                        android:textColor="#ffffff"
+                        android:textSize="12dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:text="代金券/红包"
+                        android:textColor="#a9a9a9"
+                        android:textSize="12dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:text="-￥ 0.00"
+                        android:textColor="#ffffff"
+                        android:textSize="12dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:text="包装"
+                        android:textColor="#a9a9a9"
+                        android:textSize="12dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:text="+￥ 0.00"
+                        android:textColor="#ffffff"
+                        android:textSize="12dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="#1E2125" />
+
+            <!--支付方式-->
+            <com.chaychan.library.ExpandableLinearLayout
+                android:id="@+id/ell_payment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                app:arrowDownImg="@mipmap/arrow_down_grey"
+                app:defaultItemCount="0"
+                app:expandText="支付方式"
+                app:hideText="收起"
+                app:useDefaultBottom="true">
+
+            </com.chaychan.library.ExpandableLinearLayout>
 
         </LinearLayout>
     </ScrollView>
@@ -119,6 +239,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/tv_gotopay"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

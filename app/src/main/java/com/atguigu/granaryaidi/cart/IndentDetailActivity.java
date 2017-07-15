@@ -32,6 +32,15 @@ public class IndentDetailActivity extends BaseActivity {
     TextView tvTotalprice;
     @InjectView(R.id.tv_upprice)
     TextView tvUpprice;
+    @InjectView(R.id.tv_pricec_total)
+    TextView tv_pricec_total;
+    @InjectView(R.id.tv_gotopay)
+    TextView tv_gotopay;
+
+    @InjectView(R.id.ell_payment)
+    ExpandableLinearLayout ell_payment;
+
+    private List<GoodsBean> goodsBeens;
 
     @Override
     public void initListener() {
@@ -40,14 +49,19 @@ public class IndentDetailActivity extends BaseActivity {
 
     @Override
     public void initData() {
+        showTotalPrice();
 
+        tvTitle.setText("订单详情");
     }
 
     @Override
     public void initView() {
+        ibShopBack.setVisibility(View.VISIBLE);
 
         ellProduct.removeAllViews();//清除所有的子View（避免重新刷新数据时重复添加）
-        List<GoodsBean> goodsBeens = CartStorage.getInstance(this).getAllData();
+        ell_payment.removeAllViews();
+
+        goodsBeens = CartStorage.getInstance(this).getAllData();
 
         //添加数据
         for (int i = 0; i < goodsBeens.size(); i++) {
@@ -58,6 +72,29 @@ public class IndentDetailActivity extends BaseActivity {
             viewHolder.refreshUI();
             ellProduct.addItem(view);//添加子条目
         }
+
+        View view2 = View.inflate(this, R.layout.item_product_paymode, null);
+        ell_payment.addItem(view2);
+    }
+
+    public void showTotalPrice() {
+        tvTotalprice.setText("总价 ： ￥" + getTotalPrice());
+        tv_pricec_total.setText("￥" + getTotalPrice());
+
+    }
+
+    private double getTotalPrice() {
+        double result = 0;
+        if (goodsBeens != null && goodsBeens.size() > 0) {
+            for (int i = 0; i < goodsBeens.size(); i++) {
+                GoodsBean goodsBean = goodsBeens.get(i);
+                //判断是否勾选
+                if (goodsBean.isChecked()) {
+                    result = result + goodsBean.getNumber() * Double.parseDouble(goodsBean.getCover_price());
+                }
+            }
+        }
+        return result;
     }
 
     class ViewHolder {
@@ -97,13 +134,20 @@ public class IndentDetailActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.ib_shop_back, R.id.ll_address})
+    @OnClick({R.id.ib_shop_back, R.id.ll_address , R.id.tv_gotopay})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ib_shop_back:
+                finish();
                 break;
             case R.id.ll_address:
+                showToast("请输入地址");
+                break;
+            case R.id.tv_gotopay:
+                showToast("付款");
                 break;
         }
     }
+
+
 }
