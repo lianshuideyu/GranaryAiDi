@@ -3,6 +3,7 @@ package com.atguigu.granaryaidi.common;
 import android.app.Application;
 import android.content.Context;
 
+import com.mob.MobSDK;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.concurrent.TimeUnit;
@@ -33,6 +34,9 @@ public class MyApplication extends Application {
                 .build();
 
         OkHttpUtils.initClient(okHttpClient);
+
+        //初始化shareSDk
+        MobSDK.init(this);
 
     }
 
