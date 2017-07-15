@@ -1,5 +1,6 @@
 package com.atguigu.granaryaidi.cart;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -96,8 +97,10 @@ public class ShopCartActivity extends BaseActivity {
 
                 break;
             case R.id.bt_tobuy:
-                showToast("去结算");
+//                showToast("去结算");
 
+                Intent intent = new Intent(this, IndentDetailActivity.class);
+                startActivity(intent);
                 break;
             case R.id.cb_all_ischeck:
                 boolean checked = cbAllIscheck.isChecked();
