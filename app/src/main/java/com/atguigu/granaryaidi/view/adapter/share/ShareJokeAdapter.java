@@ -6,10 +6,13 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.atguigu.granaryaidi.R;
@@ -87,6 +90,15 @@ public class ShareJokeAdapter extends RecyclerView.Adapter<ShareJokeAdapter.MyVi
         @InjectView(R.id.tv_pinglun_content3)
         TextView tvPinglunContent3;
 
+        @InjectView(R.id.rl_click)
+        RelativeLayout rl_click;
+        @InjectView(R.id.tv_close)
+        TextView tv_close;
+        @InjectView(R.id.tv_open)
+        TextView tv_open;
+
+
+
         public MyViewHolder(View itemView) {
             super(itemView);
             ButterKnife.inject(this, itemView);
@@ -150,6 +162,75 @@ public class ShareJokeAdapter extends RecyclerView.Adapter<ShareJokeAdapter.MyVi
                     tvPinglunContent3.setText(builder3);
                 }
             }
+
+            setTextListener();
         }
+
+        public void setTextListener(){
+
+            int lineHeight = tvJokeContent.getLineHeight();
+            int measuredHeight = tvJokeContent.getMeasuredHeight();
+            int allHeight = measureTextViewHeight(tvJokeContent.getText().toString(), 13,
+                    measuredHeight);
+            DisplayMetrics dm = new DisplayMetrics();
+
+            dm = context.getResources().getDisplayMetrics();
+            float screenW = dm.widthPixels;
+            float paddingLeft = tvJokeContent.getPaddingLeft();
+            float paddingReft = tvJokeContent.getPaddingRight();
+
+            int count = (int) Math
+                    .ceil((tvJokeContent.getPaint().measureText(tvJokeContent.getText().toString()) / (screenW
+                            - paddingLeft - paddingReft - 159)));
+
+            // 计算行数
+            if (allHeight % lineHeight > 0) {
+                count = allHeight / lineHeight + 1;
+            } else {
+                count = allHeight / lineHeight;
+            }
+
+            if (count > 5) {
+                tvJokeContent.setMaxLines(5);
+                tv_close.setVisibility(View.GONE);
+                tv_open.setVisibility(View.VISIBLE);
+
+            } else {
+                tvJokeContent.setMaxLines(999);
+                tv_open.setVisibility(View.GONE);
+                tv_close.setVisibility(View.GONE);
+
+            }
+            rl_click.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    if (tv_open.getVisibility() == View.VISIBLE) {
+                        tvJokeContent.setMaxLines(999);
+
+                        tv_open.setVisibility(View.GONE);
+                        tv_close.setVisibility(View.VISIBLE);
+                    } else {
+                        tvJokeContent.setMaxLines(5);
+                        tv_close.setVisibility(View.GONE);
+                        tv_open.setVisibility(View.VISIBLE);
+                    }
+
+                }
+            });
+        }
+    }
+
+    // 计算TextView的高度
+    private int measureTextViewHeight(String text, int textSize, int deviceWidth) {
+        TextView textView = new TextView(context);
+        textView.setText(text);
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+        int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(deviceWidth,
+                View.MeasureSpec.AT_MOST);
+        int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0,
+                View.MeasureSpec.UNSPECIFIED);
+        textView.measure(widthMeasureSpec, heightMeasureSpec);
+        return textView.getMeasuredHeight();
     }
 }
