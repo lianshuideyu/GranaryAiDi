@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.atguigu.granaryaidi.Base.BaseActivity;
 import com.atguigu.granaryaidi.R;
@@ -404,7 +403,8 @@ public class GoodsGotoBuyActivity extends BaseActivity {
 //                        items.getSku_info().get(id).getAttrList().get(i).getAttr_id(),
 //                        Toast.LENGTH_SHORT).show();
                 //id 为 行号，getAttr_id（）；id和i都是从0开始
-                Toast.makeText(GoodsGotoBuyActivity.this, id + "," + i, Toast.LENGTH_SHORT).show();
+
+//                Toast.makeText(GoodsGotoBuyActivity.this, id + "," + i, Toast.LENGTH_SHORT).show();
                 hashMap.put(id, i);
                 ensureToBuy();
             }
