@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +24,7 @@ import com.atguigu.granaryaidi.cart.CartStorage;
 import com.atguigu.granaryaidi.cart.GoodsBean;
 import com.atguigu.granaryaidi.utils.DensityUtil;
 import com.atguigu.granaryaidi.view.viewmyself.AddSubView;
+import com.atguigu.granaryaidi.view.viewmyself.FlowRadioGroup;
 import com.bumptech.glide.Glide;
 
 import java.util.HashMap;
@@ -185,9 +185,9 @@ public class GoodsGotoBuyActivity extends BaseActivity {
         /**
          * 设置具体没行内容----------------------------------------
          */
-        RadioGroup group = new RadioGroup(this);
+        FlowRadioGroup group = new FlowRadioGroup(this);
 
-        RadioGroup groupend = addview(group, id);
+        FlowRadioGroup groupend = addview(group, id);
 
         return groupend;
     }
@@ -347,7 +347,7 @@ public class GoodsGotoBuyActivity extends BaseActivity {
 
     //动态添加视图
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
-    public RadioGroup addview(RadioGroup radiogroup, int id) {//id 代表类型的第几行
+    public FlowRadioGroup addview(FlowRadioGroup radiogroup, int id) {//id 代表类型的第几行
 
         //设置RadioGroup中的RadioButton水平排列
         radiogroup.setOrientation(LinearLayout.HORIZONTAL);
@@ -385,9 +385,9 @@ public class GoodsGotoBuyActivity extends BaseActivity {
         codeBtn.setButtonDrawable(new ColorDrawable(Color.TRANSPARENT));
         //codeBtn.setTextSize( ( textSize > 16 )?textSize:24 );
         codeBtn.setId(i);
-        codeBtn.setTextSize(10);
+        codeBtn.setTextSize(15);
         codeBtn.setText(btnContent);
-        //codeBtn.setPadding(2, 0, 2, 0);
+        codeBtn.setPadding(2, 10, 2, 10);
         if (i == 0) {
             codeBtn.setChecked(true);
         }
@@ -411,7 +411,8 @@ public class GoodsGotoBuyActivity extends BaseActivity {
         });
         //DensityUtilHelps.Dp2Px(this,40)
         LinearLayout.LayoutParams rlp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT
-                , DensityUtil.dip2px(GoodsGotoBuyActivity.this, 25));
+                , DensityUtil.dip2px(GoodsGotoBuyActivity.this, 30));
+        rlp.setMargins(5,0,5,5);
         codeBtn.setLayoutParams(rlp);
     }
 }
