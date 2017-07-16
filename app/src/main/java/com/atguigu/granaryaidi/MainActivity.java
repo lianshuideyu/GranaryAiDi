@@ -1,19 +1,25 @@
 package com.atguigu.granaryaidi;
 
+import android.content.Intent;
 import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.transition.TransitionInflater;
 import android.util.Log;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.atguigu.granaryaidi.Base.BaseActivity;
 import com.atguigu.granaryaidi.Base.BaseFragment;
+import com.atguigu.granaryaidi.common.NetLink;
+import com.atguigu.granaryaidi.view.Activity.ShopWebviewActivity;
 import com.atguigu.granaryaidi.view.fragment.DaRenFragment;
 import com.atguigu.granaryaidi.view.fragment.MagazineFragment;
 import com.atguigu.granaryaidi.view.fragment.ShareFragment;
 import com.atguigu.granaryaidi.view.fragment.ShopFragment;
 import com.atguigu.granaryaidi.view.fragment.UserFragment;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -137,5 +143,30 @@ public class MainActivity extends BaseActivity {
         return R.layout.activity_main;
     }
 
+
+    /**
+     当扫描成功后扫描用的Activity会自动关闭，
+     在启动调用该Activity的Activity（一般是MainActivity）
+     ,重写回掉方法，接收扫描到的结果
+     */
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (intentResult != null) {
+            if (intentResult.getContents() == null) {
+                Toast.makeText(MainActivity.this, "内容为空", Toast.LENGTH_LONG).show();
+                Log.e("saomiao","空");
+            } else {
+                // ScanResult 为 获取到的字符串
+                String scanResult = intentResult.getContents();
+//                Toast.makeText(MainActivity.this, scanResult, Toast.LENGTH_LONG).show();
+                Log.e("saomiao",scanResult);
+                Intent intent = new Intent(this, ShopWebviewActivity.class);
+                intent.putExtra(NetLink.HTML_URL,scanResult);
+                startActivity(intent);
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
 
 }

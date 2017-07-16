@@ -1,5 +1,6 @@
 package com.atguigu.granaryaidi.view.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -14,11 +15,13 @@ import android.widget.Toast;
 import com.atguigu.granaryaidi.Base.BaseFragment;
 import com.atguigu.granaryaidi.R;
 import com.atguigu.granaryaidi.cart.ShopCartActivity;
+import com.atguigu.granaryaidi.view.Activity.CustomScanActivity;
 import com.atguigu.granaryaidi.view.fragment.shopfragment.ClassifyFragment;
 import com.atguigu.granaryaidi.view.fragment.shopfragment.GiftFragment;
 import com.atguigu.granaryaidi.view.fragment.shopfragment.HomeFragment;
 import com.atguigu.granaryaidi.view.fragment.shopfragment.PinPaiFragment;
 import com.atguigu.granaryaidi.view.fragment.shopfragment.SpecialFragment;
+import com.google.zxing.integration.android.IntentIntegrator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -133,7 +136,10 @@ public class ShopFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ib_shop_search:
-                Toast.makeText(context, "搜索", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "扫一扫", Toast.LENGTH_SHORT).show();
+                //扫描二维码
+                customScan();
+
 
                 break;
             case R.id.ib_shop_cart:
@@ -167,4 +173,19 @@ public class ShopFragment extends BaseFragment {
             return fragments.size();
         }
     }
+
+    //读取二维码
+
+    /**
+     *此方法会打开扫描的Activity
+     *
+     */
+    public void customScan() {
+        new IntentIntegrator((Activity) context)
+                .setOrientationLocked(false)
+                .setCaptureActivity(CustomScanActivity.class) // 设置自定义的activity是CustomActivity
+                .initiateScan(); // 初始化扫描
+    }
+
+
 }
