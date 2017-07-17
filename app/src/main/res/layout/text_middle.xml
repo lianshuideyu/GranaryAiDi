@@ -6,11 +6,11 @@
 
 
     <TextView
-        android:lineSpacingMultiplier="1.2"
         android:id="@+id/tv_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:lineSpacingMultiplier="1.2"
         android:text="这哪里是在斗牛，分明就是玩命嘛！"
         android:textColor="@android:color/black"
         android:textSize="18sp" />

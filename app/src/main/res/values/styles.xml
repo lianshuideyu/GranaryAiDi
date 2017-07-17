@@ -86,4 +86,25 @@
     颜色属性定义在clors文件里<color name="transparent">#00000000</color>
     -->
 
+
+
+    <!--bilibili样式-->
+    <style name="MyCustomUserTabLayout" parent="Widget.Design.TabLayout">
+        <item name="android:background">#FB7299</item>
+        <item name="tabMaxWidth">0dp</item>
+        <item name="tabGravity">fill</item>
+        <item name="tabMode">fixed</item>
+        <item name="tabMinWidth">0dp</item>
+        <item name="tabIndicatorColor">#ffffff</item>
+        <item name="tabIndicatorHeight">2dp</item>
+        <item name="tabTextAppearance">@style/MyCustomUserTabTextAppearance</item>
+        <item name="tabSelectedTextColor">#ffffff</item>
+
+    </style>
+
+    <style name="MyCustomUserTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#faf6f6</item>
+        <item name="textAllCaps">false</item>
+    </style>
 </resources>

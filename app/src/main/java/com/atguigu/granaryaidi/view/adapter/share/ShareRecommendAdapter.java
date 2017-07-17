@@ -403,7 +403,7 @@ public class ShareRecommendAdapter extends RecyclerView.Adapter<ShareRecommendAd
         public TextHolder(View itemView) {
             super(itemView);
             //中间公共部分 -所有的都有
-            tvContext = (TextView) itemView.findViewById(R.id.tv_context);
+            tvContext = (TextView) itemView.findViewById(R.id.tv_content);
         }
 
         public void setData(BaisiRecommendBean.ListBean mediaItem) {
