@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="10dp">
+
+    <TextView
+        android:id="@+id/tv_hotping"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="热门评论"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_newping"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="最新评论"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp">
+
+            <ImageView
+                android:id="@+id/iv_headpic"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/user" />
+
+            <TextView
+                android:id="@+id/tv_fans_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_headpic"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:background="#B5C7DD"
+                android:gravity="center"
+                android:text="3242"
+                android:textColor="#ffffff"
+                android:textSize="10dp" />
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_preson_sex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/personal_sex_men" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical"
+                android:paddingTop="5dp"
+                android:text="Zealer"
+                android:textColor="#3186de"
+                android:textSize="10dp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_marginRight="4dp"
+            android:background="@drawable/shenhe_ding_pic_selector" />
+
+        <TextView
+            android:id="@+id/tv_shenhe_ding_number"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:gravity="center"
+            android:paddingTop="2dp"
+            android:text="1"
+            android:textColor="@drawable/text_color_selector" />
+
+        <TextView
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="4dp"
+            android:background="@drawable/shenhe_cai_pic_night_selector" />
+
+        <TextView
+            android:id="@+id/tv_shenhe_cai_number"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center"
+            android:paddingTop="2dp"
+            android:text="2"
+            android:textColor="@drawable/text_color_selector" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_pingluncontent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="45dp"
+        android:paddingRight="10dp"
+        android:text="发送大发送到发速度"
+        android:textColor="#000000"
+        android:textSize="15dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="#F2F2F2" />
+</LinearLayout>

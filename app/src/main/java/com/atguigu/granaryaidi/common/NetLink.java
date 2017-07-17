@@ -253,4 +253,8 @@ public class NetLink {
     public static final String SHARE_BASE_JOKE = "http://s.budejie.com/topic/tag-topic/64/hot/budejie-android-6.6.3/0-";
 
 
+    public static final String SHARE_BASE_JOKE_DETAILA = "http://c.api.budejie.com/topic/comment_list/";
+    public static final String SHARE_BASE_JOKE_DETAILB = "/0/budejie-android-6.6.3/0-20.json";
+//http://c.api.budejie.com/topic/comment_list/25743908/0/budejie-android-6.6.3/0-20.json
+
 }

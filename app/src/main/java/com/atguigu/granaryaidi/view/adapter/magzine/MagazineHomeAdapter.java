@@ -69,7 +69,7 @@ public class MagazineHomeAdapter extends RecyclerView.Adapter<MagazineHomeAdapte
     }
 
     private String temComparedate = null;
-//    private MyViewHolder temHolder;
+//    private BaseViewHolder temHolder;
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 

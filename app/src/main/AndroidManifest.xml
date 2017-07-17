@@ -136,7 +136,7 @@
         <activity
             android:name="cn.jpush.android.ui.PopWinActivity"
             android:exported="false"
-            android:theme="@style/MyDialogStyle"></activity>
+            android:theme="@style/MyDialogStyle" />
 
         <!-- Required SDK核心功能 -->
         <activity
@@ -236,7 +236,8 @@
             android:name="JPUSH_APPKEY"
             android:value="ccbe0d42fd2b694935433c16" /> <!-- </>值来自开发者平台取得的AppKey -->
 
-        <activity android:name=".view.Activity.CustomScanActivity"></activity>
+        <activity android:name=".view.Activity.CustomScanActivity" />
+        <activity android:name=".view.Activity.ShareJokeDetailActivity"></activity>
     </application>
 
 </manifest>

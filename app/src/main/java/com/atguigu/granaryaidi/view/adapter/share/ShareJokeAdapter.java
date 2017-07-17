@@ -1,6 +1,7 @@
 package com.atguigu.granaryaidi.view.adapter.share;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
@@ -17,6 +18,8 @@ import android.widget.TextView;
 
 import com.atguigu.granaryaidi.R;
 import com.atguigu.granaryaidi.bean.baisi.BaisiJokeBean;
+import com.atguigu.granaryaidi.bean.baisi.BaisiJokeDetailBean;
+import com.atguigu.granaryaidi.view.Activity.ShareJokeDetailActivity;
 import com.atguigu.granaryaidi.view.utils.GlideCircleTransform;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
@@ -105,7 +108,7 @@ public class ShareJokeAdapter extends RecyclerView.Adapter<ShareJokeAdapter.MyVi
 //            tvDown = (TextView) itemView.findViewById(R.id.tv_down_joke);
         }
 
-        public void setData(BaisiJokeBean.ListBean bean, int position) {
+        public void setData(final BaisiJokeBean.ListBean bean, int position) {
 //            Glide.with(context)
 //                    .load(listBean.getU().getHeader().get(0))
 //                    .into(ivUserIcon);
@@ -162,6 +165,21 @@ public class ShareJokeAdapter extends RecyclerView.Adapter<ShareJokeAdapter.MyVi
                     tvPinglunContent3.setText(builder3);
                 }
             }
+
+            tvJokeContent.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, ShareJokeDetailActivity.class);
+
+                    BaisiJokeDetailBean bean1 = new BaisiJokeDetailBean(
+                            bean.getU().getHeader().get(0),bean.getU().getName(),bean.getPasstime(),
+                            bean.getText(),bean.getUp(),bean.getDown(),bean.getForward(),bean.getComment()
+                            ,bean.getId()
+                    );
+                    intent.putExtra("jokebean",bean1);
+                    context.startActivity(intent);
+                }
+            });
 
             setTextListener();
         }
