@@ -233,7 +233,6 @@ public class ShareJokeDetailAdapter extends RecyclerView.Adapter<ShareJokeDetail
                         }else {
                             tv_newping.setVisibility(View.GONE);
                         }
-
                     }
                 }else {
                     //没有热评,只有新评
