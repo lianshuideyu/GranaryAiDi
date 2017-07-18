@@ -15,8 +15,6 @@ import com.google.gson.Gson;
 
 import butterknife.InjectView;
 
-import static com.atguigu.granaryaidi.R.id.rv_share_joke;
-
 /**
  * Created by Administrator on 2017/7/17.
  */
@@ -45,7 +43,6 @@ public class UserZhiboFragment extends BaseFragment {
         /**
          * 联网
          */
-
         getDataNet(AppNetManager.LIVE_URL);
     }
 

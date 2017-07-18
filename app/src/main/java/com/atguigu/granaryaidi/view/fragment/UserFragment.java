@@ -23,6 +23,9 @@ import java.util.List;
 
 import butterknife.InjectView;
 
+import static com.atguigu.granaryaidi.R.id.tl_user;
+import static com.atguigu.granaryaidi.R.id.vp_user;
+
 /**
  * Created by Administrator on 2017/7/5.
  */
@@ -44,14 +47,10 @@ public class UserFragment extends BaseFragment {
     ImageButton ibDownload;
     @InjectView(R.id.ib_serach)
     ImageButton ibSerach;
-    @InjectView(R.id.rl_basetitle)
-    LinearLayout rlBasetitle;
-    @InjectView(R.id.tl_user)
-    TabLayout tl_user;
-    @InjectView(R.id.vp_user)
-    ViewPager vp_user;
-
-
+    @InjectView(tl_user)
+    TabLayout tlUser;
+    @InjectView(vp_user)
+    ViewPager vpUser;
     /**
      * TagbLayout的标题信息
      */
@@ -90,14 +89,14 @@ public class UserFragment extends BaseFragment {
 
 
         //viewpager的设置适配器
-        vp_user.setAdapter(new UserFragmentAdapter(getFragmentManager()));
+        vpUser.setAdapter(new UserFragmentAdapter(getFragmentManager()));
 
-        tl_user.setupWithViewPager(vp_user);
+        tlUser.setupWithViewPager(vpUser);
 //        tl_user.setTabMode(MODE_FIXED);
 //        tl_user.setTabGravity(GRAVITY_FILL);
 
         //设置初进app默认显示的为商品模块的首页 页面
-        vp_user.setCurrentItem(0);
+        vpUser.setCurrentItem(0);
     }
 
     @Override
