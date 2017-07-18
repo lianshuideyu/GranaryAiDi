@@ -71,6 +71,10 @@ public class GridViewAdapter extends BaseAdapter {
                 .placeholder(R.drawable.brand_bg)
                 .into(viewHolder.ivGridview);
 
+        viewHolder.tvGridviewTitle.setText(bean.getTitle());
+        viewHolder.tv_gridview_name.setText(bean.getOwner().getName());
+        viewHolder.tvLikecount.setText(bean.getOnline() + "");
+
         return convertView;
     }
 
@@ -79,8 +83,8 @@ public class GridViewAdapter extends BaseAdapter {
         ImageView ivGridview;
         @InjectView(R.id.tv_gridview_title)
         TextView tvGridviewTitle;
-        @InjectView(R.id.tv_shop_pinpai)
-        TextView tvShopPinpai;
+        @InjectView(R.id.tv_gridview_name)
+        TextView tv_gridview_name;
         @InjectView(R.id.tv_likecount)
         TextView tvLikecount;
 
