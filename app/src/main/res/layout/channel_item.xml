@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_channel_one"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/live_home_follow_anchor"
+            android:gravity="center"
+            android:text="关注"
+            android:textColor="#000000"
+            android:textSize="13dp" />
+
+        <TextView
+            android:id="@+id/tv_channel_two"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/live_home_live_center"
+            android:gravity="center"
+            android:text="中心"
+            android:textColor="#000000"
+            android:textSize="13dp" />
+
+        <TextView
+            android:id="@+id/tv_channel_three"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/live_home_clip_video"
+            android:gravity="center"
+            android:text="小视频"
+            android:textColor="#000000"
+            android:textSize="13dp" />
+
+        <TextView
+            android:id="@+id/tv_channel_four"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/live_home_search_room"
+            android:gravity="center"
+            android:text="搜索"
+            android:textColor="#000000"
+            android:textSize="13dp" />
+
+        <TextView
+            android:id="@+id/tv_channel_five"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/live_home_all_category"
+            android:gravity="center"
+            android:text="分类"
+            android:textColor="#000000"
+            android:textSize="13dp" />
+
+    </LinearLayout>
+</LinearLayout>

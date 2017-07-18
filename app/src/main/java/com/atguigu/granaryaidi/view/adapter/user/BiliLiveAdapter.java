@@ -5,7 +5,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.atguigu.granaryaidi.R;
 import com.atguigu.granaryaidi.bean.bilibili.BiliLiveBean;
@@ -81,13 +85,14 @@ public class BiliLiveAdapter extends RecyclerView.Adapter {
     public static final int MOVIE = 10;
 
 
-    private LayoutInflater inflater;
+
+//    private LayoutInflater inflater;
 
     public BiliLiveAdapter(Context context, BiliLiveBean.DataBean data) {
 
         this.context = context;
         this.data = data;
-        inflater = LayoutInflater.from(context);
+//        inflater = LayoutInflater.from(context);
     }
 
     @Override
@@ -118,19 +123,30 @@ public class BiliLiveAdapter extends RecyclerView.Adapter {
             currentType = MOVIE;
         }
 
+//        for(int i = 0; i < data.getPartitions().size(); i++) {
+//            if(data.getPartitions().get(i).getPartition().getArea().equals("draw")) {
+//                currentType = DRAWING_AREA;
+//            }
+//
+//
+//        }
+
         return currentType;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == BANNER) {
-            return new BannerViewHolder(inflater.inflate(R.layout.banner_viewpager, null));
+            return new BannerViewHolder(LayoutInflater.from(context)
+                    .inflate(R.layout.banner_viewpager, parent, false));
+        } else if (viewType == CHANNEL) {
+            return new ChannelViewHolder(LayoutInflater.from(context)
+                    .inflate(R.layout.channel_item, parent, false));
+        } else if (viewType == DRAWING_AREA) {
+            return new DrawingViewHolder(LayoutInflater.from(context)
+                    .inflate(R.layout.drawing_item, parent, false));
         }
-//        else if (viewType == CHANNEL) {
-//            return new ChannelViewHolder(mContext, inflater.inflate(R.layout.channel_item, null));
-//        } else if (viewType == ACT) {
-//            return new ActViewHolder(mContext, inflater.inflate(R.layout.act_item, null));
-//        } else if (viewType == SECKILL) {
+//        else if (viewType == SECKILL) {
 //            return new SeckillViewHolder(mContext, inflater.inflate(R.layout.seckill_item, null));
 //        } else if (viewType == RECOMMEND) {
 //            return new RecommendViewHolder(mContext, inflater.inflate(R.layout.recommend_item, null));
@@ -148,16 +164,21 @@ public class BiliLiveAdapter extends RecyclerView.Adapter {
             BannerViewHolder bannerViewHolder = (BannerViewHolder) holder;
             //设置数据Banner的数据
             if (data.getBanner() != null && data.getBanner().size() > 0) {
-
                 bannerViewHolder.setData(data.getBanner());
             }
 
+        } else if (getItemViewType(position) == CHANNEL) {
+            ChannelViewHolder channelViewHolder = (ChannelViewHolder) holder;
+            channelViewHolder.setData();
+        } else if (getItemViewType(position) == DRAWING_AREA) {
+            DrawingViewHolder drawingViewHolder = (DrawingViewHolder) holder;
+            drawingViewHolder.setData();
         }
     }
 
     @Override
     public int getItemCount() {
-        return 1;
+        return 3;
     }
 
     class BannerViewHolder extends RecyclerView.ViewHolder {
@@ -174,7 +195,7 @@ public class BiliLiveAdapter extends RecyclerView.Adapter {
         public void setData(List<BiliLiveBean.DataBean.BannerBean> banner) {
 
             ArrayList<String> images = new ArrayList<>();
-            for(int i = 0; i < banner.size(); i++) {
+            for (int i = 0; i < banner.size(); i++) {
 
                 images.add(banner.get(i).getImg());
             }
@@ -215,5 +236,119 @@ public class BiliLiveAdapter extends RecyclerView.Adapter {
             Glide.with(context).load(path).into(imageView);
         }
 
+    }
+
+    class ChannelViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        @InjectView(R.id.tv_channel_one)
+        TextView tvChannelOne;
+        @InjectView(R.id.tv_channel_two)
+        TextView tvChannelTwo;
+        @InjectView(R.id.tv_channel_three)
+        TextView tvChannelThree;
+        @InjectView(R.id.tv_channel_four)
+        TextView tvChannelFour;
+        @InjectView(R.id.tv_channel_five)
+        TextView tvChannelFive;
+
+        public ChannelViewHolder(View itemView) {
+            super(itemView);
+
+            ButterKnife.inject(this, itemView);
+        }
+
+        public void setData() {
+
+            tvChannelOne.setOnClickListener(this);
+            tvChannelTwo.setOnClickListener(this);
+            tvChannelThree.setOnClickListener(this);
+            tvChannelFour.setOnClickListener(this);
+            tvChannelFive.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.tv_channel_one:
+
+                    Toast.makeText(context, "关注", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.tv_channel_two:
+                    Toast.makeText(context, "中心", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.tv_channel_three:
+
+                    Toast.makeText(context, "小视频", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.tv_channel_four:
+                    Toast.makeText(context, "搜索", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.tv_channel_five:
+                    Toast.makeText(context, "分类", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
+    }
+
+
+    class DrawingViewHolder extends RecyclerView.ViewHolder {
+
+        @InjectView(R.id.iv_icon_head)
+        ImageView ivIconHead;
+        @InjectView(R.id.tv_online_count)
+        TextView tvOnlineCount;
+        @InjectView(R.id.gv_drawing)
+        GridView gvDrawing;
+        @InjectView(R.id.tv_more)
+        TextView tvMore;
+        @InjectView(R.id.tv_refresh_count)
+        TextView tvRefreshCount;
+        @InjectView(R.id.ll_refresh)
+        LinearLayout llRefresh;
+
+        public DrawingViewHolder(View itemView) {
+            super(itemView);
+
+            ButterKnife.inject(this,itemView);
+        }
+
+        public void setData() {
+            BiliLiveBean.DataBean.PartitionsBean.PartitionBean bean = data.getPartitions().get(0).getPartition();
+
+            if(bean != null) {
+                Glide.with(context)
+                        .load(bean.getSub_icon().getSrc())
+                        .into(ivIconHead);
+
+                tvOnlineCount.setText(bean.getCount() + "");
+
+                tvMore.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(context, "查看更多", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                llRefresh.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(context, "刷新", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                /**
+                 * 设置GridView数据
+                 */
+                List<BiliLiveBean.DataBean.PartitionsBean.LivesBean> lives = data.getPartitions().get(0).getLives();
+                if(lives != null && lives.size() > 0) {
+
+                    GridViewAdapter adapter = new GridViewAdapter(context,lives);
+                    gvDrawing.setAdapter(adapter);
+                }
+
+            }
+
+
+        }
     }
 }
