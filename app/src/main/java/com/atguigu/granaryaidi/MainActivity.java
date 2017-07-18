@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
 import android.transition.TransitionInflater;
 import android.util.Log;
 import android.widget.RadioGroup;
@@ -37,6 +38,8 @@ public class MainActivity extends BaseActivity {
     private int position;
 
     private Fragment tempFragment;//用于缓存的Fragment
+
+    private UserFragment userFragment;
 
     /**
      * 设置转场动画
@@ -126,11 +129,13 @@ public class MainActivity extends BaseActivity {
     @Override
     public void initData() {
         fragments = new ArrayList<>();
+
+        userFragment = new UserFragment();
         fragments.add(new ShopFragment());
         fragments.add(new MagazineFragment());
         fragments.add(new DaRenFragment());
         fragments.add(new ShareFragment());
-        fragments.add(new UserFragment());
+        fragments.add(userFragment);
     }
 
     @Override
@@ -169,4 +174,21 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        if(position == 4) {
+            //判断返回是否先关闭侧滑栏
+            if (userFragment.drawer_layout.isDrawerOpen(GravityCompat.START)) {
+                userFragment.drawer_layout.closeDrawer(GravityCompat.START);
+            } else {
+                super.onBackPressed();
+            }
+
+        }else {
+
+            super.onBackPressed();
+        }
+
+
+    }
 }

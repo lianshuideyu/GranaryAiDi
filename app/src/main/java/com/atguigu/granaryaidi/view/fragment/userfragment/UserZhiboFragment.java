@@ -35,6 +35,7 @@ public class UserZhiboFragment extends BaseFragment {
     @Override
     protected void initView() {
 
+
     }
 
     @Override

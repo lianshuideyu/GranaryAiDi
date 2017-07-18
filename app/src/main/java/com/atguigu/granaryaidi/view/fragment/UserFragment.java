@@ -1,14 +1,21 @@
 package com.atguigu.granaryaidi.view.fragment;
 
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.atguigu.granaryaidi.Base.BaseFragment;
 import com.atguigu.granaryaidi.R;
@@ -23,21 +30,20 @@ import java.util.List;
 
 import butterknife.InjectView;
 
-import static com.atguigu.granaryaidi.R.id.tl_user;
-import static com.atguigu.granaryaidi.R.id.vp_user;
+import static com.atguigu.granaryaidi.R.id.ll_denglu;
 
 /**
  * Created by Administrator on 2017/7/5.
  */
 
-public class UserFragment extends BaseFragment {
+public class UserFragment extends BaseFragment implements NavigationView.OnNavigationItemSelectedListener {
 
 
     @InjectView(R.id.iv_user_icon)
     ImageView ivUserIcon;
     @InjectView(R.id.tv_user_name)
     TextView tvUserName;
-    @InjectView(R.id.ll_denglu)
+    @InjectView(ll_denglu)
     LinearLayout llDenglu;
     @InjectView(R.id.ib_tv)
     ImageButton ibTv;
@@ -47,10 +53,18 @@ public class UserFragment extends BaseFragment {
     ImageButton ibDownload;
     @InjectView(R.id.ib_serach)
     ImageButton ibSerach;
-    @InjectView(tl_user)
+    @InjectView(R.id.tl_user)
     TabLayout tlUser;
-    @InjectView(vp_user)
+    @InjectView(R.id.vp_user)
     ViewPager vpUser;
+
+    @InjectView(R.id.nav_view)
+    NavigationView nav_view;
+    @InjectView(R.id.drawer_layout)
+    public DrawerLayout drawer_layout;
+
+    private LinearLayout ll_nav_denglu;
+    private ImageView switch_night;
     /**
      * TagbLayout的标题信息
      */
@@ -102,6 +116,52 @@ public class UserFragment extends BaseFragment {
     @Override
     protected void initListener() {
 
+        /**
+         * 侧滑栏下部的点击事件
+         */
+        nav_view.setNavigationItemSelectedListener(this);
+        View headerView = nav_view.getHeaderView(0);
+        ll_nav_denglu = (LinearLayout) headerView.findViewById(R.id.ll_nav_denglu);
+        ll_nav_denglu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, "登录", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        switch_night = (ImageView) headerView.findViewById(R.id.switch_night);
+        switch_night.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, "夜间模式", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    /**
+     * 侧滑栏下部的点击事件
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+        //点击后关闭侧滑栏
+        drawer_layout.closeDrawer(GravityCompat.START);
+        switch (id) {
+            case R.id.nav_home:
+
+                Toast.makeText(context, "首页", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_vip:
+                Toast.makeText(context, "会员", Toast.LENGTH_SHORT).show();
+                break;
+        }
+
+        return true;
+
     }
 
 
@@ -126,4 +186,6 @@ public class UserFragment extends BaseFragment {
             return fragments.size();
         }
     }
+
+
 }
