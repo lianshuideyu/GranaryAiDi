@@ -2,9 +2,9 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+        <!-- Customize your theme here. 参数1可以实现侧滑栏点击后颜色；参数2状态栏的颜色;参数3-->
         <item name="colorPrimary">#FD5887</item>
-        <item name="colorPrimaryDark">#D4D4D4</item>
+        <item name="colorPrimaryDark">#33ff457a</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 

@@ -67,6 +67,7 @@ public class BiliActivity extends BaseActivity implements NavigationView.OnNavig
 
     private LinearLayout ll_nav_denglu;
     private ImageView switch_night;
+    private ImageView switch_message;
     /**
      * TagbLayout的标题信息
      */
@@ -119,13 +120,19 @@ public class BiliActivity extends BaseActivity implements NavigationView.OnNavig
         });
 
         switch_night = (ImageView) headerView.findViewById(R.id.switch_night);
+        switch_message = (ImageView) headerView.findViewById(R.id.switch_message);
         switch_night.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(BiliActivity.this, "夜间模式", Toast.LENGTH_SHORT).show();
+                showToast("夜间模式");
             }
         });
-
+        switch_message.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showToast("消息");
+            }
+        });
     }
 
     @Override
@@ -147,7 +154,6 @@ public class BiliActivity extends BaseActivity implements NavigationView.OnNavig
         });
 
         toolBar.setOnMenuItemClickListener(this);
-
     }
 
     @Override
@@ -158,6 +164,8 @@ public class BiliActivity extends BaseActivity implements NavigationView.OnNavig
 
     /**
      * toolbar右面的三点图标
+     * 加载自定义的menu布局
+     * 注意布局item中需加上：app:showAsAction="always"，才可显示自定义图标
      * @param menu
      * @return
      */
@@ -171,10 +179,26 @@ public class BiliActivity extends BaseActivity implements NavigationView.OnNavig
      * 三点图标里面内容监听
      * @param item
      * @return
+     * toolbar的菜单项的点击事件
      */
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        return false;
+        switch (item.getItemId()){
+            case R.id.first:
+                showToast("直播");
+                break;
+            case R.id.one:
+                showToast("游戏");
+                break;
+            case R.id.two:
+                showToast("下载");
+                break;
+            case R.id.three:
+                showToast("搜索");
+                break;
+            default:break;
+        }
+        return true;
     }
 
     /**
@@ -226,7 +250,6 @@ public class BiliActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void onBackPressed() {
-
         //判断返回是否先关闭侧滑栏
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START);

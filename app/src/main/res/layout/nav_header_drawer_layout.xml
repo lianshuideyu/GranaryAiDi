@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="150dp"
-    android:background="#FB7299">
+    android:background="#fd5887">
 
     <LinearLayout
         android:id="@+id/ll_nav_denglu"
@@ -38,10 +38,21 @@
 
     <ImageView
         android:id="@+id/switch_night"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/ic_switch_night" />
+
+    <ImageView
+        android:id="@+id/switch_message"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_toLeftOf="@id/switch_night"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_navigation_header_notification" />
 </RelativeLayout>
