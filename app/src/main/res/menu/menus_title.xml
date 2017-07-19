@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/first"
+        android:icon="@drawable/ic_fab_play"
+        app:showAsAction="always"
+        android:title="直播"/>
+    <item
+        app:showAsAction="always"
+        android:id="@+id/one"
+        android:icon="@drawable/ic_menu_top_game_center"
+        android:title="游戏"/>
+    <item
+        app:showAsAction="always"
+        android:id="@+id/two"
+        android:icon="@drawable/ic_toolbar_menu_download"
+        android:title="下载"/>
+    <item
+        app:showAsAction="always"
+        android:id="@+id/three"
+        android:icon="@drawable/ic_toolbar_menu_search"
+        android:title="搜索"/>
+</menu>

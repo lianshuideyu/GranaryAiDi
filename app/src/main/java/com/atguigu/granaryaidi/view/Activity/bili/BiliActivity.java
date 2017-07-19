@@ -1,6 +1,8 @@
 package com.atguigu.granaryaidi.view.Activity.bili;
 
+import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -9,6 +11,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -29,7 +33,7 @@ import java.util.List;
 
 import butterknife.InjectView;
 
-public class BiliActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class BiliActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, Toolbar.OnMenuItemClickListener {
 
 //    @InjectView(R.id.iv_user_icon)
 //    ImageView ivUserIcon;
@@ -55,6 +59,11 @@ public class BiliActivity extends BaseActivity implements NavigationView.OnNavig
     NavigationView nav_view;
     @InjectView(R.id.drawer_layout)
     public DrawerLayout drawer_layout;
+
+    @InjectView(R.id.toolBar)
+    Toolbar toolBar;
+    @InjectView(R.id.appbar_layout)
+    AppBarLayout appbarLayout;
 
     private LinearLayout ll_nav_denglu;
     private ImageView switch_night;
@@ -97,7 +106,7 @@ public class BiliActivity extends BaseActivity implements NavigationView.OnNavig
     public void initListener() {
 
         /**
-         * 侧滑栏下部的点击事件
+         * 侧滑栏头部的点击事件
          */
         nav_view.setNavigationItemSelectedListener(this);
         View headerView = nav_view.getHeaderView(0);
@@ -116,10 +125,28 @@ public class BiliActivity extends BaseActivity implements NavigationView.OnNavig
                 Toast.makeText(BiliActivity.this, "夜间模式", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
     @Override
     public void initView() {
+
+        toolBar.setTitleTextColor(Color.WHITE);//设置ToolBar的titl颜色
+        toolBar.setTitle("");
+        setSupportActionBar(toolBar);
+
+        View view = View.inflate(this,R.layout.title_iconname,null);
+        toolBar.addView(view);
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                showToast("登录");
+                drawer_layout.openDrawer(GravityCompat.START);
+            }
+        });
+
+        toolBar.setOnMenuItemClickListener(this);
 
     }
 
@@ -128,6 +155,33 @@ public class BiliActivity extends BaseActivity implements NavigationView.OnNavig
         return R.layout.activity_bili;
     }
 
+
+    /**
+     * toolbar右面的三点图标
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menus_title, menu);
+        return true;
+    }
+
+    /**
+     * 三点图标里面内容监听
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        return false;
+    }
+
+    /**
+     * 侧滑栏里面的点击事件
+     * @param item
+     * @return
+     */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
@@ -145,6 +199,7 @@ public class BiliActivity extends BaseActivity implements NavigationView.OnNavig
 
         return true;
     }
+
 
 
     private class UserFragmentAdapter extends FragmentPagerAdapter {
