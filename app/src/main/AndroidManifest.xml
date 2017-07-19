@@ -237,7 +237,8 @@
             android:value="ccbe0d42fd2b694935433c16" /> <!-- </>值来自开发者平台取得的AppKey -->
 
         <activity android:name=".view.Activity.CustomScanActivity" />
-        <activity android:name=".view.Activity.ShareJokeDetailActivity"></activity>
+        <activity android:name=".view.Activity.ShareJokeDetailActivity" />
+        <activity android:name=".view.Activity.bili.BiliActivity"></activity>
     </application>
 
 </manifest>

@@ -90,7 +90,7 @@
 
     <!--bilibili样式-->
     <style name="MyCustomUserTabLayout" parent="Widget.Design.TabLayout">
-        <item name="android:background">#FB7299</item>
+        <item name="android:background">#fd5887</item>
         <item name="tabMaxWidth">0dp</item>
         <item name="tabGravity">fill</item>
         <item name="tabMode">fixed</item>

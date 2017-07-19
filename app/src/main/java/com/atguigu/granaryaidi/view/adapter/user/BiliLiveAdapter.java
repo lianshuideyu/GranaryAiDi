@@ -34,7 +34,7 @@ public class BiliLiveAdapter extends RecyclerView.Adapter {
     private final Context context;
 
     /**
-     * 六种类型
+     * n种类型
      */
     /**
      * 横幅广告
@@ -85,13 +85,11 @@ public class BiliLiveAdapter extends RecyclerView.Adapter {
     public static final int MOVIE = 10;
 
 
-//    private LayoutInflater inflater;
 
     public BiliLiveAdapter(Context context, BiliLiveBean.DataBean data) {
 
         this.context = context;
         this.data = data;
-//        inflater = LayoutInflater.from(context);
     }
 
     @Override
@@ -102,25 +100,28 @@ public class BiliLiveAdapter extends RecyclerView.Adapter {
             currentType = BANNER;
         } else if (position == CHANNEL) {
             currentType = CHANNEL;
-        } else if (position == DRAWING_AREA) {
+        } else {
             currentType = DRAWING_AREA;
-        } else if (position == ENT_LIFE) {
-            currentType = ENT_LIFE;
-        } else if (position == SING_DANCE) {
-            currentType = SING_DANCE;
-        } else if (position == MOBILE_GAME) {
-            currentType = MOBILE_GAME;
-        } else if (position == SINGLE) {
-            currentType = SINGLE;
-        } else if (position == ONLINE) {
-            currentType = ONLINE;
-        } else if (position == E_SPORTS) {
-            currentType = E_SPORTS;
-        } else if (position == OTAKU) {
-            currentType = OTAKU;
-        } else if (position == MOVIE) {
-            currentType = MOVIE;
         }
+//        else if (position == ENT_LIFE) {
+//            currentType = ENT_LIFE;
+//        } else if (position == SING_DANCE) {
+//            currentType = SING_DANCE;
+//        } else if (position == MOBILE_GAME) {
+//            currentType = MOBILE_GAME;
+//        } else if (position == SINGLE) {
+//            currentType = SINGLE;
+//        } else if (position == ONLINE) {
+//            currentType = ONLINE;
+//        } else if (position == E_SPORTS) {
+//            currentType = E_SPORTS;
+//        } else if (position == OTAKU) {
+//            currentType = OTAKU;
+//        }
+
+//        else if (position == MOVIE) {
+//            currentType = MOVIE;
+//        }
 
 //        for(int i = 0; i < data.getPartitions().size(); i++) {
 //            if(data.getPartitions().get(i).getPartition().getArea().equals("draw")) {
@@ -144,31 +145,35 @@ public class BiliLiveAdapter extends RecyclerView.Adapter {
         } else if (viewType == DRAWING_AREA) {
             return new DrawingViewHolder(LayoutInflater.from(context)
                     .inflate(R.layout.drawing_item, parent, false));
-        } else if (viewType == ENT_LIFE) {
-            return new EntlifeViewHolder(LayoutInflater.from(context)
-                    .inflate(R.layout.drawing_item, parent, false));
-        } else if (viewType == SING_DANCE) {
-            return new SingdanceViewHolder(LayoutInflater.from(context)
-                    .inflate(R.layout.drawing_item, parent, false));
-        } else if (viewType == MOBILE_GAME) {
-            return new MobilegameViewHolder(LayoutInflater.from(context)
-                    .inflate(R.layout.drawing_item, parent, false));
-        } else if (viewType == SINGLE) {
-            return new SingleViewHolder(LayoutInflater.from(context)
-                    .inflate(R.layout.drawing_item, parent, false));
-        } else if (viewType == ONLINE) {
-            return new OnlineViewHolder(LayoutInflater.from(context)
-                    .inflate(R.layout.drawing_item, parent, false));
-        } else if (viewType == E_SPORTS) {
-            return new EsportsViewHolder(LayoutInflater.from(context)
-                    .inflate(R.layout.drawing_item, parent, false));
-        } else if (viewType == OTAKU) {
-            return new OtakuViewHolder(LayoutInflater.from(context)
-                    .inflate(R.layout.drawing_item, parent, false));
-        } else if (viewType == MOVIE) {
-            return new MovieViewHolder(LayoutInflater.from(context)
-                    .inflate(R.layout.drawing_item, parent, false));
         }
+
+//        else if (viewType == ENT_LIFE) {
+//            return new EntlifeViewHolder(LayoutInflater.from(context)
+//                    .inflate(R.layout.drawing_item, parent, false));
+//        } else if (viewType == SING_DANCE) {
+//            return new SingdanceViewHolder(LayoutInflater.from(context)
+//                    .inflate(R.layout.drawing_item, parent, false));
+//        } else if (viewType == MOBILE_GAME) {
+//            return new MobilegameViewHolder(LayoutInflater.from(context)
+//                    .inflate(R.layout.drawing_item, parent, false));
+//        } else if (viewType == SINGLE) {
+//            return new SingleViewHolder(LayoutInflater.from(context)
+//                    .inflate(R.layout.drawing_item, parent, false));
+//        } else if (viewType == ONLINE) {
+//            return new OnlineViewHolder(LayoutInflater.from(context)
+//                    .inflate(R.layout.drawing_item, parent, false));
+//        } else if (viewType == E_SPORTS) {
+//            return new EsportsViewHolder(LayoutInflater.from(context)
+//                    .inflate(R.layout.drawing_item, parent, false));
+//        } else if (viewType == OTAKU) {
+//            return new OtakuViewHolder(LayoutInflater.from(context)
+//                    .inflate(R.layout.drawing_item, parent, false));
+//        }
+
+//        else if (viewType == MOVIE) {
+//            return new MovieViewHolder(LayoutInflater.from(context)
+//                    .inflate(R.layout.drawing_item, parent, false));
+//        }
 
 
         return null;
@@ -188,37 +193,42 @@ public class BiliLiveAdapter extends RecyclerView.Adapter {
             channelViewHolder.setData();
         } else if (getItemViewType(position) == DRAWING_AREA) {
             DrawingViewHolder drawingViewHolder = (DrawingViewHolder) holder;
-            drawingViewHolder.setData();
-        } else if (getItemViewType(position) == ENT_LIFE) {
-            EntlifeViewHolder entlifeViewHolder = (EntlifeViewHolder) holder;
-            entlifeViewHolder.setData();
-        } else if (getItemViewType(position) == SING_DANCE) {
-            SingdanceViewHolder singdanceViewHolder = (SingdanceViewHolder) holder;
-            singdanceViewHolder.setData();
-        } else if (getItemViewType(position) == MOBILE_GAME) {
-            MobilegameViewHolder mobilegameViewHolder = (MobilegameViewHolder) holder;
-            mobilegameViewHolder.setData();
-        } else if (getItemViewType(position) == SINGLE) {
-            SingleViewHolder singleViewHolder = (SingleViewHolder) holder;
-            singleViewHolder.setData();
-        } else if (getItemViewType(position) == ONLINE) {
-            OnlineViewHolder onlineViewHolder = (OnlineViewHolder) holder;
-            onlineViewHolder.setData();
-        } else if (getItemViewType(position) == E_SPORTS) {
-            EsportsViewHolder esportsViewHolder = (EsportsViewHolder) holder;
-            esportsViewHolder.setData();
-        } else if (getItemViewType(position) == OTAKU) {
-            OtakuViewHolder otakuViewHolder = (OtakuViewHolder) holder;
-            otakuViewHolder.setData();
-        } else if (getItemViewType(position) == MOVIE) {
-            MovieViewHolder movieViewHolder = (MovieViewHolder) holder;
-            movieViewHolder.setData();
+            drawingViewHolder.setData(position - 2);
         }
+
+//        else if (getItemViewType(position) == ENT_LIFE) {
+//            EntlifeViewHolder entlifeViewHolder = (EntlifeViewHolder) holder;
+//            entlifeViewHolder.setData();
+//        } else if (getItemViewType(position) == SING_DANCE) {
+//            SingdanceViewHolder singdanceViewHolder = (SingdanceViewHolder) holder;
+//            singdanceViewHolder.setData();
+//        } else if (getItemViewType(position) == MOBILE_GAME) {
+//            MobilegameViewHolder mobilegameViewHolder = (MobilegameViewHolder) holder;
+//            mobilegameViewHolder.setData();
+//        } else if (getItemViewType(position) == SINGLE) {
+//            SingleViewHolder singleViewHolder = (SingleViewHolder) holder;
+//            singleViewHolder.setData();
+//        } else if (getItemViewType(position) == ONLINE) {
+//            OnlineViewHolder onlineViewHolder = (OnlineViewHolder) holder;
+//            onlineViewHolder.setData();
+//        } else if (getItemViewType(position) == E_SPORTS) {
+//            EsportsViewHolder esportsViewHolder = (EsportsViewHolder) holder;
+//            esportsViewHolder.setData();
+//        } else if (getItemViewType(position) == OTAKU) {
+//            OtakuViewHolder otakuViewHolder = (OtakuViewHolder) holder;
+//            otakuViewHolder.setData();
+//        }
+
+
+//        else if (getItemViewType(position) == MOVIE) {
+//            MovieViewHolder movieViewHolder = (MovieViewHolder) holder;
+//            movieViewHolder.setData();
+//        }
     }
 
     @Override
     public int getItemCount() {
-        return 11;
+        return 2 + data.getPartitions().size();
     }
 
     class BannerViewHolder extends RecyclerView.ViewHolder {
@@ -354,8 +364,8 @@ public class BiliLiveAdapter extends RecyclerView.Adapter {
             ButterKnife.inject(this, itemView);
         }
 
-        public void setData() {
-            BiliLiveBean.DataBean.PartitionsBean.PartitionBean bean = data.getPartitions().get(0).getPartition();
+        public void setData(int position) {
+            BiliLiveBean.DataBean.PartitionsBean.PartitionBean bean = data.getPartitions().get(position).getPartition();
 
             if (bean != null) {
                 tv_area_name.setText(bean.getName());
@@ -383,7 +393,7 @@ public class BiliLiveAdapter extends RecyclerView.Adapter {
                 /**
                  * 设置GridView数据
                  */
-                List<BiliLiveBean.DataBean.PartitionsBean.LivesBean> lives = data.getPartitions().get(0).getLives();
+                List<BiliLiveBean.DataBean.PartitionsBean.LivesBean> lives = data.getPartitions().get(position).getLives();
                 if (lives != null && lives.size() > 0) {
 
                     GridViewAdapter adapter = new GridViewAdapter(context, lives);

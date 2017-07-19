@@ -4,6 +4,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.atguigu.granaryaidi.Base.BaseFragment;
 import com.atguigu.granaryaidi.R;
@@ -21,9 +24,12 @@ import butterknife.InjectView;
 
 public class UserZhiboFragment extends BaseFragment {
 
-
     @InjectView(R.id.rv_live)
     RecyclerView rvLive;
+    @InjectView(R.id.iv_empty)
+    ImageView iv_empty;
+    @InjectView(R.id.tv_progress)
+    TextView tv_progress;
 
     private BiliLiveAdapter adapter;
 
@@ -44,6 +50,7 @@ public class UserZhiboFragment extends BaseFragment {
         /**
          * 联网
          */
+        tv_progress.setVisibility(View.VISIBLE);
         getDataNet(AppNetManager.LIVE_URL);
     }
 
@@ -62,13 +69,15 @@ public class UserZhiboFragment extends BaseFragment {
                 if (!TextUtils.isEmpty(content)) {
                     //解析数据
                     processData(content);
+                    iv_empty.setVisibility(View.GONE);
                 }
             }
 
             @Override
             public void onFailure(String content) {
                 Log.e("zhibo", "联网失败==" + content);
-
+                iv_empty.setVisibility(View.VISIBLE);
+                tv_progress.setVisibility(View.GONE);
             }
         });
     }
@@ -93,6 +102,7 @@ public class UserZhiboFragment extends BaseFragment {
             rvLive.setLayoutManager(manager);
         }
 
+        tv_progress.setVisibility(View.GONE);
     }
 
 
