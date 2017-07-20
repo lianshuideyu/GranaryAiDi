@@ -11,9 +11,11 @@ import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.atguigu.granaryaidi.Base.BaseActivity;
@@ -357,16 +359,24 @@ public class GoodsGotoBuyActivity extends BaseActivity {
             RadioButton button = new RadioButton(GoodsGotoBuyActivity.this);
             setRaidBtnAttribute(button, attrList.get(i).getAttr_name(), i, id);//i 代表每行的第几个
 
-            radiogroup.addView(button);
 
-            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) button
-                    .getLayoutParams();
-            layoutParams.setMargins(0, 0, DensityUtil.dip2px(GoodsGotoBuyActivity.this, 10), 0);//4个参数按顺序分别是左上右下
+//            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) button
+//                    .getLayoutParams();
+//
+//            layoutParams.setMargins(0, 0, DensityUtil.dip2px(GoodsGotoBuyActivity.this, 10), 0);//4个参数按顺序分别是左上右下
+
+            RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            button.setLayoutParams(layoutParams);
+//            layoutParams.setMargins(0,DensityUtil.dip2px(GoodsGotoBuyActivity.this, 10)
+//                    ,DensityUtil.dip2px(GoodsGotoBuyActivity.this, 10),0);
+            layoutParams.leftMargin = DensityUtil.dip2px(GoodsGotoBuyActivity.this, 10);
 
             button.setPadding(DensityUtil.dip2px(GoodsGotoBuyActivity.this, 5),
                     0, DensityUtil.dip2px(GoodsGotoBuyActivity.this, 5), 0);
 
-            button.setLayoutParams(layoutParams);
+
+            radiogroup.addView(button,layoutParams);
         }
 
         return radiogroup;
@@ -410,9 +420,9 @@ public class GoodsGotoBuyActivity extends BaseActivity {
             }
         });
         //DensityUtilHelps.Dp2Px(this,40)
-        LinearLayout.LayoutParams rlp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT
-                , DensityUtil.dip2px(GoodsGotoBuyActivity.this, 30));
-        rlp.setMargins(5,0,5,5);
-        codeBtn.setLayoutParams(rlp);
+//        LinearLayout.LayoutParams rlp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT
+//                , DensityUtil.dip2px(GoodsGotoBuyActivity.this, 30));
+//        rlp.setMargins(5,0,5,5);
+//        codeBtn.setLayoutParams(rlp);
     }
 }

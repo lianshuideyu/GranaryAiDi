@@ -105,7 +105,6 @@ public class ShareJokeAdapter extends RecyclerView.Adapter<ShareJokeAdapter.MyVi
         public MyViewHolder(View itemView) {
             super(itemView);
             ButterKnife.inject(this, itemView);
-//            tvDown = (TextView) itemView.findViewById(R.id.tv_down_joke);
         }
 
         public void setData(final BaisiJokeBean.ListBean bean, int position) {
@@ -125,9 +124,9 @@ public class ShareJokeAdapter extends RecyclerView.Adapter<ShareJokeAdapter.MyVi
             tvUpdatetime.setText(bean.getPasstime());
             tvJokeContent.setText(bean.getText());
             tvZan.setText(bean.getUp());
-//            tvDown.setText(bean.getDown());
-//            tvShare.setText(bean.getForward());
-//            tvPinglun.setText(bean.getComment());
+            tvDown.setText(bean.getDown()+"");
+            tvShare.setText(bean.getForward()+"");
+            tvPinglun.setText(bean.getComment());
 
             //设置第一条评论的消息
             List<BaisiJokeBean.ListBean.TopCommentsBean> top_comments = bean.getTop_comments();

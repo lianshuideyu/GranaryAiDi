@@ -1,5 +1,6 @@
 package com.atguigu.granaryaidi.view.fragment.userfragment;
 
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -14,6 +15,8 @@ import com.atguigu.granaryaidi.bean.bilibili.BiliLiveBean;
 import com.atguigu.granaryaidi.common.AppNetManager;
 import com.atguigu.granaryaidi.utils.HttpUtils;
 import com.atguigu.granaryaidi.view.adapter.user.BiliLiveAdapter;
+import com.cjj.MaterialRefreshLayout;
+import com.cjj.MaterialRefreshListener;
 import com.google.gson.Gson;
 
 import butterknife.InjectView;
@@ -30,8 +33,11 @@ public class UserZhiboFragment extends BaseFragment {
     ImageView iv_empty;
     @InjectView(R.id.tv_progress)
     TextView tv_progress;
+    @InjectView(R.id.refresh_zhibo)
+    MaterialRefreshLayout refresh_zhibo;
 
     private BiliLiveAdapter adapter;
+
 
     @Override
     public int getLayoutId() {
@@ -103,11 +109,32 @@ public class UserZhiboFragment extends BaseFragment {
         }
 
         tv_progress.setVisibility(View.GONE);
+        refresh_zhibo.finishRefresh();
     }
 
 
     @Override
     protected void initListener() {
+        //支持上拉加载
+        refresh_zhibo.setLoadMore(true);
+        refresh_zhibo.setMaterialRefreshListener(new MaterialRefreshListener() {
+            @Override
+            public void onRefresh(final MaterialRefreshLayout materialRefreshLayout) {
+                //下拉刷新
+                getDataNet(AppNetManager.LIVE_URL);
+            }
+
+            @Override
+            public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
+                //上拉加载
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        refresh_zhibo.finishRefreshLoadMore();
+                    }
+                },1000);
+            }
+        });
 
     }
 

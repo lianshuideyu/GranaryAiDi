@@ -27,6 +27,7 @@
             android:padding="5dp"
             android:src="@drawable/ic_watermark_live_large" />
 
+        <!--直播加载中的动画-->
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -61,6 +62,7 @@
             android:src="@drawable/ic_tv_play"
             android:visibility="gone" />
 
+        <!--直播的控制面板-->
         <RelativeLayout
             android:id="@+id/bottom_layout"
             android:layout_width="match_parent"
