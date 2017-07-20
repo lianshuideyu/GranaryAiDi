@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.atguigu.granaryaidi.Base.BaseActivity;
@@ -365,12 +364,13 @@ public class GoodsGotoBuyActivity extends BaseActivity {
 //
 //            layoutParams.setMargins(0, 0, DensityUtil.dip2px(GoodsGotoBuyActivity.this, 10), 0);//4个参数按顺序分别是左上右下
 
-            RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(
+            FlowRadioGroup.LayoutParams layoutParams = new FlowRadioGroup.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            button.setLayoutParams(layoutParams);
+            layoutParams.leftMargin = DensityUtil.dip2px(GoodsGotoBuyActivity.this, 10);
+            //button.setLayoutParams(layoutParams);
 //            layoutParams.setMargins(0,DensityUtil.dip2px(GoodsGotoBuyActivity.this, 10)
 //                    ,DensityUtil.dip2px(GoodsGotoBuyActivity.this, 10),0);
-            layoutParams.leftMargin = DensityUtil.dip2px(GoodsGotoBuyActivity.this, 10);
+
 
             button.setPadding(DensityUtil.dip2px(GoodsGotoBuyActivity.this, 5),
                     0, DensityUtil.dip2px(GoodsGotoBuyActivity.this, 5), 0);
