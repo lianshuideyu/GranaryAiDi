@@ -239,7 +239,8 @@
         <activity android:name=".view.Activity.CustomScanActivity" />
         <activity android:name=".view.Activity.ShareJokeDetailActivity" />
         <activity android:name=".view.Activity.bili.BiliActivity" />
-        <activity android:name=".view.Activity.bili.LivePlayerActivity"></activity>
+        <activity android:name=".view.Activity.bili.LivePlayerActivity" />
+        <activity android:name=".view.Activity.bili.BiliLoginActivity"></activity>
     </application>
 
 </manifest>

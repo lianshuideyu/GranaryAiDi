@@ -1,5 +1,6 @@
 package com.atguigu.granaryaidi.view.Activity.bili;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
@@ -116,6 +117,8 @@ public class BiliActivity extends BaseActivity implements NavigationView.OnNavig
             @Override
             public void onClick(View view) {
                 Toast.makeText(BiliActivity.this, "登录", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(BiliActivity.this, BiliLoginActivity.class);
+                startActivity(intent);
             }
         });
 
