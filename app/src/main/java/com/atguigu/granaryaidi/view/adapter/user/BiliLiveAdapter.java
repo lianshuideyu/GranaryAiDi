@@ -1,10 +1,12 @@
 package com.atguigu.granaryaidi.view.adapter.user;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 
 import com.atguigu.granaryaidi.R;
 import com.atguigu.granaryaidi.bean.bilibili.BiliLiveBean;
+import com.atguigu.granaryaidi.view.Activity.bili.LivePlayerActivity;
 import com.bumptech.glide.Glide;
 import com.youth.banner.Banner;
 import com.youth.banner.loader.ImageLoader;
@@ -358,6 +361,8 @@ public class BiliLiveAdapter extends RecyclerView.Adapter {
         @InjectView(R.id.tv_area_name)
         TextView tv_area_name;
 
+        List<BiliLiveBean.DataBean.PartitionsBean.LivesBean> lives;
+
         public DrawingViewHolder(View itemView) {
             super(itemView);
 
@@ -393,13 +398,28 @@ public class BiliLiveAdapter extends RecyclerView.Adapter {
                 /**
                  * 设置GridView数据
                  */
-                List<BiliLiveBean.DataBean.PartitionsBean.LivesBean> lives = data.getPartitions().get(position).getLives();
+                lives = data.getPartitions().get(position).getLives();
                 if (lives != null && lives.size() > 0) {
 
                     GridViewAdapter adapter = new GridViewAdapter(context, lives);
                     gvDrawing.setAdapter(adapter);
+                    setListener();
                 }
+
+
             }
+
+        }
+
+        private void setListener() {
+            gvDrawing.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                    Intent intent = new Intent(context, LivePlayerActivity.class);
+                    intent.putExtra("playurl",lives.get(position).getPlayurl());
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 
