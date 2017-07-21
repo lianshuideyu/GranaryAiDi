@@ -98,6 +98,11 @@
                 android:src="@drawable/ic_live_palyer_zoom_in" />
         </RelativeLayout>
 
+        <master.flame.danmaku.ui.widget.DanmakuView
+            android:id="@+id/sv_danmaku"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center" />
     </FrameLayout>
 
 
@@ -127,10 +132,10 @@
             android:paddingTop="5dp">
 
             <TextView
-                android:lines="1"
                 android:id="@+id/tv_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:lines="1"
                 android:text="标题" />
 
             <LinearLayout
@@ -178,4 +183,42 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/line_height"
         android:background="@color/line_bg" />
+
+    <ListView
+        android:id="@+id/lv_danmu"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#F2F2F2" />
+
+    <LinearLayout
+        android:id="@+id/ll_tanmucontent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bangumi_season_list_ic_season_2" />
+
+        <EditText
+            android:id="@+id/tanmu_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:hint="输入想发送的弹幕"
+            android:textSize="15dp" />
+
+        <ImageView
+            android:id="@+id/send_tanmu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_send_grey" />
+    </LinearLayout>
+
 </LinearLayout>

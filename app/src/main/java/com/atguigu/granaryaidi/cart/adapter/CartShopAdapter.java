@@ -293,6 +293,8 @@ public class CartShopAdapter extends BaseAdapter {
                     //点击删除
 //                    Log.e("cart", "删除商品");
                     deleteProduct();
+
+
                 }
             });
 
@@ -335,6 +337,7 @@ public class CartShopAdapter extends BaseAdapter {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         deleteData();
+                        tvPriceAll.setText("￥0.0");
                     }
                 })
                 .setNegativeButton("取消", null)

@@ -10,21 +10,27 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.atguigu.granaryaidi.Base.BaseActivity;
 import com.atguigu.granaryaidi.R;
+import com.atguigu.granaryaidi.view.adapter.user.DanmuAdapter;
 import com.atguigu.granaryaidi.view.viewmyself.CircleImageView;
 import com.bumptech.glide.Glide;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.InjectView;
 import butterknife.OnClick;
+import master.flame.danmaku.ui.widget.DanmakuView;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
 import static com.atguigu.granaryaidi.R.id.right_play;
@@ -68,6 +74,16 @@ public class LivePlayerActivity extends BaseActivity {
     RelativeLayout rl_user_message;
     @InjectView(R.id.view)
     View view;
+    @InjectView(R.id.lv_danmu)
+    ListView lv_danmu;
+    @InjectView(R.id.tanmu_content)
+    EditText tanmuContent;
+    @InjectView(R.id.send_tanmu)
+    ImageView sendTanmu;
+    @InjectView(R.id.ll_tanmucontent)
+    LinearLayout ll_tanmucontent;
+    @InjectView(R.id.sv_danmaku)
+    DanmakuView sv_danmaku;
 
     private IjkMediaPlayer ijkMediaPlayer;
 
@@ -90,13 +106,16 @@ public class LivePlayerActivity extends BaseActivity {
 
 
     //设置视频的默认尺寸
-    private static final  int DEFUALT_SCREEN = 0;
+    private static final int DEFUALT_SCREEN = 0;
     //全屏视频尺寸
     private static final int FULL_SCREEN = 1;
     private String userface;
     private String username;
     private int online;
     private String title;
+
+    private List<String> danmus;
+    private DanmuAdapter danmuAdapter;
 
     @Override
     public void initListener() {
@@ -106,8 +125,8 @@ public class LivePlayerActivity extends BaseActivity {
     @Override
     public void initData() {
 
-        if(!TextUtils.isEmpty(userface) && !TextUtils.isEmpty(username)
-                &&!TextUtils.isEmpty(title)) {
+        if (!TextUtils.isEmpty(userface) && !TextUtils.isEmpty(username)
+                && !TextUtils.isEmpty(title)) {
 
             tvTitle.setText(title);
             userName.setText(username);
@@ -118,6 +137,19 @@ public class LivePlayerActivity extends BaseActivity {
                     .placeholder(R.drawable.bili_default_avatar)
                     .into(userPic);
         }
+        //添加弹幕信息
+        initDanmu();
+    }
+
+    private void initDanmu() {
+        danmus = new ArrayList<>();
+        for(int i = 0; i < 20; i++) {
+
+            danmus.add("我是弹幕我是弹幕==" + i);
+
+        }
+        danmuAdapter = new DanmuAdapter(this,danmus);
+        lv_danmu.setAdapter(danmuAdapter);
     }
 
     @Override
@@ -126,7 +158,7 @@ public class LivePlayerActivity extends BaseActivity {
         playurl = getIntent().getStringExtra("playurl");
         userface = getIntent().getStringExtra("face");
         username = getIntent().getStringExtra("name");
-        online = getIntent().getIntExtra("online",0);
+        online = getIntent().getIntExtra("online", 0);
         title = getIntent().getStringExtra("title");
 //        Log.e("url", "url==" + playurl);
 
@@ -143,6 +175,8 @@ public class LivePlayerActivity extends BaseActivity {
 
         videoWidth = videoView.getWidth();
         videoHeight = videoView.getHeight();
+
+
     }
 
     @Override
@@ -224,7 +258,8 @@ public class LivePlayerActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.right_play, R.id.bottom_play, R.id.bottom_love, R.id.bottom_fullscreen})
+    @OnClick({R.id.right_play, R.id.bottom_play, R.id.bottom_love
+            , R.id.bottom_fullscreen ,R.id.send_tanmu})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.right_play:
@@ -243,6 +278,17 @@ public class LivePlayerActivity extends BaseActivity {
             case R.id.bottom_fullscreen:
 
                 setVideoScreen();
+                break;
+            case R.id.send_tanmu:
+                //发送弹幕
+                String tanmu = tanmuContent.getText().toString().trim();
+                if(!TextUtils.isEmpty(tanmu)) {
+                    danmus.add(danmus.size(),tanmu);
+                    danmuAdapter.notifyDataSetChanged();
+                    tanmuContent.setText("");
+                    lv_danmu.smoothScrollToPosition(danmus.size());
+                }
+
                 break;
         }
     }
@@ -279,25 +325,31 @@ public class LivePlayerActivity extends BaseActivity {
             videoView.setLayoutParams(l);
 
             rl_user_message.setVisibility(View.GONE);
+            lv_danmu.setVisibility(View.GONE);
             view.setVisibility(View.GONE);
-            Log.e("isFullScreen","setVideoScreen==" + "横屏");
-        }else {
+            ll_tanmucontent.setVisibility(View.GONE);
+            Log.e("isFullScreen", "setVideoScreen==" + "横屏");
+        } else {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             //竖屏
             isFullScreen = false;
-            Log.e("isFullScreen","setVideoScreen==" + "竖屏");
+            Log.e("isFullScreen", "setVideoScreen==" + "竖屏");
             rl_user_message.setVisibility(View.VISIBLE);
             view.setVisibility(View.VISIBLE);
+            lv_danmu.setVisibility(View.VISIBLE);
+            ll_tanmucontent.setVisibility(View.VISIBLE);
         }
 
     }
+
     /**
      * 设置视频的全屏和默认
+     *
      * @param videoType
      */
     private void setVideoType(int videoType) {
         switch (videoType) {
-            case  FULL_SCREEN:
+            case FULL_SCREEN:
 //                isFullScreen = true;
                 //按钮状态--默认
 //                btnSwitchScreen.setBackgroundResource(R.drawable.btn_switch_screen_default_selector);
@@ -322,10 +374,10 @@ public class LivePlayerActivity extends BaseActivity {
                 int height = screenHeight;
                 //需要等比例的缩放，mVideoWidth/mVideoHeight == width/height，这才是等比例
                 //先判断，哪种方式的面积小，以哪种为基准
-                if(mVideoWidth * height < mVideoHeight * width) {
+                if (mVideoWidth * height < mVideoHeight * width) {
                     //height不变
                     width = mVideoWidth / mVideoHeight * height;
-                }else if(mVideoWidth * height > mVideoHeight * width) {
+                } else if (mVideoWidth * height > mVideoHeight * width) {
                     //width不变
                     height = mVideoHeight / mVideoWidth * width;
                 }

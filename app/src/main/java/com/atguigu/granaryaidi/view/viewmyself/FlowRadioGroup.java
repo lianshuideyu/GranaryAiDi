@@ -1,88 +1,122 @@
 package com.atguigu.granaryaidi.view.viewmyself;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.RadioGroup;
 
-import com.atguigu.granaryaidi.utils.DensityUtil;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Created by Administrator on 2017/7/16.
+ * Created by etenel on 2017/7/13.
  */
 
 public class FlowRadioGroup extends RadioGroup {
 
-    private final Context context;
-
     public FlowRadioGroup(Context context) {
-        super(context);
-        this.context  = context;
+        this(context, null);
     }
 
     public FlowRadioGroup(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.context  = context;
+    }
+
+    @Override
+    public LayoutParams generateLayoutParams(AttributeSet attrs) {
+        return new LayoutParams(getContext(), attrs);
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int maxWidth = MeasureSpec.getSize(widthMeasureSpec);
-        int childCount = getChildCount();
-        int x = 0;
-        int y = 0;
-        int row = 0;
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-        for (int index = 0; index < childCount; index++) {
-            final View child = getChildAt(index);
-            if (child.getVisibility() != View.GONE) {
-                child.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED);
-                // 此处增加onlayout中的换行判断，用于计算所需的高度
-                int width = child.getMeasuredWidth();
-                int height = child.getMeasuredHeight();
-                x += width;
-                y = row * height + height;
-                if (x > maxWidth) {
-                    x = width;
-                    row++;
-                    y = row * height + height;
+        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+
+        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+        int heightSize = MeasureSpec.getSize(heightMeasureSpec);
+
+        heightList.clear();
+        childPosition.clear();
+
+        int mWidth = 0;
+        int mHeight = 0;
+
+        int lineWidth = 0;
+        int lineHeight = 0;
+
+        int childCount = getChildCount();
+
+        int currentLine = 1;
+
+        for (int i = 0; i < childCount; i++) {
+            View child = getChildAt(i);
+            if (child.getVisibility() == GONE) {
+                continue;
+            }
+            measureChild(child, widthMeasureSpec, heightMeasureSpec);
+            LayoutParams layoutParams = (LayoutParams) child.getLayoutParams();
+            int childWidth = child.getMeasuredWidth() + layoutParams.leftMargin + layoutParams.rightMargin;
+            int childHeight = child.getMeasuredHeight() + layoutParams.topMargin + layoutParams.bottomMargin;
+
+            if (lineWidth + childWidth > widthSize) {
+                // 必须得换行了,将之前的lineHeight加上
+                heightList.add(lineHeight);
+                currentLine++;
+
+                mHeight += lineHeight;
+                lineHeight = childHeight;
+                mWidth = Math.max(mWidth, lineWidth);
+                lineWidth = childWidth;
+
+                int top = childPosition.get(childPosition.size() - 1).top + heightList.get(currentLine - 2);
+                childPosition.add(new Rect(0, top, childWidth, top + childHeight));
+            } else {
+                lineHeight = Math.max(childHeight, lineHeight);
+                // 无需换行,该行宽度增加
+                lineWidth += childWidth;
+                if (i == 0) {
+                    childPosition.add(new Rect(0, 0, childWidth, childHeight));
+                } else {
+                    int left = childPosition.get(childPosition.size() - 1).right;
+                    int right = left + childWidth;
+                    int top = childPosition.get(childPosition.size() - 1).top;
+                    int bottom = top + childHeight;
+                    childPosition.add(new Rect(left, top, right, bottom));
                 }
             }
+
+            if (i == childCount - 1) {
+                heightList.add(lineHeight);
+                mWidth = Math.max(lineWidth, mWidth);
+                mHeight += lineHeight;
+            }
         }
-        // 设置容器所需的宽度和高度
-        setMeasuredDimension(maxWidth, y);
+
+        setMeasuredDimension((widthMode == MeasureSpec.EXACTLY) ? widthSize : mWidth,
+                (heightMode == MeasureSpec.EXACTLY) ? heightSize : mHeight);
     }
+
+    private List<Integer> heightList = new ArrayList<>();
+    private List<Rect> childPosition = new ArrayList<>();
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        final int childCount = getChildCount();
-        int maxWidth = r - l;
-        int x = 0;
-        int y = 0;
-        int row = 0;
-        for (int i = 0; i < childCount; i++) {
-            final View child = this.getChildAt(i);
-            if (child.getVisibility() != View.GONE) {
-                int width = child.getMeasuredWidth();
-                int height = child.getMeasuredHeight();
-                x += width;
-                y = row * height + height;
-                if (x > maxWidth) {
-                    x = width;
-                    row++;
-                    y = row * height + height;
-                }
-                child.setPadding(DensityUtil.dip2px(context,10),DensityUtil.dip2px(context,5)
-                        ,DensityUtil.dip2px(context,10),DensityUtil.dip2px(context,5));
-
-//                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-//                        LinearLayout.LayoutParams.WRAP_CONTENT,
-//                        LinearLayout.LayoutParams.WRAP_CONTENT);
-//                child.setLayoutParams(params);
-//                params.setMargins(0,20,20,0);
-
-                child.layout(x - width, y - height, x, y);
+        int visibleCount = childPosition.size();
+        int childCount = getChildCount();
+        for (int i = 0, j = 0; i < childCount; i++, j++) {
+            View child = getChildAt(i);
+            if (child.getVisibility() == GONE) {
+                j--;
+                continue;
             }
+            Rect rect = childPosition.get(j);
+            LayoutParams layoutParams = (LayoutParams) child.getLayoutParams();
+            child.layout(rect.left + layoutParams.leftMargin, rect.top + layoutParams.topMargin,
+                    rect.right - layoutParams.rightMargin, rect.bottom - layoutParams.bottomMargin);
         }
     }
+
 }

@@ -366,7 +366,9 @@ public class GoodsGotoBuyActivity extends BaseActivity {
 
             FlowRadioGroup.LayoutParams layoutParams = new FlowRadioGroup.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            layoutParams.leftMargin = DensityUtil.dip2px(GoodsGotoBuyActivity.this, 10);
+            layoutParams.rightMargin = DensityUtil.dip2px(GoodsGotoBuyActivity.this, 10);
+            layoutParams.bottomMargin = DensityUtil.dip2px(GoodsGotoBuyActivity.this, 10);
+
             //button.setLayoutParams(layoutParams);
 //            layoutParams.setMargins(0,DensityUtil.dip2px(GoodsGotoBuyActivity.this, 10)
 //                    ,DensityUtil.dip2px(GoodsGotoBuyActivity.this, 10),0);
