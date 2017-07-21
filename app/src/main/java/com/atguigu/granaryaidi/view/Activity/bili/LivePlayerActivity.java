@@ -1,6 +1,7 @@
 package com.atguigu.granaryaidi.view.Activity.bili;
 
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.text.TextUtils;
@@ -25,11 +26,22 @@ import com.atguigu.granaryaidi.view.viewmyself.CircleImageView;
 import com.bumptech.glide.Glide;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.InjectView;
 import butterknife.OnClick;
+import master.flame.danmaku.controller.IDanmakuView;
+import master.flame.danmaku.danmaku.loader.ILoader;
+import master.flame.danmaku.danmaku.loader.IllegalDataException;
+import master.flame.danmaku.danmaku.loader.android.DanmakuLoaderFactory;
+import master.flame.danmaku.danmaku.model.BaseDanmaku;
+import master.flame.danmaku.danmaku.model.DanmakuTimer;
+import master.flame.danmaku.danmaku.model.android.DanmakuContext;
+import master.flame.danmaku.danmaku.model.android.Danmakus;
+import master.flame.danmaku.danmaku.parser.BaseDanmakuParser;
+import master.flame.danmaku.danmaku.parser.IDataSource;
 import master.flame.danmaku.ui.widget.DanmakuView;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
@@ -117,6 +129,11 @@ public class LivePlayerActivity extends BaseActivity {
     private List<String> danmus;
     private DanmuAdapter danmuAdapter;
 
+    private DanmakuContext mContext;
+    private IDanmakuView mDanmakuView;
+
+    private BaseDanmakuParser mParser;
+
     @Override
     public void initListener() {
 
@@ -176,8 +193,46 @@ public class LivePlayerActivity extends BaseActivity {
         videoWidth = videoView.getWidth();
         videoHeight = videoView.getHeight();
 
+        //弹幕相关设置
+        initDanmuOption();
 
     }
+
+    private void initDanmuOption() {
+        mContext = DanmakuContext.create();
+        mDanmakuView = sv_danmaku;
+
+        if (mDanmakuView != null) {
+            mParser = createParser(this.getResources().openRawResource(R.raw.comments));
+
+            mDanmakuView.setCallback(new master.flame.danmaku.controller.DrawHandler.Callback() {
+                @Override
+                public void updateTimer(DanmakuTimer timer) {
+                }
+
+                @Override
+                public void drawingFinished() {
+
+                }
+
+                @Override
+                public void danmakuShown(BaseDanmaku danmaku) {
+//                    Log.d("DFM", "danmakuShown(): text=" + danmaku.text);
+                }
+
+                @Override
+                public void prepared() {
+                    mDanmakuView.start();
+                }
+            });
+
+
+            mDanmakuView.prepare(mParser, mContext);
+            mDanmakuView.showFPS(true);
+            mDanmakuView.enableDanmakuDrawingCache(true);
+        }
+    }
+
 
     @Override
     public int getLayoutId() {
@@ -237,12 +292,6 @@ public class LivePlayerActivity extends BaseActivity {
     }
 
 
-    @Override
-    protected void onDestroy() {
-
-        super.onDestroy();
-        ijkMediaPlayer.release();
-    }
 
     private void startAnim() {
 
@@ -258,6 +307,7 @@ public class LivePlayerActivity extends BaseActivity {
     }
 
 
+    private boolean ishidedanmu = false;
     @OnClick({R.id.right_play, R.id.bottom_play, R.id.bottom_love
             , R.id.bottom_fullscreen ,R.id.send_tanmu})
     public void onViewClicked(View view) {
@@ -274,6 +324,14 @@ public class LivePlayerActivity extends BaseActivity {
                 break;
             case R.id.bottom_love:
                 showToast("送礼物");
+                if(!ishidedanmu) {
+                    mDanmakuView.hide();
+                    ishidedanmu = true;
+                }else {
+                    mDanmakuView.show();
+                    ishidedanmu = false;
+                }
+
                 break;
             case R.id.bottom_fullscreen:
 
@@ -287,6 +345,8 @@ public class LivePlayerActivity extends BaseActivity {
                     danmuAdapter.notifyDataSetChanged();
                     tanmuContent.setText("");
                     lv_danmu.smoothScrollToPosition(danmus.size());
+
+                    addDanmaku(true,tanmu);
                 }
 
                 break;
@@ -392,4 +452,89 @@ public class LivePlayerActivity extends BaseActivity {
     }
 
 
+
+    private void addDanmaku(boolean islive,String content) {
+        BaseDanmaku danmaku = mContext.mDanmakuFactory.createDanmaku(BaseDanmaku.TYPE_SCROLL_RL);
+        if (danmaku == null || mDanmakuView == null) {
+            return;
+        }
+        // for(int i=0;i<100;i++){
+        // }
+        danmaku.text = content + System.nanoTime();
+        danmaku.padding = 5;
+        danmaku.priority = 0;  // 可能会被各种过滤器过滤并隐藏显示
+        danmaku.isLive = islive;
+        danmaku.setTime(mDanmakuView.getCurrentTime() + 1200);
+        danmaku.textSize = 25f * (mParser.getDisplayer().getDensity() - 0.6f);
+        danmaku.textColor = Color.RED;
+        danmaku.textShadowColor = Color.WHITE;
+        // danmaku.underlineColor = Color.GREEN;
+        danmaku.borderColor = Color.GREEN;
+        mDanmakuView.addDanmaku(danmaku);
+
+    }
+
+    private BaseDanmakuParser createParser(InputStream stream) {
+
+        if (stream == null) {
+            return new BaseDanmakuParser() {
+
+                @Override
+                protected Danmakus parse() {
+                    return new Danmakus();
+                }
+            };
+        }
+
+        ILoader loader = DanmakuLoaderFactory.create(DanmakuLoaderFactory.TAG_BILI);
+
+        try {
+            loader.load(stream);
+        } catch (IllegalDataException e) {
+            e.printStackTrace();
+        }
+        BaseDanmakuParser parser = new BiliDanmukuParser();
+        IDataSource<?> dataSource = loader.getDataSource();
+        parser.load(dataSource);
+        return parser;
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mDanmakuView != null && mDanmakuView.isPrepared()) {
+            mDanmakuView.pause();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mDanmakuView != null && mDanmakuView.isPrepared() && mDanmakuView.isPaused()) {
+            mDanmakuView.resume();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        ijkMediaPlayer.release();
+        if (mDanmakuView != null) {
+            // dont forget release!
+            mDanmakuView.release();
+            mDanmakuView = null;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (mDanmakuView != null) {
+            // dont forget release!
+            mDanmakuView.release();
+            mDanmakuView = null;
+        }
+    }
 }
