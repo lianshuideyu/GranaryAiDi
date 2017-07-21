@@ -84,6 +84,7 @@ public class UserZhiboFragment extends BaseFragment {
                 Log.e("zhibo", "联网失败==" + content);
                 iv_empty.setVisibility(View.VISIBLE);
                 tv_progress.setVisibility(View.GONE);
+                refresh_zhibo.finishRefresh();
             }
         });
     }

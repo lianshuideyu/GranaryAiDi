@@ -127,6 +127,7 @@
             android:paddingTop="5dp">
 
             <TextView
+                android:lines="1"
                 android:id="@+id/tv_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

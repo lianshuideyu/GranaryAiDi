@@ -1,36 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.cjj.MaterialRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/refresh_zhibo"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    app:overlay="true"
+    app:wave_color="#33dfdfdf"
+    app:wave_height_type="higher"
+    app:wave_show="true">
 
-    <com.cjj.MaterialRefreshLayout
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_live"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:overlay="true"
-        android:id="@+id/refresh_zhibo"
-        app:wave_color="#33dfdfdf"
-        app:wave_height_type="higher"
-        app:wave_show="true">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_live"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#f4f3f3" />
-    </com.cjj.MaterialRefreshLayout>
+        android:background="#f4f3f3" />
 
 
     <!--没网的时候显示-->
     <ImageView
+        android:layout_gravity="center_horizontal|center_vertical"
         android:id="@+id/iv_empty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
         android:background="@drawable/ic_empty_cute_girl_box"
         android:visibility="gone" />
 
     <TextView
+        android:layout_gravity="center_horizontal|center_vertical"
         android:id="@+id/tv_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,4 +36,5 @@
         android:gravity="center"
         android:text="加载中...."
         android:visibility="gone" />
-</RelativeLayout>
+
+</com.cjj.MaterialRefreshLayout>
