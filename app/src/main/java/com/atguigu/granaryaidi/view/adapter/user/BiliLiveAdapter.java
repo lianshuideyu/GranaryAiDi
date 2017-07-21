@@ -417,6 +417,11 @@ public class BiliLiveAdapter extends RecyclerView.Adapter {
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                     Intent intent = new Intent(context, LivePlayerActivity.class);
                     intent.putExtra("playurl",lives.get(position).getPlayurl());
+                    intent.putExtra("face",lives.get(position).getOwner().getFace());//头像
+                    intent.putExtra("name",lives.get(position).getOwner().getName());
+                    intent.putExtra("online",lives.get(position).getOnline());
+                    intent.putExtra("title",lives.get(position).getTitle());
+
                     context.startActivity(intent);
                 }
             });

@@ -239,7 +239,10 @@
         <activity android:name=".view.Activity.CustomScanActivity" />
         <activity android:name=".view.Activity.ShareJokeDetailActivity" />
         <activity android:name=".view.Activity.bili.BiliActivity" />
-        <activity android:name=".view.Activity.bili.LivePlayerActivity" />
+        <activity android:name=".view.Activity.bili.LivePlayerActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/noAnimation_Theme"
+            />
         <activity android:name=".view.Activity.bili.BiliLoginActivity"></activity>
     </application>
 

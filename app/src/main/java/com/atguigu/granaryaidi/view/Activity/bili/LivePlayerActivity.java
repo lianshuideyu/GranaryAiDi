@@ -1,12 +1,15 @@
 package com.atguigu.granaryaidi.view.Activity.bili;
 
+import android.content.pm.ActivityInfo;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,6 +18,8 @@ import android.widget.TextView;
 
 import com.atguigu.granaryaidi.Base.BaseActivity;
 import com.atguigu.granaryaidi.R;
+import com.atguigu.granaryaidi.view.viewmyself.CircleImageView;
+import com.bumptech.glide.Glide;
 
 import java.io.IOException;
 
@@ -50,7 +55,7 @@ public class LivePlayerActivity extends BaseActivity {
     @InjectView(R.id.rl_bili_anim)
     RelativeLayout rl_bili_anim;
     @InjectView(R.id.user_pic)
-    ImageView userPic;
+    CircleImageView userPic;
     @InjectView(R.id.tv_title)
     TextView tvTitle;
     @InjectView(R.id.user_name)
@@ -59,17 +64,39 @@ public class LivePlayerActivity extends BaseActivity {
     TextView tvGuanzhu;
     @InjectView(R.id.live_num)
     TextView liveNum;
+    @InjectView(R.id.rl_user_message)
+    RelativeLayout rl_user_message;
+    @InjectView(R.id.view)
+    View view;
 
     private IjkMediaPlayer ijkMediaPlayer;
 
     private SurfaceHolder holder;
 
     private AnimationDrawable mAnimViewBackground;
+    //是否全屏
+    private boolean isFullScreen = false;
+    //屏幕的高
+    private int screenHeight;
+    private int screenWidth;
 
+    //视频原生的宽和高
+    private int videoWidth;
+    private int videoHeight;
     /*
         直播播放的链接
          */
     private String playurl;
+
+
+    //设置视频的默认尺寸
+    private static final  int DEFUALT_SCREEN = 0;
+    //全屏视频尺寸
+    private static final int FULL_SCREEN = 1;
+    private String userface;
+    private String username;
+    private int online;
+    private String title;
 
     @Override
     public void initListener() {
@@ -79,18 +106,43 @@ public class LivePlayerActivity extends BaseActivity {
     @Override
     public void initData() {
 
+        if(!TextUtils.isEmpty(userface) && !TextUtils.isEmpty(username)
+                &&!TextUtils.isEmpty(title)) {
+
+            tvTitle.setText(title);
+            userName.setText(username);
+            liveNum.setText(online + "");
+            Glide.with(this)
+                    .load(userface)
+                    .error(R.drawable.bili_default_avatar)
+                    .placeholder(R.drawable.bili_default_avatar)
+                    .into(userPic);
+        }
     }
 
     @Override
     public void initView() {
 
         playurl = getIntent().getStringExtra("playurl");
+        userface = getIntent().getStringExtra("face");
+        username = getIntent().getStringExtra("name");
+        online = getIntent().getIntExtra("online",0);
+        title = getIntent().getStringExtra("title");
 //        Log.e("url", "url==" + playurl);
 
         rl_bili_anim.setVisibility(View.VISIBLE);
         startAnim();
 
         initVideo();
+
+        //得到屏幕的宽高
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        screenHeight = metrics.heightPixels;
+        screenWidth = metrics.widthPixels;
+
+        videoWidth = videoView.getWidth();
+        videoHeight = videoView.getHeight();
     }
 
     @Override
@@ -189,6 +241,8 @@ public class LivePlayerActivity extends BaseActivity {
                 showToast("送礼物");
                 break;
             case R.id.bottom_fullscreen:
+
+                setVideoScreen();
                 break;
         }
     }
@@ -209,5 +263,81 @@ public class LivePlayerActivity extends BaseActivity {
             bottomPlay.setImageResource(R.drawable.ic_portrait_stop);
         }
     }
+
+    private void setVideoScreen() {
+        /**
+         * 设置为横屏
+         */
+        if (!isFullScreen) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            //横屏
+            isFullScreen = true;
+
+            ViewGroup.LayoutParams l = videoView.getLayoutParams();
+            l.width = screenHeight;
+            l.height = screenWidth;
+            videoView.setLayoutParams(l);
+
+            rl_user_message.setVisibility(View.GONE);
+            view.setVisibility(View.GONE);
+            Log.e("isFullScreen","setVideoScreen==" + "横屏");
+        }else {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            //竖屏
+            isFullScreen = false;
+            Log.e("isFullScreen","setVideoScreen==" + "竖屏");
+            rl_user_message.setVisibility(View.VISIBLE);
+            view.setVisibility(View.VISIBLE);
+        }
+
+    }
+    /**
+     * 设置视频的全屏和默认
+     * @param videoType
+     */
+    private void setVideoType(int videoType) {
+        switch (videoType) {
+            case  FULL_SCREEN:
+//                isFullScreen = true;
+                //按钮状态--默认
+//                btnSwitchScreen.setBackgroundResource(R.drawable.btn_switch_screen_default_selector);
+                //设置视频的尺寸为全屏显示
+//                videoView.setVideoSize(screenWidth,screenHeight);
+
+                ViewGroup.LayoutParams l = videoView.getLayoutParams();
+                l.width = screenWidth;
+                l.height = screenHeight;
+                videoView.setLayoutParams(l);
+
+                break;
+            case DEFUALT_SCREEN:
+                isFullScreen = false;
+                //按钮状态--全屏
+//                btnSwitchScreen.setBackgroundResource(R.drawable.btn_switch_screen_full_selector);
+                //视频原生的宽和高
+                int mVideoWidth = videoWidth;
+                int mVideoHeight = videoHeight;
+                //计算好要显示的宽和高
+                int width = screenWidth;
+                int height = screenHeight;
+                //需要等比例的缩放，mVideoWidth/mVideoHeight == width/height，这才是等比例
+                //先判断，哪种方式的面积小，以哪种为基准
+                if(mVideoWidth * height < mVideoHeight * width) {
+                    //height不变
+                    width = mVideoWidth / mVideoHeight * height;
+                }else if(mVideoWidth * height > mVideoHeight * width) {
+                    //width不变
+                    height = mVideoHeight / mVideoWidth * width;
+                }
+
+//                vv.setVideoSize(width,height);
+                ViewGroup.LayoutParams l2 = videoView.getLayoutParams();
+                l2.width = width;
+                l2.height = height;
+                videoView.setLayoutParams(l2);
+                break;
+        }
+    }
+
 
 }
