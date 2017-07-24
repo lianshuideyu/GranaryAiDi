@@ -47,7 +47,14 @@ public class UserZhiboFragment extends BaseFragment {
     @Override
     protected void initView() {
 
+        adapter = new BiliLiveAdapter(context, null);
+//            //设置适配器
+        rvLive.setAdapter(adapter);
 
+        //设置RecyclerView的布局模式
+        LinearLayoutManager manager = new LinearLayoutManager(context);
+
+        rvLive.setLayoutManager(manager);
     }
 
     @Override
@@ -84,7 +91,7 @@ public class UserZhiboFragment extends BaseFragment {
                 Log.e("zhibo", "联网失败==" + content);
                 iv_empty.setVisibility(View.VISIBLE);
                 tv_progress.setVisibility(View.GONE);
-                refresh_zhibo.finishRefresh();
+//                refresh_zhibo.finishRefresh();
             }
         });
     }
@@ -99,14 +106,16 @@ public class UserZhiboFragment extends BaseFragment {
 
             Log.e("zhibo", "解析==" + liveBean.getData().getBanner().get(0).getTitle());
 
-            adapter = new BiliLiveAdapter(context, liveBean.getData());
-//            //设置适配器
-            rvLive.setAdapter(adapter);
-
-            //设置RecyclerView的布局模式
-            LinearLayoutManager manager = new LinearLayoutManager(context);
-
-            rvLive.setLayoutManager(manager);
+//            adapter = new BiliLiveAdapter(context, liveBean.getData());
+////            //设置适配器
+//            rvLive.setAdapter(adapter);
+//
+//            //设置RecyclerView的布局模式
+//            LinearLayoutManager manager = new LinearLayoutManager(context);
+//
+//            rvLive.setLayoutManager(manager);
+            adapter.setData(liveBean.getData());
+            adapter.notifyDataSetChanged();
         }
 
         tv_progress.setVisibility(View.GONE);
@@ -136,6 +145,17 @@ public class UserZhiboFragment extends BaseFragment {
                 },1000);
             }
         });
+
+        /**
+         * 当联网失败时，点击图片，再次进行联网尝试
+         */
+//        iv_empty.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                tv_progress.setVisibility(View.VISIBLE);
+//                getDataNet(AppNetManager.LIVE_URL);
+//            }
+//        });
 
     }
 

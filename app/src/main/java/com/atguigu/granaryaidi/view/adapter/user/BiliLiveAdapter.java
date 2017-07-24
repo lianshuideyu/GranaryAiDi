@@ -33,7 +33,7 @@ import butterknife.InjectView;
 public class BiliLiveAdapter extends RecyclerView.Adapter {
 
 
-    private final BiliLiveBean.DataBean data;
+    private BiliLiveBean.DataBean data;
     private final Context context;
 
     /**
@@ -231,7 +231,11 @@ public class BiliLiveAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return 2 + data.getPartitions().size();
+        return data == null ? 0 : 2 + data.getPartitions().size();
+    }
+
+    public void setData(BiliLiveBean.DataBean data) {
+        this.data = data;
     }
 
     class BannerViewHolder extends RecyclerView.ViewHolder {
