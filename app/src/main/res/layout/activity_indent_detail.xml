@@ -13,11 +13,58 @@
         android:id="@+id/title_apliy"
         layout="@layout/title_main" />
 
+    <!--底部-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#3A668E"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_totalprice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="总计：￥000.0"
+                android:textColor="#ffffffff"
+                android:textSize="13dp" />
+
+            <TextView
+                android:id="@+id/tv_upprice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="已节省：￥0.0"
+                android:textColor="#6F98C3"
+                android:textSize="10dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_gotopay"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#6F98C3"
+            android:gravity="center"
+            android:text="确认付款"
+            android:textColor="#ffffffff"
+            android:textSize="15dp" />
+    </LinearLayout>
+
     <ScrollView
         android:paddingBottom="50dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/title_apliy">
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -204,49 +251,4 @@
 
         </LinearLayout>
     </ScrollView>
-
-    <!--底部-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#3A668E"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_totalprice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="总计：￥000.0"
-                android:textColor="#ffffffff"
-                android:textSize="13dp" />
-
-            <TextView
-                android:id="@+id/tv_upprice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:text="已节省：￥0.0"
-                android:textColor="#6F98C3"
-                android:textSize="10dp" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tv_gotopay"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#6F98C3"
-            android:gravity="center"
-            android:text="确认付款"
-            android:textColor="#ffffffff"
-            android:textSize="15dp" />
-    </LinearLayout>
 </RelativeLayout>
