@@ -20,6 +20,7 @@ import com.atguigu.granaryaidi.view.fragment.ShopFragment;
 import com.atguigu.granaryaidi.view.fragment.UserFragment;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -171,6 +172,16 @@ public class MainActivity extends BaseActivity {
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);       //统计时长
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
 }

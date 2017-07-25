@@ -22,6 +22,7 @@ import com.atguigu.granaryaidi.view.utils.GlideCircleTransform;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.google.gson.Gson;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -213,5 +214,16 @@ public class ShopPinpaiActivity extends BaseActivity {
             tempFragment = currentFragment;
             ft.commit();//提交事务，不要忘记
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);       //统计时长
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

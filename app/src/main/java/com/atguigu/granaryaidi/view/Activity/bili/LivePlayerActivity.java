@@ -24,6 +24,7 @@ import com.atguigu.granaryaidi.R;
 import com.atguigu.granaryaidi.view.adapter.user.DanmuAdapter;
 import com.atguigu.granaryaidi.view.viewmyself.CircleImageView;
 import com.bumptech.glide.Glide;
+import com.umeng.analytics.MobclickAgent;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -506,6 +507,9 @@ public class LivePlayerActivity extends BaseActivity {
         if (mDanmakuView != null && mDanmakuView.isPrepared()) {
             mDanmakuView.pause();
         }
+
+        MobclickAgent.onPageEnd("SplashScreen"); // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息。"SplashScreen"为页面名称，可自定义
+        MobclickAgent.onPause(this);
     }
 
     @Override
@@ -514,6 +518,9 @@ public class LivePlayerActivity extends BaseActivity {
         if (mDanmakuView != null && mDanmakuView.isPrepared() && mDanmakuView.isPaused()) {
             mDanmakuView.resume();
         }
+
+        MobclickAgent.onPageStart("SplashScreen"); //统计页面(仅有Activity的应用中SDK自动调用，不需要单独写。"SplashScreen"为页面名称，可自定义)
+        MobclickAgent.onResume(this);          //统计时长
     }
 
     @Override
@@ -537,4 +544,5 @@ public class LivePlayerActivity extends BaseActivity {
             mDanmakuView = null;
         }
     }
+
 }

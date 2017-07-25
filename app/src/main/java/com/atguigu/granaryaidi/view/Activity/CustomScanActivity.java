@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.atguigu.granaryaidi.R;
 import com.journeyapps.barcodescanner.CaptureManager;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
+import com.umeng.analytics.MobclickAgent;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -99,12 +100,19 @@ public class CustomScanActivity extends AppCompatActivity implements DecoratedBa
     protected void onPause() {
         super.onPause();
         captureManager.onPause();
+
+        MobclickAgent.onPageEnd("SplashScreen"); // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息。"SplashScreen"为页面名称，可自定义
+        MobclickAgent.onPause(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         captureManager.onResume();
+
+        MobclickAgent.onPageStart("SplashScreen"); //统计页面(仅有Activity的应用中SDK自动调用，不需要单独写。"SplashScreen"为页面名称，可自定义)
+        MobclickAgent.onResume(this);          //统计时长
+
     }
 
     @Override

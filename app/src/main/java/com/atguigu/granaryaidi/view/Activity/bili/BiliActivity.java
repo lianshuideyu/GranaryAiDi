@@ -28,6 +28,7 @@ import com.atguigu.granaryaidi.view.fragment.userfragment.UserFenquFragment;
 import com.atguigu.granaryaidi.view.fragment.userfragment.UserRecommendFragment;
 import com.atguigu.granaryaidi.view.fragment.userfragment.UserZhiboFragment;
 import com.atguigu.granaryaidi.view.fragment.userfragment.UserZhuifanFragment;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -260,5 +261,16 @@ public class BiliActivity extends BaseActivity implements NavigationView.OnNavig
             super.onBackPressed();
         }
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);       //统计时长
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

@@ -244,6 +244,10 @@
             android:theme="@style/noAnimation_Theme"
             />
         <activity android:name=".view.Activity.bili.BiliLoginActivity"></activity>
+
+        <!--友盟统计-->
+        <meta-data android:value="5976a4537f2c744b78002396" android:name="UMENG_APPKEY"/>
+        <meta-data android:value="Channel ID" android:name="UMENG_CHANNEL"/>
     </application>
 
 </manifest>

@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.umeng.analytics.MobclickAgent;
+
 import butterknife.ButterKnife;
 
 /**
@@ -76,4 +78,16 @@ public abstract class BaseFragment extends Fragment {
         super.onDestroy();
         ButterKnife.reset(this);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart("MainScreen"); //统计页面，"MainScreen"为页面名称，可自定义
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd("MainScreen");
+    }
+
 }

@@ -57,4 +57,16 @@ public abstract class BaseActivity extends AppCompatActivity {
         Toast.makeText(BaseActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 
+
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        MobclickAgent.onResume(this);
+//    }
+//    @Override
+//    public void onPause() {
+//        super.onPause();
+//        MobclickAgent.onPause(this);
+//    }
+
 }

@@ -21,6 +21,7 @@ import com.atguigu.granaryaidi.R;
 import com.atguigu.granaryaidi.utils.DensityUtil;
 import com.atguigu.granaryaidi.view.fragment.magzine.MagazineAuthorFragment;
 import com.atguigu.granaryaidi.view.fragment.magzine.MagazineTypeFragment;
+import com.umeng.analytics.MobclickAgent;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -229,4 +230,14 @@ public class MagazineTwoActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);       //统计时长
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
 }
