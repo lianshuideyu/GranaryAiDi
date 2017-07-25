@@ -91,7 +91,7 @@ public class UserZhiboFragment extends BaseFragment {
                 Log.e("zhibo", "联网失败==" + content);
                 iv_empty.setVisibility(View.VISIBLE);
                 tv_progress.setVisibility(View.GONE);
-//                refresh_zhibo.finishRefresh();
+                refresh_zhibo.finishRefresh();
             }
         });
     }
@@ -126,6 +126,7 @@ public class UserZhiboFragment extends BaseFragment {
     @Override
     protected void initListener() {
         //支持上拉加载
+        Log.e("zhibo", "initListener");
         refresh_zhibo.setLoadMore(true);
         refresh_zhibo.setMaterialRefreshListener(new MaterialRefreshListener() {
             @Override
