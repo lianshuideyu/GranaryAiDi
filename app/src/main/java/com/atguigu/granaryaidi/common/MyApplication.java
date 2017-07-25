@@ -54,27 +54,29 @@ public class MyApplication extends Application {
         MobSDK.init(this);
 
         //极光推送初始化
-        JPushInterface.setDebugMode(true); 	// 设置开启日志,发布时请关闭日志
-        JPushInterface.init(this);     		// 初始化 JPush
+        JPushInterface.setDebugMode(true);    // 设置开启日志,发布时请关闭日志
+        JPushInterface.init(this);            // 初始化 JPush
 
         //初始化sharesdk的登录
 //        myShareSDK = new ShareSDK();
 
         //友盟统计的场景类型设置接口，这里设置为普通统计场景类型
-        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType. E_UM_NORMAL);
+        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
 
         MobclickAgent.openActivityDurationTrack(false);
         //打开测试模式
-        MobclickAgent.setDebugMode( true );
+        MobclickAgent.setDebugMode(true);
 
+/*
+        这段代码将产生以下格式的IDE日志输出，即设备识别信息
+                * {"device_id": "your_device_id", "mac": "your_device_mac"}*/
 //        String deviceInfo = getDeviceInfo(this);
 //        Log.e("Application","deviceInfo==" + deviceInfo);
     }
 
-    public static Context getContext(){
+    public static Context getContext() {
         return context;
     }
-
 
 
     public static boolean checkPermission(Context context, String permission) {
@@ -105,6 +107,7 @@ public class MyApplication extends Application {
     /**
      * 这段代码将产生以下格式的IDE日志输出，即设备识别信息
      * {"device_id": "your_device_id", "mac": "your_device_mac"}
+     *
      * @param context
      * @return
      */

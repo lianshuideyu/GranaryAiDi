@@ -25,6 +25,19 @@ android {
             maven { url 'https://jitpack.io' }//添加jitpack仓库地址
         }
     }
+
+    productFlavors {
+
+        wandoujia {}
+        baidu {}
+        c360 {}
+        uc {}
+
+        productFlavors.all { flavor ->
+            flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+        }
+
+    }
 }
 
 dependencies {
