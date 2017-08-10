@@ -16,10 +16,20 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //沉浸式状态栏相关
+//        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+
+
         //转场动画
         activityAnmotion();
 
         setContentView(getLayoutId());
+        //沉浸式状态栏相关
+//        ViewGroup contentFrameLayout = (ViewGroup) findViewById(Window.ID_ANDROID_CONTENT);
+//        View parentView = contentFrameLayout.getChildAt(0);
+//        if (parentView != null && Build.VERSION.SDK_INT >= 14) {
+//            parentView.setFitsSystemWindows(true);
+//        }
 
         ButterKnife.inject(this);
 

@@ -34,7 +34,8 @@ public class GridViewAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return lives.size();
+        //这里最多显示4条就达到需求了
+        return lives.size() > 4 ? 4 : lives.size();
     }
 
     @Override

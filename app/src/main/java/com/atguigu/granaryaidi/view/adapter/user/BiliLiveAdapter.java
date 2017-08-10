@@ -408,6 +408,9 @@ public class BiliLiveAdapter extends RecyclerView.Adapter {
                     GridViewAdapter adapter = new GridViewAdapter(context, lives);
                     gvDrawing.setAdapter(adapter);
                     setListener();
+
+                    //关闭GridView的滚动事件
+                    gvDrawing.setOverScrollMode(View.OVER_SCROLL_NEVER);
                 }
 
 
